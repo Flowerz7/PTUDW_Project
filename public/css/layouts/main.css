@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.head-container {
+  position: -webkit-sticky;
+  position: sticky;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  height: 4em;
+  background-color: gray;
+}
+
+.head-container div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 60%;
+  margin-left: 1%;
+}
+
+.head-container div form {
+  margin-left: 1.5em;
+  width: 70%;
+}
+
+.head-container div form #Search {
+  height: 2.5em;
+  width: 100%;
+  border-radius: 1.25em;
+  padding-left: 2%;
+  border: transparent;
+}
+
+.head-container div form #Search:focus {
+  outline: none;
+}
+
+.head-container div div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.head-container div div span {
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.head-container div div nav {
+  margin-left: 1.5em;
+}
+
+.head-container div div nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style-type: none;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 20%;
+}
+
+.head-container div div nav ul li {
+  margin: 0em 0.25em 0em 0.25em;
+  font-size: 1.25rem;
+}
+
+.head-container div div nav ul li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.head-container div div nav ul li.dropdown .dropdown-content {
+  background-color: lightblue;
+  position: absolute;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 10%;
+}
+
+.head-container div div nav ul li.dropdown:hover .dropdown-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.head-container .login-btn {
+  margin-right: 1%;
+  height: 2.5em;
+  width: 5em;
+  border-radius: 1.2em;
+  border: none;
+  outline: none;
+}
+
+.head-container .login-btn:active {
+  background-color: gray;
+  color: white;
+}
+/*# sourceMappingURL=main.css.map */

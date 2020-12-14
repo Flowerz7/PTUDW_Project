@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.head-container{
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 4em;
+    background-color: gray;
+
+    div{
+        display: flex;
+        align-items: center;
+        width: 60%;
+        margin-left: 1%;
+
+        form{
+            margin-left: 1.5em;
+            width: 70%;
+    
+            #Search{
+                height: 2.5em;
+                width: 100%;
+                border-radius: 1.25em;
+                padding-left: 2%;
+                border: transparent;
+    
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+    
+        div{
+            display: flex;
+            align-items: center;
+
+            span{
+                font-weight: 900;
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+        
+            nav{
+                margin-left: 1.5em;
+    
+                ul{
+                    display: flex;
+                    list-style-type: none;
+                    justify-content: space-between;
+                    width: 20%;
+        
+                    li{
+                        margin: 0em 0.25em 0em 0.25em;
+                        font-size: 1.25rem;
+        
+                        a{
+                            text-decoration: none;
+                            color: inherit;
+                        }
+        
+                        &.dropdown{
+                            .dropdown-content{
+                                background-color: lightblue;
+                                position: absolute;
+                                display: none;
+                                flex-direction: column;
+                                width: 10%;
+                            }
+        
+                            &:hover .dropdown-content{
+                                display: flex;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .login-btn{
+        margin-right: 1%;
+        height: 2.5em;
+        width: 5em;
+        border-radius: 1.2em;
+        border: none;
+        outline: none;
+
+        &:active{
+            background-color: gray;
+            color:white;
+        }
+    }
+}

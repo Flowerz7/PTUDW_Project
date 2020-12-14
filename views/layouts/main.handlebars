@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/layouts/main.css">
+
+    {{#each css}}
+        <link rel="stylesheet" href="/css/{{this}}">
+    {{/each}}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Online Academy</title>
+</head>
+<body>
+    <div class="head-container">
+        <div>
+            <div>
+                <span>/logo/</span>
+                <nav>
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li class="dropdown">
+                            <div>Course</div>
+                            <div class="dropdown-content">
+                                <a href="">1</a>
+                                <a href="">2</a>
+                            </div>
+                        </li>
+                        <li><a href="">Account</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <form>
+                <input type="text" name="search" id="Search" placeholder="Type something...">
+            </form>
+        </div>
+
+        <button class="login-btn">Login</button>
+    </div>
+
+    {{{body}}}
+
+    {{#each js}}
+        <script src="/js/{{this}}"></script>
+    {{/each}}
+</body>
+
+</html>

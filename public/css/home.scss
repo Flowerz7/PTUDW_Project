@@ -1,0 +1,51 @@
+.body{
+    display: flex;
+    flex-direction: column;
+
+    .welcome-text{
+        align-self: center;
+        margin: 1.5em 0em 1.5em 0em;
+        font-weight: 700;
+        font-size: 2.5rem;
+    }
+
+    .remarkable-course-container{
+        .slideshow-container{
+            .image{
+                background-color: gray;
+                width: 100%;
+                height: 350px;
+            }
+
+            .btn{
+                display: flex;
+                justify-content: space-between;
+                position: relative;
+                bottom: 29vh;
+            }
+
+            .slideshow-button{
+                width: 2em;
+                height: 2em;
+                border-radius: 1em;
+                margin: 0em .25em;
+                opacity: 0.7;
+                border: none;
+                outline: none;
+
+                &:active{
+                    background-color: gray;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .most-viewed-course-container{
+        .collection{
+            background-color: gray;
+            height: 8em;
+            width: 100%;
+        }           
+    }
+}

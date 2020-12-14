@@ -2,20 +2,24 @@ import express from 'express';
 import exphbs from 'express-handlebars'
 import morgan from 'morgan'
 
-//#region Create __dirname variable
+const app = express()
+
+//#region Set up the __dirname variable
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.static(`${__dirname}/public`));
 //#endregion
 
-const app = express()
-
-app.use(express.static(`${__dirname}/public`));
+//#region Set up the logger Morgan
 app.use(morgan('dev'))
+//#endregion
 
+//#region Set up the view engine
 app.engine('handlebars', exphbs())
 app.set('view engine', 'handlebars')
+//#endregion
 
 app.get('/', (req, res) => {
     res.render('home')

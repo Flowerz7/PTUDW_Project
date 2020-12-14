@@ -1,15 +1,20 @@
-.body{
-    display: flex;
-    flex-direction: column;
+*{
+    margin: 0;
+    padding: 0;
+}
 
+.body{
     .welcome-text{
-        align-self: center;
-        margin: 1.5em 0em 1.5em 0em;
+        text-align: center;
+        margin: 1.5em 0em;
         font-weight: 700;
         font-size: 2.5rem;
     }
 
     .remarkable-course-container{
+        margin-bottom: 2em;
+        width: 100%;
+
         .slideshow-container{
             .image{
                 background-color: gray;
@@ -17,19 +22,11 @@
                 height: 350px;
             }
 
-            .btn{
-                display: flex;
-                justify-content: space-between;
-                position: relative;
-                bottom: 29vh;
-            }
-
             .slideshow-button{
                 width: 2em;
                 height: 2em;
                 border-radius: 1em;
                 margin: 0em .25em;
-                opacity: 0.7;
                 border: none;
                 outline: none;
 
@@ -41,11 +38,68 @@
         }
     }
 
-    .most-viewed-course-container{
+    .courses-container{
+        margin-bottom: 2em;
+
         .collection{
             background-color: gray;
-            height: 8em;
             width: 100%;
+
+            list-style-type: none;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: space-between;
+
+            .collection-item{
+                background-color: rgb(199, 199, 199);
+                width: 15em;
+                padding: 0.1em;
+
+                .course-btn{
+                    width: inherit;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+
+                    &:active{
+                        opacity: 0.8;
+                    }
+
+                    .course-img{
+                        width: inherit;
+                        height: 8em;
+                        background-color: green;
+                    }
+
+                    .category-img{
+                        width: inherit;
+                        height: 20em;
+                        background-color: green;
+                    }
+
+                    .course-infor{
+                        margin-top: .5em;
+                        width: inherit;
+        
+                        .course-title{
+                            font-weight: 700;
+                            font-size: 2rem;
+                        }
+        
+                        .course-price{
+                            font-weight: 500;
+                            font-size: 1.25rem;
+        
+                            align-self: center;
+                            margin: 1em 0em .5em 0em;
+                        }
+                    }
+    
+                }
+            }
         }           
     }
 }

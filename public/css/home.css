@@ -1,20 +1,18 @@
-.body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 .body .welcome-text {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  margin: 1.5em 0em 1.5em 0em;
+  text-align: center;
+  margin: 1.5em 0em;
   font-weight: 700;
   font-size: 2.5rem;
+}
+
+.body .remarkable-course-container {
+  margin-bottom: 2em;
+  width: 100%;
 }
 
 .body .remarkable-course-container .slideshow-container .image {
@@ -23,23 +21,11 @@
   height: 350px;
 }
 
-.body .remarkable-course-container .slideshow-container .btn {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  position: relative;
-  bottom: 29vh;
-}
-
 .body .remarkable-course-container .slideshow-container .slideshow-button {
   width: 2em;
   height: 2em;
   border-radius: 1em;
   margin: 0em .25em;
-  opacity: 0.7;
   border: none;
   outline: none;
 }
@@ -49,9 +35,72 @@
   color: white;
 }
 
-.body .most-viewed-course-container .collection {
+.body .courses-container {
+  margin-bottom: 2em;
+}
+
+.body .courses-container .collection {
   background-color: gray;
-  height: 8em;
   width: 100%;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
+}
+
+.body .courses-container .collection .collection-item {
+  background-color: #c7c7c7;
+  width: 15em;
+  padding: 0.1em;
+}
+
+.body .courses-container .collection .collection-item .course-btn {
+  width: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.body .courses-container .collection .collection-item .course-btn:active {
+  opacity: 0.8;
+}
+
+.body .courses-container .collection .collection-item .course-btn .course-img {
+  width: inherit;
+  height: 8em;
+  background-color: green;
+}
+
+.body .courses-container .collection .collection-item .course-btn .category-img {
+  width: inherit;
+  height: 20em;
+  background-color: green;
+}
+
+.body .courses-container .collection .collection-item .course-btn .course-infor {
+  margin-top: .5em;
+  width: inherit;
+}
+
+.body .courses-container .collection .collection-item .course-btn .course-infor .course-title {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.body .courses-container .collection .collection-item .course-btn .course-infor .course-price {
+  font-weight: 500;
+  font-size: 1.25rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: 1em 0em .5em 0em;
 }
 /*# sourceMappingURL=home.css.map */

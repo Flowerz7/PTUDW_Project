@@ -18,6 +18,7 @@
 }
 
 .head-container div {
+  height: inherit;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -49,6 +50,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: inherit;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -77,6 +79,7 @@
 
 .head-container div div nav ul li {
   margin: 0em 0.25em;
+  padding: .45em 0em;
   font-size: 1.25rem;
 }
 
@@ -114,14 +117,21 @@
 .head-container .login-btn {
   margin-right: 1%;
   height: 2.5em;
-  width: 5em;
+  width: 8em;
   border-radius: 1.2em;
   border: none;
   outline: none;
+  background-color: white;
 }
 
-.head-container .login-btn:active {
-  background-color: gray;
-  color: white;
+.head-container .login-btn a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.head-container .login-btn:hover {
+  background-color: transparent;
+  border: .1em solid white;
+  cursor: pointer;
 }
 /*# sourceMappingURL=main.css.map */

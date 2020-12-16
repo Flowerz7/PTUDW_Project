@@ -25,6 +25,14 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/authen/login', (req, res) => {
+    res.render('authentication/login')
+})
+
+app.get('/authen/signup', (req, res) => {
+    res.render('authentication/signup')
+})
+
 const PORT = 3000
 app.listen(PORT, () => {
     console.log(`Server started listening on ${PORT}`)

@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 const studentSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
     username: {
       type: String,
       required: true,
@@ -27,8 +26,8 @@ const studentSchema = new Schema(
       required: true,
       unique: true,
     },
-    watchList: [Schema.Types.ObjectId],
-    joinedCourses: [Schema.Types.ObjectId],
+    watchList: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+    joinedCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
   },
   {
     timestamps: true,

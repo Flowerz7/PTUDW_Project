@@ -4,26 +4,39 @@ import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-//#region Set up the __dirname variable
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(`${__dirname}/public`));
-//#endregion
+import adminsRouter from "./routes/admins.js";
+import teachersRouter from "./routes/teachers.js";
+import studentsRouter from "./routes/students.js";
+import coursesRouter from "./routes/courses.js";
+import categoriesRouter from "./routes/categories.js";
 
-// To declare environment in .env file
-dotenv.config();
+// import Middlewares:
 app.use(cors());
 app.use(express.json());
-
-//#region Set up the logger Morgan
 app.use(morgan("dev"));
-//#endregion
+app.use(express.static(`${__dirname}/public`));
+app.engine(
+  "hbs",
+  exphbs({
+    defaultLayout: false,
+  })
+);
+app.set("view engine", "hbs");
+dotenv.config();
 
-// connect to MongooDB database:
+app.use("./admins", adminsRouter);
+app.use("./students", studentsRouter);
+app.use("./teachers", teachersRouter);
+app.use("./courses", coursesRouter);
+app.use("./categories", categoriesRouter);
+
+// Connect to MongooDB database:
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -34,11 +47,6 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
-
-//#region Set up the view engine
-app.engine("handlebars", exphbs());
-app.set("view engine", "handlebars");
-//#endregion
 
 app.get("/", (req, res) => {
   res.render("home");

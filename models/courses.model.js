@@ -1,10 +1,9 @@
-import mongoose, { SchemaType } from "mongoose";
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
     title: {
       type: String,
       required: true,

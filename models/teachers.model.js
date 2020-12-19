@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 const teacherShema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
     username: {
       type: String,
       required: true,
@@ -27,7 +26,7 @@ const teacherShema = new Schema(
       required: true,
       unique: true,
     },
-    courses: [Schema.Types.ObjectId],
+    courses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
   },
   {
     timestamps: true,

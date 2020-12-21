@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import hbsSectons from "express-handlebars-sections";
+import session from "express-session";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -18,10 +19,21 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static(`${__dirname}/public`));
+app.set("trust proxy", 1);
+app.use(
+  session({
+    secret: "SECRET_KEY",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      //secure: true
+    },
+  })
+);
 app.engine(
   "hbs",
   exphbs({
-    defaultLayout: false,
+    defaultLayout: "main.hbs",
     helpers: {
       section: hbsSectons(),
     },
@@ -47,6 +59,13 @@ connection.once("open", () => {
 
 app.get("/", (req, res) => {
   res.render("home");
+});
+
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: "Page Not Found",
+  });
 });
 
 const port = process.env.PORT || 3000;

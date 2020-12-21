@@ -1,0 +1,18 @@
+<form action="" method="POST">
+  <div class="card mx-auto" style="width: 40%;">
+    <div class="card-body">
+      {{#if err_message}}
+      <div class="alert alert-danger" role="alert">{{err_message}}</div>
+      {{/if}}
+			<div class="mb-3">
+  			<label for="txtUsername" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" id="txtUsername" placeholder="">
+			</div>
+			<div class="mb-3">
+  			<label for="txtPassword" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="txtPassword" placeholder="">
+			</div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </div>
+</form>

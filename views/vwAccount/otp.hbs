@@ -1,0 +1,14 @@
+<form action="" method="POST">
+  <div class="card mx-auto" style="width: 40%;">
+    <div class="card-body">
+      {{#if err_message}}
+      <div class="alert alert-danger" role="alert">{{err_message}}</div>
+      {{/if}}
+			<div class="mb-3">
+  			<label for="txtOPT" class="form-label">OTP</label>
+        <input type="text" name="otp" class="form-control" id="txtOTP" placeholder="">
+			</div>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </div>
+  </div>
+</form>

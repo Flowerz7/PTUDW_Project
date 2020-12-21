@@ -6,15 +6,12 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import hbsSectons from "express-handlebars-sections";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-import adminsRouter from "./routes/admins.js";
-import teachersRouter from "./routes/teachers.js";
-import studentsRouter from "./routes/students.js";
-import coursesRouter from "./routes/courses.js";
-import categoriesRouter from "./routes/categories.js";
+import accountRouter from "./routes/front/account.route.js";
 
 // import Middlewares:
 app.use(cors());
@@ -25,16 +22,16 @@ app.engine(
   "hbs",
   exphbs({
     defaultLayout: false,
+    helpers: {
+      section: hbsSectons(),
+    },
   })
 );
 app.set("view engine", "hbs");
 dotenv.config();
 
-app.use("./admins", adminsRouter);
-app.use("./students", studentsRouter);
-app.use("./teachers", teachersRouter);
-app.use("./courses", coursesRouter);
-app.use("./categories", categoriesRouter);
+// Auth route
+app.use("/account", accountRouter);
 
 // Connect to MongooDB database:
 const uri = process.env.ATLAS_URI;
@@ -50,14 +47,6 @@ connection.once("open", () => {
 
 app.get("/", (req, res) => {
   res.render("home");
-});
-
-app.get("/authen/login", (req, res) => {
-  res.render("authentication/login");
-});
-
-app.get("/authen/signup", (req, res) => {
-  res.render("authentication/signup");
 });
 
 const port = process.env.PORT || 3000;

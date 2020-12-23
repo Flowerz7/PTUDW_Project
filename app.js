@@ -13,6 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 import accountRouter from "./routes/front/account.route.js";
+import adminRouter from "./routes/admin.route.js";
 
 // import Middlewares:
 app.use(cors());
@@ -44,6 +45,7 @@ dotenv.config();
 
 // Auth route
 app.use("/account", accountRouter);
+app.use("/admin", adminRouter);
 
 // Connect to MongooDB database:
 const uri = process.env.ATLAS_URI;

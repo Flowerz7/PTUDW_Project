@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">Categories</div>
+  <div class="card-body">
+		<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Categories</th>
+      <th scope="col">Course number</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.categories}} 
+      <tr>
+        <th scope="row">{{order}}</th>
+        <td>{{name}}</td>
+        <td>{{numberOfCourse}}</td>
+        <td>
+          <button class="btn btn-sm btn-primary">Update</button>
+          <button class="btn btn-sm btn-danger">Delete</button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+  </div>
+    <div class="card-footer text-muted">
+      <button class="btn-sm btn btn-primary">Add category</button>
+    </div>
+</div>

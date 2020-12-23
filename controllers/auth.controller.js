@@ -1,6 +1,8 @@
 import nodemailer from "nodemailer";
 import bcrypt from "bcryptjs";
 import Student from "../models/students.model.js";
+import Teacher from "../models/teachers.model.js";
+import Admin from "../models/admins.model.js";
 
 const sendMailTo = (mailAddress, OTP) => {
   const transporter = nodemailer.createTransport({
@@ -49,15 +51,32 @@ export const handle_login_get = (req, res) => {
 };
 
 export const handle_login_post = async (req, res) => {
-  const { username, password } = req.body;
+  const { role, username, password } = req.body;
+  console.log(`request body: ${JSON.stringify(req.body)}`);
+  let user;
 
-  // Username is exist ?
-  const document = await Student.findOne(
-    { username: username },
-    "password name"
-  ).exec();
+  switch (role) {
+    case "student":
+      user = await Student.findOne(
+        { username: username },
+        "password name"
+      ).exec();
+      break;
+    case "teacher":
+      user = await Teacher.findOne(
+        { username: username },
+        "password name"
+      ).exec();
+      break;
+    case "admin":
+      user = await Admin.findOne(
+        { username: username },
+        "password name"
+      ).exec();
+      break;
+  }
 
-  if (document === null) {
+  if (user === null) {
     res.render("vwAccount/login", {
       layout: "main.bootstrap.hbs",
       title: "Project | Login",
@@ -65,7 +84,7 @@ export const handle_login_post = async (req, res) => {
     });
   } else {
     // Check password is match in database:
-    const isMatch = bcrypt.compareSync(password, document.password);
+    const isMatch = bcrypt.compareSync(password, user.password);
 
     if (false === isMatch) {
       res.render("vwAccount/login", {
@@ -76,13 +95,15 @@ export const handle_login_post = async (req, res) => {
     } else {
       // Save auth info into session:
       req.session.isAuth = true;
-      req.session.name = document.name;
+      req.session.name = user.name;
+      req.session.role = role;
 
       let url = "/";
       res.redirect(url);
     }
   }
 };
+
 export const handle_register_post = (req, res) => {
   const otp = Math.floor(Math.random() * 90000) + 10000;
   const { username, password, name, email } = req.body;

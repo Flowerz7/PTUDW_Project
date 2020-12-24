@@ -1,0 +1,38 @@
+{{#section 'scripts'}}
+<script>
+  $('#categoryForm').on("submit", function(e) {
+      e.preventDefault();
+      const categoryDetail = $('#txtCategoryDetail').val();
+
+      if(categoryDetail.length === 0) {
+        alert(`Please type new detail!`);
+        return;
+      }
+
+      $('#categoryForm').off("submit").submit();
+  });
+</script>
+{{/section}}
+
+<form id="categoryForm"  style="display: block;" action="" method="POST">
+  <div class="card mx-auto" style="width: 40%;">
+    <div class="card-body">
+      {{#if err_message}}
+      <div class="alert alert-danger" role="alert">{{err_message}}</div>
+      {{/if}}
+			<div class="mb-3">
+  			<label for="txtCategoryName" class="form-label">Category's name</label>
+        <input type="text" readonly name="categoryName" class="form-control"
+        id="txtCategoryName" value="{{name}}">        
+			</div>
+      <div class="mb-3">
+        <label for="txtCategoryDetail" class="form-label">Category Detail</label>
+        <textarea class="form-control" id="txtCategoryDetail"
+                                       name="categoryDetail" rows="3"
+        >{{detail}}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">OK</button>
+      <a href="/admin/categories" class="btn btn-danger">Cancel</a>
+    </div>
+  </div>
+</form>

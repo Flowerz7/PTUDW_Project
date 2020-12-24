@@ -24,11 +24,9 @@ export const handle_categories_get = async (req, res) => {
     categoriesHBS.push({
       name,
       order,
-      numberOfCourse,
+      numberOfCourse: +numberOfCourse,
     });
   }
-
-  console.log(categoriesHBS);
 
   res.render("vwAdmin/categories", {
     layout: "admin.hbs",
@@ -42,6 +40,70 @@ export const handle_courses_get = (req, res) => {
     layout: "admin.hbs",
     title: "Project | Courses",
   });
+};
+
+export const handle_add_category_get = (req, res) => {
+  res.render("vwAdmin/addCategory", {
+    layout: "admin.hbs",
+    title: "Project | Create Category",
+  });
+};
+
+export const handle_is_available_category_name = async (req, res) => {
+  const categoryName = req.query.categoryName;
+
+  const isExistCategoryName = await Category.exists({
+    categoryName: categoryName,
+  });
+
+  res.json({ isExistCategoryName });
+};
+
+export const handle_add_category_post = async (req, res) => {
+  const { categoryName, categoryDetail } = req.body;
+
+  const newCategory = new Category({
+    categoryName: categoryName,
+    categoryDetail: categoryDetail,
+  });
+  await newCategory.save();
+
+  res.redirect("/admin/categories");
+};
+
+export const handle_delete_category_post = async (req, res) => {
+  const { categoryName } = req.body;
+
+  await Category.deleteOne({ categoryName: categoryName });
+
+  res.redirect("/admin/categories");
+};
+
+export const handle_update_category_get = async (req, res) => {
+  const { categoryName } = req.query;
+
+  const category = await Category.findOne(
+    { categoryName: categoryName },
+    "categoryName categoryDetail"
+  );
+
+  res.render("vwAdmin/updateCategory", {
+    layout: "admin.hbs",
+    title: "Project | Update Category",
+    name: category.categoryName,
+    detail: category.categoryDetail,
+  });
+};
+
+export const handle_update_category_post = async (req, res) => {
+  const { categoryName, categoryDetail } = req.body;
+
+  await Category.updateOne(
+    { categoryName: categoryName },
+    { categoryDetail: categoryDetail }
+  );
+
+  res.redirect("/admin/categories");
 };
 
 export const handle_students_get = (req, res) => {

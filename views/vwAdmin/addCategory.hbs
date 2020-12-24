@@ -1,0 +1,45 @@
+{{#section 'scripts'}}
+<script>
+  $('#categoryForm').on("submit", function(e) {
+      e.preventDefault();
+
+      const categoryName = $('#txtCategoryName').val();
+      const categoryDetail = $('#txtCategoryDetail').val();
+
+      if(categoryName.length === 0 || categoryDetail.length === 0) {
+        alert(`Please fill all infomation before submit`);
+        return;
+      }
+
+      $.getJSON(`/admin/categories/is-available?categoryName=${categoryName}`, function(data) {
+          if(data.isExistCategoryName) {
+              alert(`Category name is existed!`);
+          } else {
+              $("#categoryForm").off("submit").submit();
+          }
+      })
+
+  });
+</script>
+{{/section}}
+
+<form id="categoryForm"  style="display: block;" action="" method="POST">
+  <div class="card mx-auto" style="width: 40%;">
+    <div class="card-body">
+      {{#if err_message}}
+      <div class="alert alert-danger" role="alert">{{err_message}}</div>
+      {{/if}}
+			<div class="mb-3">
+  			<label for="txtCategoryName" class="form-label">Category's name</label>
+        <input type="text" name="categoryName" class="form-control" id="txtCategoryName" placeholder="">
+			</div>
+      <div class="mb-3">
+        <label for="txtCategoryDetail" class="form-label">Category Detail</label>
+        <textarea class="form-control" id="txtCategoryDetail"
+          name="categoryDetail" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+      <a href="/admin/categories" class="btn btn-danger">Cancel</a>
+    </div>
+  </div>
+</form>

@@ -1,5 +1,8 @@
 import Category from "../models/categories.model.js";
 import Course from "../models/courses.model.js";
+import Student from "../models/students.model.js";
+import Teacher from "../models/teachers.model.js";
+import bcrypt from "bcryptjs";
 
 export const handle_admin_get = (req, res) => {
   res.render("vwAdmin/dashboard", {
@@ -11,8 +14,6 @@ export const handle_admin_get = (req, res) => {
 export const handle_categories_get = async (req, res) => {
   const categories = await Category.find({}, "categoryName");
   const count = await Course.count({ category: "Web" });
-
-  console.log(`count: ${count}`);
 
   const categoriesHBS = [];
 
@@ -35,11 +36,51 @@ export const handle_categories_get = async (req, res) => {
   });
 };
 
-export const handle_courses_get = (req, res) => {
+export const handle_courses_get = async (req, res) => {
+  const courses = await Course.find({}, "title numOfStudent");
+
+  const coursesHBS = [];
+
+  for (let i = 0; i < courses.length; i++) {
+    const title = courses[i].title;
+    const order = i + 1;
+    const numOfStudent = courses[i].numOfStudent;
+    const courseID = courses[i]._id;
+
+    coursesHBS.push({
+      title,
+      order,
+      numOfStudent,
+      courseID,
+    });
+  }
+
   res.render("vwAdmin/courses", {
     layout: "admin.hbs",
     title: "Project | Courses",
+    courses: coursesHBS,
   });
+};
+
+export const handle_detail_course_get = async (req, res) => {
+  const { courseID } = req.body;
+
+  const course = await Course.findOne({ _id: courseID });
+
+  console.log(`Course detail: ${JSON.stringify(course)}`);
+
+  res.render("vwAdmin/courseDetail", {
+    title: "Project | Course detail",
+    layout: "admin.hbs",
+  });
+};
+
+export const handle_delete_course_post = async (req, res) => {
+  const { courseID } = req.body;
+
+  await Course.deleteOne({ _id: courseID });
+
+  res.redirect("/admin/courses");
 };
 
 export const handle_add_category_get = (req, res) => {
@@ -106,16 +147,136 @@ export const handle_update_category_post = async (req, res) => {
   res.redirect("/admin/categories");
 };
 
-export const handle_students_get = (req, res) => {
+export const handle_students_get = async (req, res) => {
+  const students = await Student.find({}, "username email");
+
+  const studentsHBS = [];
+
+  for (let i = 0; i < students.length; i++) {
+    const username = students[i].username;
+    const order = i + 1;
+    const email = students[i].email;
+    const studentID = students[i]._id;
+
+    studentsHBS.push({
+      username,
+      order,
+      email,
+      studentID,
+    });
+  }
   res.render("vwAdmin/students", {
     layout: "admin.hbs",
     title: "Project | Students",
+    students: studentsHBS,
   });
 };
 
-export const handle_teachers_get = (req, res) => {
+export const handle_detail_student_get = async (req, res) => {
+  const { studentID } = req.body;
+
+  const student = await Student.findOne({ _id: studentID });
+
+  console.log(`Student detail: ${JSON.stringify(student)}`);
+
+  res.render("vwAdmin/studentDetail", {
+    title: "Project | Student detail",
+    layout: "admin.hbs",
+  });
+};
+
+export const handle_delete_student_post = async (req, res) => {
+  const { studentID } = req.body;
+
+  await Student.deleteOne({ _id: studentID });
+
+  res.redirect("/admin/students");
+};
+
+export const handle_teachers_get = async (req, res) => {
+  const teachers = await Teacher.find({}, "username email");
+
+  const teachersHBS = [];
+
+  for (let i = 0; i < teachers.length; i++) {
+    const username = teachers[i].username;
+    const order = i + 1;
+    const email = teachers[i].email;
+    const teacherID = teachers[i]._id;
+
+    teachersHBS.push({
+      username,
+      order,
+      email,
+      teacherID,
+    });
+  }
   res.render("vwAdmin/teachers", {
     layout: "admin.hbs",
     title: "Project | Teacher",
+    teachers: teachersHBS,
   });
+};
+
+export const handle_delete_teacher_post = async (req, res) => {
+  const { teacherID } = req.body;
+
+  await Teacher.deleteOne({ _id: teacherID });
+
+  res.redirect("/admin/teachers");
+};
+
+export const handle_detail_teacher_get = async (req, res) => {
+  const { teacherID } = req.body;
+
+  const teacher = await Teacher.findOne({ _id: teacherID });
+
+  console.log(`Teacher detail: ${JSON.stringify(teacher)}`);
+
+  res.render("vwAdmin/teacherDetail", {
+    title: "Project | Teacher detail",
+    layout: "admin.hbs",
+  });
+};
+
+export const handle_add_teacher_get = (req, res) => {
+  res.render("vwAdmin/addTeacher", {
+    layout: "admin.hbs",
+    title: "Project | Add teacher",
+  });
+};
+
+export const handle_is_available_teacher = async (req, res) => {
+  const username = req.query.username;
+  const email = req.query.email;
+
+  const isUsernameExist = await Teacher.exists({ username: username });
+  const isEmailExist = await Teacher.exists({ email: email });
+
+  res.json({
+    isUsernameExist,
+    isEmailExist,
+  });
+};
+
+export const handle_add_teacher_post = async (req, res) => {
+  const { username, password, name, email } = req.body;
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const newTeacher = new Teacher({
+    username,
+    password: hashedPassword,
+    name,
+    email,
+  });
+
+  newTeacher
+    .save()
+    .then(() => console.log(`teacher added!`))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+
+  const url = "/admin/teachers";
+  res.redirect(url);
 };

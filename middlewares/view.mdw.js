@@ -8,6 +8,15 @@ const useHBS = (app) => {
       defaultLayout: "main.hbs",
       helpers: {
         section: hbsSectons(),
+        inc : (value) => {
+          return parseInt(value) + 1
+        },
+        incBy2 : (value) => {
+          return parseInt(value) + 2
+        },
+        dec : (value) => {
+          return parseInt(value) - 1
+        }
       },
     })
   );

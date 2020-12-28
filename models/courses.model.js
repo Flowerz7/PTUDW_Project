@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const Schema = mongoose.Schema;
 
@@ -63,10 +64,8 @@ const courseSchema = new Schema(
 );
 
 courseSchema.index({title : 'text', category : 'text'})
+courseSchema.plugin(mongoosePaginate);
 
 const Course = mongoose.model("Course", courseSchema);
-
-// Course.createIndexes({title : 'text'})
-// Course.createIndexes({category : 'text'})
 
 export default Course;

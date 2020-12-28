@@ -1,12 +1,45 @@
 {{#each Courses}}
-    <div class="card" id="{{this._id}}">
-      <img class="card-img-top" src="{{this.avatarLink}}">
-      <div class="card-body">
-        <h4 class="card-title">{{this.title}}</h4>
-        <p class="card-text">
-          {{this.price}}
-        </p>
-        <a href="/courses?id={{this._id}}" class="btn btn-primary">Detail</a>
-      </div>
+  <div class="card" id="{{this._id}}">
+    <img class="card-img-top" src="{{this.avatarLink}}">
+    <div class="card-body">
+      <h4 class="card-title">{{this.title}}</h4>
+      <p class="card-text">
+        {{this.price}}
+      </p>
+      <a href="/courses?id={{this._id}}" class="btn btn-primary">Detail</a>
     </div>
+  </div>
 {{/each}}
+
+{{#if start}}
+<nav>
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="?page={{current}}">Previous</a></li>
+    <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{incBy2 current}}">{{incBy2 current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
+  </ul>
+</nav>
+{{else}}
+<nav>
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="?page={{dec current}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{dec current}}">{{dec current}}</a></li>
+    <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
+  </ul>
+</nav>
+{{/if}}
+
+<style>
+  .active{
+    background-color: gray;
+  }
+</style>
+
+{{#section 'scripts'}}
+<script>
+</script>
+{{/section}}

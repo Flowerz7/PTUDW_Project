@@ -40,6 +40,8 @@ export const loadCourses = async (req , res) => {
         MostViewedCoureses : mostViewedCourses,
         NewestCourses : newestCourses,
         MostSubscribedCategories : mostSubscribedCategories,
+
+        isAuth : req.session.isAuth
     }
 
     res.render('vwHome/home', props)

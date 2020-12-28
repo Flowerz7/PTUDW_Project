@@ -38,8 +38,10 @@
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
             </form>
             
-            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location='/account/register'">Sign up</button>
-            <button type="button" class="btn btn-primary" onclick="window.location='/account/login'">Login</button>
+            {{#unless isAuth}}
+                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location='/account/register'">Sign up</button>
+                <button type="button" class="btn btn-primary" onclick="window.location='/account/login'">Login</button>
+            {{/unless}}
         </div>
     </nav>
 

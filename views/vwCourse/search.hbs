@@ -9,3 +9,47 @@
       </div>
     </div>
 {{/each}}
+
+{{#if last}}
+<nav>
+  <ul class="pagination">
+    {{#if start}}
+    <li class="page-item"><a class="page-link" href="?page={{current}}&q={{q}}">Previous</a></li>
+    {{else}}
+    <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{decBy2 current}}&q={{q}}">{{decBy2 current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">{{dec current}}</a></li>
+    {{/if}}
+    <li class="page-item"><a class="page-link active" href="?page={{current}}&q={{q}}">{{current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{current}}&q={{q}}">Next</a></li>
+  </ul>
+</nav>
+{{else}}
+{{#if start}}
+<nav>
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="?page={{current}}&q={{q}}">Previous</a></li>
+    <li class="page-item"><a class="page-link active" href="?page={{current}}&q={{q}}">{{current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">{{inc current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{incBy2 current}}&q={{q}}">{{incBy2 current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
+  </ul>
+</nav>
+{{else}}
+<nav>
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">{{dec current}}</a></li>
+    <li class="page-item"><a class="page-link active" href="?page={{current}}&q={{q}}">{{current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">{{inc current}}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
+  </ul>
+</nav>
+{{/if}}
+{{/if}}
+
+<style>
+  .active{
+    background-color: gray;
+  }
+</style>

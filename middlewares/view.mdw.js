@@ -16,6 +16,9 @@ const useHBS = (app) => {
         },
         dec : (value) => {
           return parseInt(value) - 1
+        },
+        decBy2 : (value) => {
+          return parseInt(value) - 2
         }
       },
     })

@@ -15,12 +15,13 @@ export const loadAllCourses = async (req, res) => {
         lean : true
     };
     const courses = (await Course.paginate({}, options)).docs
+    const docsCount = (await Course.find().lean()).length
 
     const props = {
         Courses : courses,
         current : page,
         start : page === 1,
-
+        last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth
     }
 
@@ -28,11 +29,18 @@ export const loadAllCourses = async (req, res) => {
 }
 
 export const loadQueriedCourse = async (req, res) => {
-    const qValue = req.query.q
+    const q = req.query.q
+    const page = parseInt(req.query.page) || 1
+    const limit = 5
 
-    const result = await Course.find({$text: {$search : qValue, $caseSensitive : false}}).lean()
+    const result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
+    const docsCount = result.length
     const props = {
         Courses : result,
+        q : q,
+        current : page,
+        start : page === 1,
+        last : (page * limit) > docsCount,
         isAuth : req.session.isAuth
     }
 

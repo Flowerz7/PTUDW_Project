@@ -254,3 +254,110 @@ export const handle_password_is_correct_get = async (req, res) => {
     isCorrectPassword: isMatch,
   });
 };
+
+export const handle_change_personal_info_get = async (req, res) => {
+  if (req.session.isAuth !== true) {
+    res.render("404", {
+      title: "Project | 404",
+      layout: "account.hbs",
+    });
+  } else {
+    const username = req.session.username;
+    const role = req.session.role;
+    let info;
+
+    switch (role) {
+      case "student":
+        info = await Student.findOne(
+          { username: username },
+          "name email"
+        ).exec();
+        break;
+      case "teacher":
+        info = await Teacher.findOne(
+          { username: username },
+          "name email"
+        ).exec();
+        break;
+      case "admin":
+        info = await Admin.findOne({ username: username }, "name email").exec();
+        break;
+    }
+
+    res.render("vwAccount/changeInfo", {
+      title: "Project | Change personal information",
+      layout: "account.hbs",
+      name: info.name,
+      email: info.email,
+    });
+  }
+};
+
+export const handle_change_personal_info_post = async (req, res) => {
+  const { newName, newEmail } = req.body;
+  const username = req.session.username;
+  const role = req.session.role;
+
+  switch (role) {
+    case "student":
+      await Student.findOneAndUpdate(
+        { username: username },
+        { name: newName, email: newEmail }
+      );
+      break;
+    case "teacher":
+      await Teacher.findOneAndUpdate(
+        { username: username },
+        { name: newName, email: newEmail }
+      );
+      break;
+    case "admin":
+      await Admin.findOneAndUpdate(
+        { username: username },
+        { name: newName, email: newEmail }
+      );
+      break;
+  }
+
+  res.redirect("/");
+};
+
+export const handle_is_available_email_get = async (req, res) => {
+  const newEmail = req.query.newEmail;
+  const username = req.session.username;
+  const role = req.session.role;
+  let info;
+  let isExistEmail;
+
+  switch (role) {
+    case "student":
+      isExistEmail = await Student.exists({ email: newEmail });
+      info = await Student.findOne({ username: username }, "email").exec();
+      break;
+    case "teacher":
+      isExistEmail = await Teacher.exists({ email: newEmail });
+      info = await Student.findOne({ username: username }, "email").exec();
+      break;
+    case "admin":
+      isExistEmail = await Admin.exists({ email: newEmail });
+      info = await Student.findOne({ username: username }, "email").exec();
+      break;
+  }
+
+  if (newEmail === info.email) {
+    isExistEmail = false;
+  }
+
+  res.json({
+    isExistEmail,
+  });
+};
+
+export const handle_logout_get = (req, res) => {
+  req.session.isAuth = false;
+  req.session.username = "";
+  req.session.name = "";
+  req.session.role = "";
+
+  res.redirect("/");
+};

@@ -35,4 +35,17 @@ router
   .route("/password-is-correct")
   .get(urlencodedParser, auth.handle_password_is_correct_get);
 
+// Update persional infomation:
+router.route("/change-personal-info").get(auth.handle_change_personal_info_get);
+
+router
+  .route("/is-available-email")
+  .get(urlencodedParser, auth.handle_is_available_email_get);
+
+router
+  .route("/change-personal-info")
+  .post(urlencodedParser, auth.handle_change_personal_info_post);
+
+router.route("/logout").get(auth.handle_logout_get);
+
 export default router;

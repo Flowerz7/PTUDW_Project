@@ -1,0 +1,57 @@
+{{#section 'scripts'}}
+<script>
+function isExistEmptyField(fields) {
+  const length = fields.length;
+  for (let i = 0; i < length; i++) {
+    if (fields[i].length === 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+  $("#formChangeInfo").on("submit", function (e) {
+  e.preventDefault();
+
+  const newName = $("#txtNewName").val();
+  const newEmail = $("#txtNewEmail").val();
+  const fields = [];
+  fields.push(newName);
+  fields.push(newEmail);
+  
+
+  if (isExistEmptyField(fields)) {
+    alert(`is exits empty field`);
+    return;
+  }
+
+  $.getJSON(`/account/is-available-email?newEmail=${newEmail}`, function (data) {
+    if(data.isExistEmail) {
+      alert('Your email is exists in database!');
+    }else {
+      $('#formChangeInfo').off('submit').submit();
+    }
+  });
+});
+</script>
+{{/section}}
+
+<form action="" method="POST" id="formChangeInfo">
+  <div class="card mx-auto login-form" style="width: 40%;">
+    <div class="card-body">
+			<div class="mb-3">
+  			<label for="txtNewName" class="form-label">Name</label>
+        <input type="txt" name="newName" class="form-control" id="txtNewName"
+        placeholder="{{name}}">
+			</div>
+			<div class="mb-3">
+  			<label for="txtNewEmail" class="form-label">Email</label>
+        <input type="email" name="newEmail" class="form-control" id="txtNewEmail"
+        placeholder="{{email}}">
+			</div>
+      <button type="submit" class="btn btn-primary">Change Info</button>
+      <a href="/" class="btn btn-danger">Cancel</a>
+    </div>
+  </div>
+</form>

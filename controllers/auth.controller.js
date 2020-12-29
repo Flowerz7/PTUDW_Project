@@ -31,54 +31,53 @@ const sendMailTo = (mailAddress, OTP) => {
 
 export const handle_register_get = (req, res) => {
   res.render("vwAccount/register", {
-    layout: "main.bootstrap.hbs",
+    layout: "account.hbs",
     title: "Project | Register",
   });
 };
 
 export const handle_otp_get = (req, res) => {
   res.render("vwAccount/otp", {
-    layout: "main.bootstrap.hbs",
+    layout: "account.hbs",
     title: "Project | OTP",
   });
 };
 
 export const handle_login_get = (req, res) => {
   res.render("vwAccount/login", {
-    layout: "main.bootstrap.hbs",
+    layout: "account.hbs",
     title: "Project | Login",
   });
 };
 
 export const handle_login_post = async (req, res) => {
   const { role, username, password } = req.body;
-  console.log(`request body: ${JSON.stringify(req.body)}`);
   let user;
 
   switch (role) {
     case "student":
       user = await Student.findOne(
         { username: username },
-        "password name"
+        "password name username"
       ).exec();
       break;
     case "teacher":
       user = await Teacher.findOne(
         { username: username },
-        "password name"
+        "password name username"
       ).exec();
       break;
     case "admin":
       user = await Admin.findOne(
         { username: username },
-        "password name"
+        "password name username"
       ).exec();
       break;
   }
 
   if (user === null) {
     res.render("vwAccount/login", {
-      layout: "main.bootstrap.hbs",
+      layout: "account.hbs",
       title: "Project | Login",
       err_message: "Invalid username",
     });
@@ -88,7 +87,7 @@ export const handle_login_post = async (req, res) => {
 
     if (false === isMatch) {
       res.render("vwAccount/login", {
-        layout: "main.bootstrap.hbs",
+        layout: "account.hbs",
         title: "Project | Login",
         err_message: "Invalid password",
       });
@@ -96,6 +95,7 @@ export const handle_login_post = async (req, res) => {
       // Save auth info into session:
       req.session.isAuth = true;
       req.session.name = user.name;
+      req.session.username = user.username;
       req.session.role = role;
 
       let url = "/";
@@ -155,7 +155,7 @@ export const handle_otp_post = async (req, res) => {
     res.redirect(url);
   } else {
     res.render("vwAccount/otp", {
-      layout: "main.bootstrap.hbs",
+      layout: "account.hbs",
       title: "Project | OPT",
       err_message: "OPT is wrong @_@",
     });
@@ -172,5 +172,85 @@ export const handle_is_available_get = async (req, res) => {
   res.json({
     isUsernameExist,
     isEmailExist,
+  });
+};
+
+export const handle_change_password_get = (req, res) => {
+  if (req.session.isAuth !== true) {
+    res.render("404", {
+      title: "Project | 404",
+      layout: "account.hbs",
+    });
+  } else {
+    console.log(`username: ${req.session.username}`);
+    console.log(`role: ${req.session.role}`);
+    res.render("vwAccount/changePassword", {
+      title: "Project | Change password",
+      layout: "account.hbs",
+    });
+  }
+};
+
+export const handle_change_password_post = async (req, res) => {
+  const { newPassword } = req.body;
+  const username = req.session.username;
+  const role = req.session.role;
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+  switch (role) {
+    case "student":
+      await Student.findOneAndUpdate(
+        { username: username },
+        { password: hashedPassword }
+      );
+      break;
+    case "teacher":
+      await Teacher.findOneAndUpdate(
+        { username: username },
+        { password: hashedPassword }
+      );
+      break;
+    case "admin":
+      await Admin.findOneAndUpdate(
+        { username: username },
+        { password: hashedPassword }
+      );
+      break;
+  }
+
+  res.redirect("/account/login");
+};
+
+export const handle_password_is_correct_get = async (req, res) => {
+  const password = req.query.password;
+  let user;
+
+  switch (req.session.role) {
+    case "student":
+      user = await Student.findOne(
+        { username: req.session.username },
+        "password"
+      ).exec();
+      break;
+    case "teacher":
+      user = await Teacher.findOne(
+        { username: req.session.username },
+        "password"
+      ).exec();
+      break;
+    case "admin":
+      user = await Admin.findOne(
+        { username: req.session.username },
+        "password"
+      ).exec();
+      break;
+  }
+
+  const isMatch = bcrypt.compareSync(password, user.password);
+
+  res.json({
+    isCorrectPassword: isMatch,
   });
 };

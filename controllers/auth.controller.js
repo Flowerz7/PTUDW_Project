@@ -53,6 +53,7 @@ export const handle_login_get = (req, res) => {
 export const handle_login_post = async (req, res) => {
   const { role, username, password } = req.body;
   let user;
+  let url;
 
   switch (role) {
     case "student":
@@ -60,18 +61,21 @@ export const handle_login_post = async (req, res) => {
         { username: username },
         "password name username"
       ).exec();
+      url = "/";
       break;
     case "teacher":
       user = await Teacher.findOne(
         { username: username },
         "password name username"
       ).exec();
+      url = "/teacher";
       break;
     case "admin":
       user = await Admin.findOne(
         { username: username },
         "password name username"
       ).exec();
+      url = "/admin/categories";
       break;
   }
 
@@ -98,7 +102,6 @@ export const handle_login_post = async (req, res) => {
       req.session.username = user.username;
       req.session.role = role;
 
-      let url = "/";
       res.redirect(url);
     }
   }

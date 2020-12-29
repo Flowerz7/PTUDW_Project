@@ -5,3 +5,11 @@ export const adminAuth = (req, res, next) => {
 
   next();
 };
+
+export const teacherAuth = (req, res, next) => {
+  if (req.session.isAuth === false || req.session.role !== "teacher") {
+    return res.redirect("/account/login");
+  }
+
+  next();
+};

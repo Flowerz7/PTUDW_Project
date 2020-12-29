@@ -26,7 +26,6 @@ const addMockCourse = async () => {
 
     const options = { ordered: true };
     const result = await Course.insertMany(docs, options)
-    //console.log(result)
 }
 
 export const loadCourses = async (req , res) => {
@@ -40,6 +39,8 @@ export const loadCourses = async (req , res) => {
         MostViewedCoureses : mostViewedCourses,
         NewestCourses : newestCourses,
         MostSubscribedCategories : mostSubscribedCategories,
+
+        isAuth : req.session.isAuth
     }
 
     res.render('vwHome/home', props)

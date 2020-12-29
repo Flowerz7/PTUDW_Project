@@ -79,7 +79,7 @@ export const handle_login_post = async (req, res) => {
     res.render("vwAccount/login", {
       layout: "account.hbs",
       title: "Project | Login",
-      err_message: "Invalid username",
+      err_message: "Invalid username or password",
     });
   } else {
     // Check password is match in database:
@@ -89,7 +89,7 @@ export const handle_login_post = async (req, res) => {
       res.render("vwAccount/login", {
         layout: "account.hbs",
         title: "Project | Login",
-        err_message: "Invalid password",
+        err_message: "Invalid username or password",
       });
     } else {
       // Save auth info into session:

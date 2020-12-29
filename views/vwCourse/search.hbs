@@ -1,0 +1,11 @@
+{{#each Courses}}
+    <div class="card" id="{{this._id}}">
+      <img class="card-img-top" src="{{this.avatarLink}}">
+      <div class="card-body">
+        <h4 class="card-title">{{this.title}}</h4>
+        <p class="card-text">{{this.price}}</p>
+        <a href="/courses/{{this.category}}">{{this.category}}</a>
+        <a href="/courses?id={{this._id}}" class="btn btn-primary">Detail</a>
+      </div>
+    </div>
+{{/each}}

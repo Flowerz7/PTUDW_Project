@@ -33,14 +33,21 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <form class="form-inline" action="/courses/search">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
             </form>
             
+<<<<<<< HEAD
             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location='/account/register'">Sign up</button>
             <button type="button" class="btn btn-primary" onclick="window.location='/account/login'">Login</button>
             <a href="/account/change-password" class="btn btn-secondary">Change password</a>
+=======
+            {{#unless isAuth}}
+                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location='/account/register'">Sign up</button>
+                <button type="button" class="btn btn-primary" onclick="window.location='/account/login'">Login</button>
+            {{/unless}}
+>>>>>>> a0e437bffd61bf5c4d1a3f0658582297f72e4d3c
         </div>
     </nav>
 

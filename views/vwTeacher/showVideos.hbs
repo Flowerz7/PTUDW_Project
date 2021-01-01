@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-header">
+    <a class="btn btn-primary" href="/teacher/upload/{{courseID}}" style="display:
+              inline-block;">Add videos</a>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Chapter</th>
+          <th scope="col">Video title</th>
+          <th scope="col">description</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.videos}} 
+        <tr>
+          <th scope="row">{{chapterNumber}}</th>
+          <td>{{title}}</td>
+          <td>{{{description}}}</td>
+        <td>
+          <a href=""  class="btn btn-sm btn-success">Watch</a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+  </div>
+  <div class="card-footer">
+    <a class="btn btn-danger" href="javascript:history.back()" style="display:
+              inline-block;">Back</a>
+  </div>
+</div>

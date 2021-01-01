@@ -10,7 +10,7 @@ export const handle_teacher_page_get = async (req, res) => {
   const teacherID = teacher._id;
   const courses = await Course.find(
     { teacherID: teacherID },
-    "title numOfStudent isFinish"
+    "title numOfStudent isFinish category"
   );
 
   const coursesHBS = [];
@@ -22,6 +22,8 @@ export const handle_teacher_page_get = async (req, res) => {
     const numOfStudent = courses[i].numOfStudent;
     const status = courses[i].isFinish ? "Finish" : "Unfinished";
     const courseID = courses[i]._id;
+    const category = courses[i].category;
+    const isFinish = courses[i].isFinish;
 
     coursesHBS.push({
       order,
@@ -29,6 +31,8 @@ export const handle_teacher_page_get = async (req, res) => {
       numOfStudent,
       status,
       courseID,
+      category,
+      isFinish,
     });
   }
 
@@ -175,6 +179,63 @@ export const handle_upload_videos_post = (req, res) => {
   });
 };
 
-export const handle_update_course_get = (req, res) => {};
+export const handle_update_course_get = async (req, res) => {
+  const courseID = req.params.courseID;
+  const course = await Course.findById(courseID);
 
-export const handle_update_course_post = (req, res) => {};
+  res.render("vwTeacher/updateCourse", {
+    layout: "teacher.hbs",
+    title: "Project | Update course",
+    courseTitle: course.title,
+    category: course.category,
+    overview: course.briefDescription,
+    description: course.description,
+    price: course.price,
+  });
+};
+
+export const handle_update_course_post = async (req, res) => {
+  const { title, briefDescription, description, price } = req.body;
+  const courseID = req.params.courseID;
+
+  await Course.updateOne(
+    { _id: courseID },
+    {
+      title: title,
+      briefDescription: briefDescription,
+      description: description,
+      price: price,
+    }
+  );
+
+  res.redirect("/teacher");
+};
+
+export const handle_get_videos_get = async (req, res) => {
+  const courseID = req.params.courseID;
+
+  const course = await Course.findOne({ _id: courseID }, "videos").exec();
+
+  const videos = [];
+  for (let i = 0; i < course.videos.length; i++) {
+    const chapterNumber = i + 1;
+    const title = course.videos[i].title;
+    const description = course.videos[i].description;
+
+    videos.push({ chapterNumber, title, description });
+  }
+
+  res.render("vwTeacher/showVideos", {
+    title: "Project | Videos",
+    layout: "Teacher.hbs",
+    courseID,
+    videos,
+  });
+};
+
+export const handle_complete_course = async (req, res) => {
+  const courseID = req.params.courseID;
+  await Course.updateOne({ _id: courseID }, { isFinish: true });
+
+  res.redirect("/teacher");
+};

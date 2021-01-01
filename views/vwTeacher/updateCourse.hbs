@@ -1,0 +1,97 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/fileinput.min.css">
+{{/section}}
+
+{{#section 'scripts'}}
+  <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/js/fileinput.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/themes/fa/theme.min.js"></script>
+  <script>
+    ClassicEditor
+      .create( document.querySelector( '#txtDescription' ))
+      .then( editor => {
+        console.log( editor );
+      })
+      .catch( error => {
+        console.error( error );
+      });
+
+function isExistEmptyField(fields) {
+  const length = fields.length;
+  for (let i = 0; i < length; i++) {
+    if (fields[i].length === 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+$("#updateCourseForm").on("submit", function (e) {
+  e.preventDefault();
+
+  const title = $("#txtTitle").val();
+  const overview = $("#txtOverview").val();
+  const description = $("#txtDescription").val();
+  const price = $("#price").val();
+  const fields = [];
+  fields.push(title);
+  fields.push(overview);
+  fields.push(description);
+  fields.push(price);
+
+  if (isExistEmptyField(fields)) {
+    alert(`is exits empty field`);
+    return;
+  }
+
+  $('#updateCourseForm').off('submit').submit();
+});
+  </script>
+{{/section}}
+
+<div class="container mt-5" style="width: 50em;">
+  <form id="updateCourseForm" action="" method="post">
+
+    <div class="row mb-3">
+      <label for="txtTitle" class="col-sm-2 col-form-label">Course title</label>
+      <div class="col-sm-10">
+        <input type="txt" name="title" class="form-control" id="txtTitle" placeholder="{{courseTitle}}">
+      </div>
+    </div>
+
+
+    <div class="row mb-3">
+      <label for="txtOverview" class="col-sm-2 col-form-label">Overview</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" name="briefDescription" id="txtOverview"
+                                                               rows="3">{{overview}}</textarea>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" id="txtDescription" name="description"
+                                                           rows="3">{{description}}</textarea>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="price" class="col-sm-2 col-form-label">Price</label>
+      <div class="col-sm-10">
+        <input type="number" name="price" class="form-control" id="price"
+                                                               placeholder="{{price}}">
+      </div>
+    </div>
+
+    <div class="col-12 mt-5">
+      <button type="submit" class="btn btn-primary">Update</button>
+      <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
+    </div>
+
+  </form>
+</div>

@@ -23,4 +23,8 @@ router
   .route("/update/:courseID")
   .post(urlencodedParser, teacher.handle_update_course_post);
 
+router.route("/videos/:courseID").get(teacher.handle_get_videos_get);
+
+router.route("/complete/:courseID").get(teacher.handle_complete_course);
+
 export default router;

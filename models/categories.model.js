@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const categorySchema = new Schema(
   {
+    categoryLevel: {
+      type: String,
+      required: true,
+    },
     categoryName: {
       type: String,
       required: true,

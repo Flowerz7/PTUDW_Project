@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
-import mongoosePaginate from 'mongoose-paginate-v2'
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema(
   {
+    teacherID: {
+      type: Schema.Types.ObjectId,
+      ref: "Teacher",
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -20,13 +25,9 @@ const courseSchema = new Schema(
       type: Number,
       required: true,
     },
-    status: {
-      type: String,
-      enum: ["finish, unfinished"],
-    },
-    updated: {
-      type: Date,
-      default: Date.now(),
+    isFinish: {
+      type: Boolean,
+      required: true,
     },
     briefDescription: {
       type: String,
@@ -63,7 +64,7 @@ const courseSchema = new Schema(
   }
 );
 
-courseSchema.index({title : 'text', category : 'text'})
+courseSchema.index({ title: "text", category: "text" });
 courseSchema.plugin(mongoosePaginate);
 
 const Course = mongoose.model("Course", courseSchema);

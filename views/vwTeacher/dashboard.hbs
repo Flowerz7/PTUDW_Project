@@ -21,15 +21,8 @@
         <td>{{numOfStudent}}</td>
         <td>{{status}}</td>
         <td>
-          <form style="display: inline-block;" action="/admin/courses/delete" method="post">
-            <input type="hidden" name="courseID" value="{{courseID}}">
-            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-          </form>
-          <form style="display: inline-block;" action="/admin/courses/detail"
-            method="post">
-            <input type="hidden" name="courseID" value="{{courseID}}">
-            <button type="submit" class="btn btn-sm btn-primary">Detail</button>
-          </form>
+          <a href="/teacher/update/{{courseID}}"  class="btn btn-sm
+            btn-primary">Update</a>
         </td>
       </tr>
     {{/each}}

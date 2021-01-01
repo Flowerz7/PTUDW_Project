@@ -11,4 +11,16 @@ router.route("/add").get(teacher.handle_add_course_get);
 
 router.route("/add").post(urlencodedParser, teacher.handle_add_course_post);
 
+router.route("/upload/:courseID").get(teacher.handle_upload_videos_get);
+
+router
+  .route("/upload/:courseID")
+  .post(urlencodedParser, teacher.handle_upload_videos_post);
+
+router.route("/update/:courseID").get(teacher.handle_update_course_get);
+
+router
+  .route("/update/:courseID")
+  .post(urlencodedParser, teacher.handle_update_course_post);
+
 export default router;

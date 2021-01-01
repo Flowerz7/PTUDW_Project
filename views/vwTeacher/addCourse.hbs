@@ -24,11 +24,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/filei
         dropZoneEnabled: false,
         allowedFileExtensions: ['png', 'jpg', 'gif'],
       });
+
+
+function isExistEmptyField(fields) {
+  const length = fields.length;
+  for (let i = 0; i < length; i++) {
+    if (fields[i].length === 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+$("#addCourseForm").on("submit", function (e) {
+  e.preventDefault();
+
+  const image = $("#uploadImage").val();
+  const title = $("#txtTitle").val();
+  const overview = $("#txtOverview").val();
+  const description = $("#txtDescription").val();
+  const price = $("#price").val();
+  const fields = [];
+  fields.push(image);
+  fields.push(title);
+  fields.push(overview);
+  fields.push(description);
+  fields.push(price);
+
+  if (isExistEmptyField(fields)) {
+    alert(`is exits empty field`);
+    return;
+  }
+
+  $('#addCourseForm').off('submit').submit();
+});
   </script>
 {{/section}}
 
 <div class="container mt-5" style="width: 50em;">
-  <form action="" method="post" enctype="multipart/form-data">
+  <form id="addCourseForm" action="" method="post" enctype="multipart/form-data">
 
     <div class="row mb-3">
       <label for="uploadImage" class="col-sm-2 col-form-label">Image</label>
@@ -83,7 +118,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/filei
     <input type="hidden" name="teacherID" value="{{teacherID}}">
 
     <div class="col-12 mt-5">
-      <button type="submit" class="btn btn-primary">Add course</button>
+      <button type="submit" class="btn btn-primary">Next</button>
       <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
     </div>
 

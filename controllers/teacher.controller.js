@@ -5,7 +5,13 @@ import CategoryLevel from "../models/categoryLevels.model.js";
 import multer from "multer";
 
 export const handle_teacher_page_get = async (req, res) => {
-  const courses = await Course.find({}, "title numOfStudent isFinish");
+  const username = req.session.username;
+  const teacher = await Teacher.findOne({ username: username }, "_id");
+  const teacherID = teacher._id;
+  const courses = await Course.find(
+    { teacherID: teacherID },
+    "title numOfStudent isFinish"
+  );
 
   const coursesHBS = [];
 
@@ -15,12 +21,14 @@ export const handle_teacher_page_get = async (req, res) => {
     const title = courses[i].title;
     const numOfStudent = courses[i].numOfStudent;
     const status = courses[i].isFinish ? "Finish" : "Unfinished";
+    const courseID = courses[i]._id;
 
     coursesHBS.push({
       order,
       title,
       numOfStudent,
       status,
+      courseID,
     });
   }
 
@@ -103,11 +111,70 @@ export const handle_add_course_post = async (req, res) => {
         numOfStudent: 0,
       });
 
-      console.log(`course id: ${newCourse._id}`);
-
       await newCourse.save();
+
+      res.redirect(`/teacher/upload/${newCourse._id}`);
     }
   });
-
-  res.redirect("/teacher");
 };
+
+export const handle_upload_videos_get = async (req, res) => {
+  const courseID = req.params.courseID;
+
+  const course = await Course.findOne({ _id: courseID }, "isFinish videos");
+  const isFinish = course.isFinish;
+
+  if (isFinish) {
+    res.render("404");
+  } else {
+    const chapterNumber = course.videos.length + 1;
+
+    res.render("vwTeacher/uploadVideos", {
+      title: "Project | Upload Videos",
+      layout: "teacher.hbs",
+      chapterNumber,
+    });
+  }
+};
+
+export const handle_upload_videos_post = (req, res) => {
+  const videoStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, `./public/videos/`);
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname + "-" + Date.now());
+    },
+  });
+
+  const uploadVideo = multer({ storage: videoStorage });
+  uploadVideo.single("video")(req, res, async function (err) {
+    if (err instanceof multer.MulterError) {
+      console.log(`Multer error: ${err}`);
+    } else if (err) {
+      console.log(`Error: ${err}`);
+    } else {
+      console.log(`Upload video successful`);
+
+      const { title, description } = req.body;
+      const courseID = req.params.courseID;
+
+      const newVideo = {
+        title,
+        description,
+        link: req.file.filename,
+      };
+
+      await Course.updateOne(
+        { _id: courseID },
+        { $push: { videos: newVideo } }
+      );
+
+      res.redirect(`/teacher/upload/${courseID}`);
+    }
+  });
+};
+
+export const handle_update_course_get = (req, res) => {};
+
+export const handle_update_course_post = (req, res) => {};

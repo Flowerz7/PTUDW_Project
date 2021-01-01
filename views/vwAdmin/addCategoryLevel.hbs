@@ -1,0 +1,40 @@
+{{#section 'scripts'}}
+<script>
+  $('#categoryLevelForm').on("submit", function(e) {
+      e.preventDefault();
+
+      const levelName = $('#txtLevelName').val();
+
+      if(levelName.length === 0) {
+        alert(`Please fill all infomation before submit`);
+        return;
+      }
+
+      $.getJSON(`/admin/category-levels/is-available?levelName=${levelName}`, function(data) {
+          if(data.isExistLevelName) {
+              alert(`Level name is existed!`);
+          } else {
+              $("#categoryLevelForm").off("submit").submit();
+          }
+      })
+
+  });
+</script>
+{{/section}}
+
+<form id="categoryLevelForm"  style="display: block;" action="" method="POST">
+  <div class="card mx-auto" style="width: 40%;">
+    <div class="card-body">
+      {{#if err_message}}
+      <div class="alert alert-danger" role="alert">{{err_message}}</div>
+      {{/if}}
+			<div class="mb-3">
+        <label for="txtLevelName" class="form-label">Category level name</label>
+        <input type="text" name="levelName" class="form-control"
+        id="txtLevelName" placeholder="">
+			</div>
+      <button type="submit" class="btn btn-primary">Create</button>
+      <a href="/admin/categories" class="btn btn-danger">Cancel</a>
+    </div>
+  </div>
+</form>

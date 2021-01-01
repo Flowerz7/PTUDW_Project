@@ -5,7 +5,8 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Categories</th>
+      <th scope="col">Name</th>
+      <th scope="col">level name</th>
       <th scope="col">Course number</th>
       <th scope="col">Handle</th>
     </tr>
@@ -15,6 +16,7 @@
       <tr>
         <th scope="row">{{order}}</th>
         <td>{{name}}</td>
+        <td>{{levelName}}</td>
         <td>{{numberOfCourse}}</td>
         <td>
           <form style="display: inline-block;" action="/admin/categories/update" method="get">
@@ -35,5 +37,7 @@
   </div>
     <div class="card-footer text-muted">
       <a href="/admin/categories/add" class="btn-sm btn btn-primary">Add category</a>
+      <a href="/admin/category-levels/add" class="btn-sm btn btn-primary">Add
+        category level</a>
     </div>
 </div>

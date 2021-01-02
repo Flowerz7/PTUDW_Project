@@ -36,6 +36,8 @@ router
   .get(urlencodedParser, auth.handle_password_is_correct_get);
 
 // Update persional infomation:
+router.route('/view').get(auth.getPersonalProfile)
+router.route('/').get(auth.getUsername)
 router.route("/change-personal-info").get(auth.handle_change_personal_info_get);
 
 router

@@ -26,7 +26,6 @@ export const addToWatchList = async (req, res) => {
         await user.save()
 
         res.json({isSuccess : true})
-        return
     }
     catch(e){
         res.json({isSuccess : false})
@@ -49,7 +48,6 @@ export const removeFromWatchList = async (req, res) => {
         await user.save()
 
         res.json({isSuccess : true})
-        return
     }
     catch(e){
         res.json({isSuccess : false})
@@ -59,7 +57,7 @@ export const removeFromWatchList = async (req, res) => {
 
 export const checkWatchList = async (req, res) => {
     const username = req.query.username
-    const courseID = req.query.courseId
+    const courseID = req.query.id
 
     const user = await Student.findOne({ username }).populate('watchList').lean()
         
@@ -71,4 +69,38 @@ export const checkWatchList = async (req, res) => {
     })
 
     res.json({isInWatchList})
+}
+
+export const checkJoinedCourses = async (req, res) => {
+    const username = req.query.username
+    const courseID = req.query.id
+
+    const user = await Student.findOne({ username }).populate('joinedCourses').lean()
+        
+    var isJoined = false
+    user.watchList.forEach(element => {
+        if (element._id == courseID){
+            isJoined = true;
+        }
+    })
+
+    res.json({isJoined})
+}
+
+export const addToJC = async (req, res) => {
+    const username = req.query.username
+    const courseID = req.query.id
+
+    try{
+        const user = await Student.findOne({ username }).populate('joinedCourses')
+        const course = await Course.findOne({courseID})
+
+        user.joinedCourses = [...user.joinedCourses, course]
+        await user.save()
+
+        res.json({isSuccess : true})
+    }
+    catch {
+        res.json({isSuccess : false})
+    }
 }

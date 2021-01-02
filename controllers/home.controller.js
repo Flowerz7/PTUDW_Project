@@ -40,8 +40,8 @@ export const loadCourses = async (req , res) => {
         NewestCourses : newestCourses,
         MostSubscribedCategories : mostSubscribedCategories,
 
-        isAuth : req.session.isAuth
+        isAuth : req.session.isAuth,
+        username : req.session.username
     }
-
     res.render('vwHome/home', props)
 }

@@ -356,6 +356,21 @@ export const handle_is_available_email_get = async (req, res) => {
   });
 };
 
+export const getUsername = (req, res) => {
+  res.json({username : req.session.username})
+}
+
+export const getPersonalProfile = async (req, res) => {
+  const username = req.query.username
+
+  const student = await Student.findOne({username}).populate('watchList').populate('joinedCourses').lean()
+  const props = {
+    ...student
+  }
+
+  res.render('vwAccount/profile', props)
+}
+
 export const handle_logout_get = (req, res) => {
   req.session.isAuth = false;
   req.session.username = "";

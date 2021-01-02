@@ -1,3 +1,78 @@
 <img src="{{avatarLink}}" alt="">
 <p>{{title}}</p>
 <p>{{category}}</p>
+
+{{#if isAuth}}
+<a href="" id="subscribeBtn" style="background-color: blue; display : hidden;" class="btn btn-primary">Add to watch list</a>
+<a href="" id="buyBtn" style="background-color: blue;" class="btn btn-primary">Buy this course</a>
+{{/if}}
+
+{{#section 'scripts'}}
+    <script>
+        $(document).ready(() => {
+            const currentUrl = window.location.href
+            const course_id = currentUrl.split('=')[1].split('&')[0]
+
+            $.getJSON('/account', ({username}) => {
+                $.getJSON(`/students/update/watchList/check?username=${username}&id=${course_id}`, (data) => {
+                    const subscribeBtn = $('#subscribeBtn')
+                    if (data.isInWatchList === true){
+                        subscribeBtn.text('Remove from watch list')
+                        subscribeBtn.css('background-color', 'red')
+                        subscribeBtn.css('display', 'initial')
+                    }
+
+                    subscribeBtn.click((e) => {
+                        e.preventDefault()
+                        if (data.isInWatchList === true){
+                            $.getJSON(`/students/update/watchList/remove?username=${username}&id=${course_id}`, ({isSuccess}) => {
+                                if (isSuccess === true){
+                                    subscribeBtn.text('Add to watch list')
+                                    subscribeBtn.css('background-color', 'blue')
+
+                                    alert('remove successfully')
+                                }
+                                else {
+                                    alert('failed')
+                                }
+                            })
+                        }
+                        else {
+                            $.getJSON(`/students/update/watchList/add?username=${username}&id=${course_id}`, ({isSuccess}) => {
+                                if (isSuccess === true){
+                                    subscribeBtn.text('Remove from watch list')
+                                    subscribeBtn.css('background-color', 'red')
+
+                                    alert('add successfully')
+                                }
+                                else {
+                                    alert('failed')
+                                }
+                            })
+                        }
+                    })
+                })
+                $.getJSON(`/students/update/joinedCourses/check?username=${username}&id=${course_id}`, (data) => {
+                    const buyBtn = $('#buyBtn')
+                    if (data.isJoined === true){
+                        buyBtn.addClass('disabled')
+                    }
+
+                    buyBtn.click((e) => {
+                        e.preventDefault()
+
+                        $.getJSON(`/students/update/joinedCourses/add?username=${username}&id=${course_id}`, (data) => {
+                            if (data.isSuccess === true){
+                                buyBtn.addClass('disabled')
+                                alert('success')
+                            }
+                            else {
+                                alert('failed')
+                            }           
+                        })
+                    })
+                })
+            })      
+        })
+    </script>
+{{/section}}

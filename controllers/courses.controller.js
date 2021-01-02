@@ -3,7 +3,7 @@ import Course from "../models/courses.model.js";
 export const loadSingleCourse = async (req, res) => {
     const _id  = req.query.id
     const course = await Course.findById(_id).lean()
-    res.render('vwCourse/course', {...course, isAuth : req.session.isAuth})
+    res.render('vwCourse/course', {...course, isAuth : req.session.isAuth, username : req.session.username})
 }
 
 export const loadAllCourses = async (req, res) => {

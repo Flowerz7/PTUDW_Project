@@ -21,6 +21,98 @@
     <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
     <button id="fb-btn" class="btn btn-primary">feedback</button>
 </div>
+{{/if}}
+
+<table class="table lectures-section">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if isAuth}}
+        {{#each videos}}
+        <tr>
+            <th>{{@index}}</th>
+            <td>
+                <a href="">{{title}}</a>
+                <div class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <video
+                            class="video-js"
+                            controls
+                            preload="auto"
+                            width="640"
+                            height="264"
+                            data-setup="{}"
+                        >
+                            <source src="videos/{{link}}" type="video/mp4" />
+                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
+                        </video>
+                    </div>
+                </div>
+            </td>
+            <td>{{description}}</td>
+        </tr>
+        {{/each}}
+    {{else}}
+        {{#each videos}}
+            {{#unless @index}}
+            <tr>
+                <th>{{@index}}</th>
+                <td>
+                    <a href="">{{title}}</a>
+                    <div class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <video
+                                class="video-js"
+                                controls
+                                preload="auto"
+                                width="640"
+                                height="264"
+                                data-setup="{}"
+                            >
+                                <source src="videos/{{link}}" type="video/mp4" />
+                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
+                            </video>
+                        </div>
+                    </div>
+                </td>
+                <td>{{description}}</td>
+            </tr>
+            {{else}}
+            <tr>
+                <th>{{@index}}</th>
+                <td>
+                    <a href="" class="disabled">{{title}}</a>
+                    <div class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <video
+                                class="video-js"
+                                controls
+                                preload="auto"
+                                width="640"
+                                height="264"
+                                data-setup="{}"
+                            >
+                                <source src="videos/{{link}}" type="video/mp4" />
+                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
+                            </video>
+                        </div>
+                    </div>
+                </td>
+                <td>{{description}}</td>
+            </tr>
+            {{/unless}}
+        {{/each}}
+    {{/if}}
+  </tbody>
+</table>
 
 <style>
     .stars{
@@ -28,12 +120,58 @@
         flex-direction: row-reverse;
         justify-content: flex-end;
     }
+
+    .modal{
+        position: fixed;
+        z-index: 1;
+        width: 720px;
+        height: 360px;
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content{
+        width: 100%;
+        height: 100%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
 </style>
-{{/if}}
 
 {{#section 'scripts'}}
     <script>
         $(document).ready(() => {
+            //#region lecture script
+            $('.lectures-section a').click((e) => {
+                e.preventDefault()
+                $('.lectures-section a~.modal').css('display', 'block')
+            })
+
+            $('.close').click((e) => {
+                $('.modal').css('display', 'none')
+            })
+
+            $('a.disabled').off('click')
+
+            $('a.disabled').click((e) => {
+                e.preventDefault()
+                alert('buy this course to view this section')
+            })
+            //#endregion
+
             const currentUrl = window.location.href
             const course_id = currentUrl.split('=')[1].split('&')[0]
 
@@ -124,6 +262,9 @@
                     if (data.isJoined === true){
                         buyBtn.addClass('disabled')
                         $('.feedback-section').css('display', 'block')
+                    } 
+                    else{
+
                     }
 
                     buyBtn.click((e) => {
@@ -133,7 +274,7 @@
                             if (data.isSuccess === true){
                                 buyBtn.addClass('disabled')
                                 $('.feedback-section').css('display', 'initial')
-                                alert('success')
+                                window.location = window.location.href
                             }
                             else {
                                 alert('failed')

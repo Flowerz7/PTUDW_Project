@@ -4,6 +4,7 @@ import Student from "../models/students.model.js";
 export const loadSingleCourse = async (req, res) => {
     const _id  = req.query.id
     const course = await Course.findById(_id).lean()
+    console.log(course)
     res.render('vwCourse/course', {...course, isAuth : req.session.isAuth})
 }
 
@@ -59,7 +60,7 @@ export const createFeedback = async (req, res) => {
 
         course.reviewList = [...course.reviewList, {studentName, numOfStar : stars, feedback : comment}]
         await course.save()
-        
+
         res.json({isSuccess : true})
     }
     catch (e) {

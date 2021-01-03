@@ -172,7 +172,7 @@ export const handle_upload_videos_post = (req, res) => {
       await Course.updateOne(
         { _id: courseID },
         { $push: { videos: newVideo } }
-      );
+      )
 
       res.redirect(`/teacher/upload/${courseID}`);
     }

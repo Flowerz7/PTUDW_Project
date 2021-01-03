@@ -1,9 +1,10 @@
 import Course from "../models/courses.model.js";
+import Student from "../models/students.model.js";
 
 export const loadSingleCourse = async (req, res) => {
     const _id  = req.query.id
     const course = await Course.findById(_id).lean()
-    res.render('vwCourse/course', {...course, isAuth : req.session.isAuth, username : req.session.username})
+    res.render('vwCourse/course', {...course, isAuth : req.session.isAuth})
 }
 
 export const loadAllCourses = async (req, res) => {
@@ -45,4 +46,25 @@ export const loadQueriedCourse = async (req, res) => {
     }
 
     res.render('vwCourse/search', props)
+}
+
+export const createFeedback = async (req, res) => {
+    const {stars, comment} = req.body
+    const username = req.query.username
+    const id = req.query.id
+    
+    try{
+        const course = await Course.findById(id)
+        const studentName = (await Student.findOne({username})).name
+
+        course.reviewList = [...course.reviewList, {studentName, numOfStar : stars, feedback : comment}]
+        await course.save()
+        
+        res.json({isSuccess : true})
+    }
+    catch (e) {
+        res.json({isSuccess : false})
+    }
+
+    
 }

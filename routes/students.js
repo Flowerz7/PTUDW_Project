@@ -1,14 +1,15 @@
 import express from "express";
 import * as StudentController from '../controllers/student.controller.js'
-import Student from "../models/students.model.js";
-const router = express.Router();
+import bodyParser from "body-parser";
 
-router.route('/').get(StudentController.loadSingleStudent)
-router.route('/update/watchList/add').get(StudentController.addToWatchList)
-router.route('/update/watchList/remove').get(StudentController.removeFromWatchList)
+const router = express.Router();
+const urlEncodedParser = bodyParser.urlencoded({ extended: true });
+
 router.route('/update/watchList/check').get(StudentController.checkWatchList)
+router.route('/update/watchList/add').post(urlEncodedParser, StudentController.addToWatchList)
+router.route('/update/watchList/remove').post(urlEncodedParser, StudentController.removeFromWatchList)
 
 router.route('/update/joinedCourses/check').get(StudentController.checkJoinedCourses)
-router.route('/update/joinedCourses/add').get(StudentController.addToJC)
+router.route('/update/joinedCourses/add').post(urlEncodedParser, StudentController.addToJC)
 
 export default router;

@@ -1,10 +1,34 @@
-<img src="{{avatarLink}}" alt="">
+<img src="images/{{avatarLink}}" alt="">
 <p>{{title}}</p>
 <p>{{category}}</p>
+
+{{#each reviewList}}
+<p>{{feedback}}</p>
+{{/each}}
 
 {{#if isAuth}}
 <a href="" id="subscribeBtn" style="background-color: blue; display : hidden;" class="btn btn-primary">Add to watch list</a>
 <a href="" id="buyBtn" style="background-color: blue;" class="btn btn-primary">Buy this course</a>
+
+<div class="feedback-section" style="display: none;">
+    <div class="stars">
+        <button class="btn">5</button>
+        <button class="btn">4</button>
+        <button class="btn">3</button>
+        <button class="btn">2</button>
+        <button class="btn">1</button>
+    </div>
+    <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
+    <button id="fb-btn" class="btn btn-primary">feedback</button>
+</div>
+
+<style>
+    .stars{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+</style>
 {{/if}}
 
 {{#section 'scripts'}}
@@ -14,6 +38,46 @@
             const course_id = currentUrl.split('=')[1].split('&')[0]
 
             $.getJSON('/account', ({username}) => {
+
+                //#region feedback script
+                var fbPoint, comment
+
+                $('.stars>.btn').mouseenter((e) => {
+                    e.preventDefault()
+                    fbPoint = parseInt($(event.target).text())
+                    $('.stars>.btn').css('color', 'black')
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'red')
+                })
+
+                $('.stars>.btn').click((e) => {
+                    e.preventDefault()
+                    fbPoint = parseInt($(event.target).text())
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'red')
+                })
+
+                const validateFields = () => {
+                    if (fbPoint === undefined || comment === '') return false
+                    return true
+                }
+
+                $('#fb-btn').click((e) => {
+                    e.preventDefault()
+
+                    comment = $('#commentInput').val()
+                    if (validateFields() === true){
+                        $.post(`/courses/feedback/create?username=${username}&id=${course_id}`, {stars : fbPoint, comment}, ({isSuccess}) => {
+                            if (isSuccess === true){
+                                window.location = window.location.href
+                            }
+                        }, 'json')
+                    }
+                    else {
+                        alert('you have to fill all fields')
+                    }
+                })
+                //#endregion
+
+                //#region watchlist script
                 $.getJSON(`/students/update/watchList/check?username=${username}&id=${course_id}`, (data) => {
                     const subscribeBtn = $('#subscribeBtn')
                     if (data.isInWatchList === true){
@@ -25,7 +89,7 @@
                     subscribeBtn.click((e) => {
                         e.preventDefault()
                         if (data.isInWatchList === true){
-                            $.getJSON(`/students/update/watchList/remove?username=${username}&id=${course_id}`, ({isSuccess}) => {
+                            $.post(`/students/update/watchList/remove`, {username, course_id}, ({isSuccess}) => {
                                 if (isSuccess === true){
                                     subscribeBtn.text('Add to watch list')
                                     subscribeBtn.css('background-color', 'blue')
@@ -35,10 +99,10 @@
                                 else {
                                     alert('failed')
                                 }
-                            })
+                            }, 'json')
                         }
                         else {
-                            $.getJSON(`/students/update/watchList/add?username=${username}&id=${course_id}`, ({isSuccess}) => {
+                            $.post(`/students/update/watchList/add`, {username, course_id}, ({isSuccess}) => {
                                 if (isSuccess === true){
                                     subscribeBtn.text('Remove from watch list')
                                     subscribeBtn.css('background-color', 'red')
@@ -48,30 +112,36 @@
                                 else {
                                     alert('failed')
                                 }
-                            })
+                            }, 'json')
                         }
                     })
                 })
+                //#endregion
+
+                //#region buy course script
                 $.getJSON(`/students/update/joinedCourses/check?username=${username}&id=${course_id}`, (data) => {
                     const buyBtn = $('#buyBtn')
                     if (data.isJoined === true){
                         buyBtn.addClass('disabled')
+                        $('.feedback-section').css('display', 'block')
                     }
 
                     buyBtn.click((e) => {
                         e.preventDefault()
 
-                        $.getJSON(`/students/update/joinedCourses/add?username=${username}&id=${course_id}`, (data) => {
+                        $.post(`/students/update/joinedCourses/add`, {username, course_id}, (data) => {
                             if (data.isSuccess === true){
                                 buyBtn.addClass('disabled')
+                                $('.feedback-section').css('display', 'initial')
                                 alert('success')
                             }
                             else {
                                 alert('failed')
                             }           
-                        })
+                        }, `json`)
                     })
                 })
+                //#endregion
             })      
         })
     </script>

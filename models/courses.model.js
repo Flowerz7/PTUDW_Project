@@ -16,6 +16,10 @@ const courseSchema = new Schema(
       trim: true,
       minlength: 3,
     },
+    view: {
+      type: Number,
+      required: true,
+    },
     avatarLink: {
       type: String,
       required: true,

@@ -3,8 +3,12 @@ import Student from "../models/students.model.js";
 
 export const loadSingleCourse = async (req, res) => {
     const _id  = req.query.id
-    const course = await Course.findById(_id).lean()
-    console.log(course)
+
+    var course = await Course.findById(_id)
+    course.view += 1
+
+    course = await Course.findById(_id).populate('teacherID').lean()
+
     res.render('vwCourse/course', {...course, isAuth : req.session.isAuth})
 }
 
@@ -66,6 +70,4 @@ export const createFeedback = async (req, res) => {
     catch (e) {
         res.json({isSuccess : false})
     }
-
-    
 }

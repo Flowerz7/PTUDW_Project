@@ -106,6 +106,7 @@ export const handle_add_course_post = async (req, res) => {
       const newCourse = new Course({
         teacherID,
         title,
+        view : 0,
         avatarLink: req.file.filename,
         price,
         category,

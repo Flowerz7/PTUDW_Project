@@ -1,41 +1,35 @@
 import Course from "../models/courses.model.js";
 import Category from '../models/categories.model.js'
-
-const addMockCourse = async () => {
-    // await Course.find().remove()
-
-    const docs = [{
-        title : 'test1',
-        avatarLink : 'https://i.ibb.co/qdrpnCL/02.jpg',
-        price : 3000,
-        status : "unfinished",
-        briefDescription: 'a',
-        description: 'a',
-        numOfStudent: 10,
-        category : 'Information Technology',
-        reviewList: [{
-            studentName: 'test1',
-            numOfStar: 3,
-            feedback : 'test1'
-        }],
-        videos : [{
-            title : 'test1',
-            link : 'a'
-        }]
-    }]
-
-    const options = { ordered: true };
-    const result = await Course.insertMany(docs, options)
-}
+import RemarkableCourses from '../models/remarkableCourses.model.js'
 
 export const loadCourses = async (req , res) => {
-    const remarkableCourses = await Course.aggregate([{ $sample: { size: 4 } }])
-    const mostViewedCourses = await Course.aggregate([{ $sample: { size: 10 } }])
-    const newestCourses = await Course.aggregate([{ $sample: { size: 10 } }])
+    const milestone = new Date(2021, 0, 1)
+    const countDocs = await RemarkableCourses.find().countDocuments()
+
+    if (countDocs < 1){
+        const remarkableCoursesHolder = new RemarkableCourses({
+            remarkableCourses : []
+        })
+
+        await remarkableCoursesHolder.save()
+    }
+
+    var rmkCourses = await RemarkableCourses.findOne()
+    
+    const diff = (Math.round(rmkCourses.updatedAt - milestone) % 7) === 0
+    if (diff === true){
+        const newRemarkableCourses = await Course.aggregate([{ $sample: { size: 4 } }])
+        rmkCourses.remarkableCourses = [...newRemarkableCourses]
+        await rmkCourses.save()
+    } 
+
+    rmkCourses = await RemarkableCourses.findOne().populate('remarkableCourses').lean()
+    const mostViewedCourses = await Course.find().sort({view : -1}).limit(10).lean()
+    const newestCourses = await Course.find().sort({$natural:-1}).limit(10).lean()
     const mostSubscribedCategories = await Category.aggregate([{$sample : {size : 5}}])
 
     const props = {
-        RemarkableCourses : remarkableCourses,
+        RemarkableCourses : rmkCourses.remarkableCourses,
         MostViewedCoureses : mostViewedCourses,
         NewestCourses : newestCourses,
         MostSubscribedCategories : mostSubscribedCategories,
@@ -43,5 +37,6 @@ export const loadCourses = async (req , res) => {
         isAuth : req.session.isAuth,
         username : req.session.username
     }
+
     res.render('vwHome/home', props)
 }

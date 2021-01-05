@@ -1,6 +1,6 @@
 import Course from "../models/courses.model.js";
-import Category from '../models/categories.model.js'
 import RemarkableCourses from '../models/remarkableCourses.model.js'
+import SubCategory from "../models/subCategory.model.js";
 
 export const loadCourses = async (req , res) => {
     const milestone = new Date(2021, 0, 1)
@@ -26,7 +26,7 @@ export const loadCourses = async (req , res) => {
     rmkCourses = await RemarkableCourses.findOne().populate('remarkableCourses').lean()
     const mostViewedCourses = await Course.find().sort({view : -1}).limit(10).lean()
     const newestCourses = await Course.find().sort({$natural:-1}).limit(10).lean()
-    const mostSubscribedCategories = await Category.aggregate([{$sample : {size : 5}}])
+    const mostSubscribedCategories = await SubCategory.aggregate([{$sample : {size : 5}}])
 
     const props = {
         RemarkableCourses : rmkCourses.remarkableCourses,

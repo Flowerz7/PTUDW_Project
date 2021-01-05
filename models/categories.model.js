@@ -4,20 +4,20 @@ const Schema = mongoose.Schema;
 
 const categorySchema = new Schema(
   {
-    categoryLevel: {
-      type: String,
-      required: true,
-    },
-    categoryName: {
+    name: {
       type: String,
       required: true,
       trim: true,
     },
-    categoryDetail: {
+    detail: {
       type: String,
       required: true,
       trim: true,
     },
+    subCategories : [{
+      type : Schema.Types.ObjectId,
+      ref : 'SubCategory'
+    }]
   },
   {
     timestamps: true,

@@ -11,9 +11,9 @@
         return;
       }
 
-      $.getJSON(`/admin/categories/check?name=${categoryName}`, function(data) {
+      $.getJSON(`/admin/subCategories/check?name=${categoryName}`, function(data) {
           if(data.isExist) {
-              alert(`Category name is existed!`);
+              alert(`Subcategory name is existed!`);
           } else {
               $("#categoryForm").off("submit").submit();
           }
@@ -27,12 +27,21 @@
   <div class="card mx-auto" style="width: 40%;">
     <div class="card-body">
 			<div class="mb-3">
-  			<label for="txtCategoryName" class="form-label">Category's name</label>
+  			<label for="txtCategoryName" class="form-label">Subcategory's name</label>
         <input type="text" name="name" class="form-control" id="txtCategoryName" placeholder="">
 			</div>
 
       <div class="mb-3">
-        <label for="txtCategoryDetail" class="form-label">Category Detail</label>
+  			<label for="selectLevel" class="form-label">Parent Category</label>
+        <select class="form-select" name="parentName" id="selectLevel" aria-label="Default select example">
+          {{#each names}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+			</div>
+
+      <div class="mb-3">
+        <label for="txtCategoryDetail" class="form-label">Subcategory Detail</label>
         <textarea class="form-control" id="txtCategoryDetail"
           name="detail" rows="3"></textarea>
       </div>

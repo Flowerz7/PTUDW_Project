@@ -7,39 +7,20 @@ import * as admin from "../controllers/admin.controller.js";
 
 router.route("/").get(admin.handle_admin_get);
 
-router.route("/categories").get(admin.handle_categories_get);
+router.route("/categories").get(admin.getAllCategories);
+router.route("/categories/check").get(admin.isCategoryExist);
+router.route('/categories/add').get(admin.getAddCategoryView)
+router.route("/categories/add").post(urlencodedParser, admin.addCategory);
+router.route("/categories/update").get(admin.getCategoryForUpdate);
+router.route("/categories/update").post(urlencodedParser, admin.updateCategory);
+router.route("/categories/delete").post(urlencodedParser, admin.deleteCategory);
 
-router.route("/categories/add").get(admin.handle_add_category_get);
-
-router
-  .route("/categories/is-available")
-  .get(admin.handle_is_available_category_name);
-
-router.route("/category-levels/add").get(admin.handle_add_category_level_get);
-
-router
-  .route("/category-levels/add")
-  .post(urlencodedParser, admin.handle_add_category_level_post);
-
-router
-  .route("/category-levels/is-available")
-  .get(admin.handle_is_available_category_level);
-
-router
-  .route("/categories/add")
-  .post(urlencodedParser, admin.handle_add_category_post);
-
-router
-  .route("/categories/delete")
-  .post(urlencodedParser, admin.handle_delete_category_post);
-
-router
-  .route("/categories/update")
-  .get(urlencodedParser, admin.handle_update_category_get);
-
-router
-  .route("/categories/update")
-  .post(urlencodedParser, admin.handle_update_category_post);
+router.route("/subCategories/check").get(admin.isSubCategoryExist);
+router.route('/subCategories/add').get(admin.getAddSubcategoryView)
+router.route("/subCategories/add").post(urlencodedParser, admin.addSubCategory);
+router.route('/subCategories/update').get(admin.getSubCategoryForUpdate)
+router.route('/subCategories/update').post(urlencodedParser, admin.updateSubCategory)
+router.route('/subCategories/delete').post(urlencodedParser, admin.deleteSubCategory)
 
 router.route("/courses").get(admin.handle_courses_get);
 

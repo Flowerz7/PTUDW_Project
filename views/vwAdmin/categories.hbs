@@ -2,42 +2,101 @@
   <div class="card-header">Categories</div>
   <div class="card-body">
 		<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">level name</th>
-      <th scope="col">Course number</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each this.categories}} 
-      <tr>
-        <th scope="row">{{order}}</th>
-        <td>{{name}}</td>
-        <td>{{levelName}}</td>
-        <td>{{numberOfCourse}}</td>
-        <td>
-          <form style="display: inline-block;" action="/admin/categories/update" method="get">
-            <input type="hidden" name="categoryName" value="{{name}}">
-            <button type="submit" class="btn btn-sm btn-primary">Update</button>
-          </form>
-          {{#unless numberOfCourse}}
-          <form style="display: inline-block;" action="/admin/categories/delete" method="post">
-            <input type="hidden" name="categoryName" value="{{name}}">
-            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-          </form>
-          {{/unless}}
-        </td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Detail</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each categories}}
+          <tr>
+            <th scope="row">{{@index}}</th>
+            <td>{{name}}</td>
+            <td>{{detail}}</td>
+            <td>
+              <button class="btn btn-sm btn-primary view-btn">View Subcategory</button>
+              <a href='/admin/categories/update?name={{name}}' class="btn btn-sm btn-primary">Update</a>
+              <a href="{{name}}" class="btn btn-sm btn-danger delete-category-btn">Delete</a>
+
+              <div class="card subCategories-section" style="display: none;">
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Detail</th>
+                      <th scope="col">View</th>
+                      <th scope="col">Active Course</th>
+                      <th scope="col">Handle</th>
+                    </thead>
+
+                    <tbody>
+                      {{#each subCategories}}
+                        <tr>
+                          <th scope="row">{{@index}}</th>
+                          <td>{{name}}</td>
+                          <td>{{detail}}</td>
+                          <td>{{view}}</td>
+                          <td>{{numOfCourses}}</td>
+                          <td>
+                            <a href='/admin/subCategories/update?name={{name}}' class="btn btn-sm btn-primary">Update</a>
+                            {{#unless numOfCourses}}
+                              <a href='{{name}}' class="btn btn-sm btn-danger delete-subcategory-btn">Delete</a>
+                            {{/unless}}
+                          </td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="card-footer text-muted">
+                  <a href="/admin/subCategories/add" class="btn-sm btn btn-primary add-subcategory-btn">Add subcategory</a>
+                  <a class="btn-sm btn btn-danger close-btn">Close</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
     <div class="card-footer text-muted">
-      <a href="/admin/categories/add" class="btn-sm btn btn-primary">Add category</a>
-      <a href="/admin/category-levels/add" class="btn-sm btn btn-primary">Add
-        category level</a>
+      <a href="/admin/categories/add" class="btn-sm btn btn-primary add-category-btn">Add category</a>
     </div>
 </div>
+
+{{#section 'scripts'}}
+  <script>
+    $(document).ready(() => {
+      //#region UI cripts
+      $('.view-btn').click((e) => {
+        e.preventDefault()
+        $(e.target).siblings('.subCategories-section').css('display', 'block')
+      })
+
+      $('.close-btn').click((e) => {
+        e.preventDefault()
+        $('.subCategories-section').css('display', 'none')
+      })
+      //#endregion
+
+      $('.delete-subcategory-btn').click((e) => {
+        e.preventDefault()
+        const subcateName = $(e.target).attr('href')
+        $.post('/admin/subCategories/delete', {name : subcateName})
+        window.location = window.location.href
+      })
+
+      $('.delete-category-btn').click((e) => {
+        e.preventDefault()
+        const cateName = $(e.target).attr('href')
+        $.post('/admin/categories/delete', {name : cateName})
+        window.location = window.location.href
+      })
+    })
+  </script>
+{{/section}}

@@ -83,12 +83,8 @@ $("#addCourseForm").on("submit", function (e) {
       <label for="txtTitle" class="col-sm-2 col-form-label">Category</label>
       <div class="col-sm-10">
         <select class="form-select" name="category" id="selectLevel" aria-label="Default select example">
-          {{#each this.categories}}
-          <optgroup label="{{levelName}}">
-            {{#each categoryNames}}
-              <option value="{{this}}">{{this}}</option>
-            {{/each}}
-          </optgroup>
+          {{#each subcategoryNames}}
+            <option value="{{this}}">{{this}}</option>
           {{/each}}
         </select>
       </div>

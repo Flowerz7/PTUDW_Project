@@ -1,7 +1,7 @@
 import Teacher from "../models/teachers.model.js";
 import Course from "../models/courses.model.js";
 import Category from "../models/categories.model.js";
-import CategoryLevel from "../models/categoryLevels.model.js";
+import SubCategory from '../models/subCategory.model.js'
 import multer from "multer";
 
 export const handle_teacher_page_get = async (req, res) => {
@@ -46,32 +46,15 @@ export const handle_teacher_page_get = async (req, res) => {
 export const handle_add_course_get = async (req, res) => {
   const username = req.session.username;
   const teacher = await Teacher.findOne({ username: username }, "_id").exec();
-  const categoryLevels = await CategoryLevel.find({}, "levelName");
 
-  const categories = [];
-
-  for (let i = 0; i < categoryLevels.length; i++) {
-    const levelName = categoryLevels[i].levelName;
-    const categoriesInSpecifiedLevel = await Category.find(
-      { categoryLevel: levelName },
-      "categoryName"
-    );
-
-    const categoryNames = categoriesInSpecifiedLevel.map(
-      (category) => category.categoryName
-    );
-
-    categories.push({
-      levelName,
-      categoryNames,
-    });
-  }
+  const subcategories = await SubCategory.find().lean()
+  const subcategoryNames = subcategories.map(value => value.name)
 
   res.render("vwTeacher/addCourse", {
     title: "Project | Add course",
     layout: "teacher.hbs",
     teacherID: teacher._id,
-    categories,
+    subcategoryNames,
   });
 };
 

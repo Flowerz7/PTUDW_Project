@@ -2,39 +2,13 @@ import Category from "../models/categories.model.js";
 import Course from "../models/courses.model.js";
 import Student from "../models/students.model.js";
 import Teacher from "../models/teachers.model.js";
-import CategoryLevel from "../models/categoryLevels.model.js";
+import SubCategory from "../models/subCategory.model.js";
 import bcrypt from "bcryptjs";
 
 export const handle_admin_get = (req, res) => {
   res.render("vwAdmin/dashboard", {
     layout: "admin.hbs",
     title: "Project | Dashboard",
-  });
-};
-
-export const handle_categories_get = async (req, res) => {
-  const categories = await Category.find({}, "categoryName categoryLevel");
-
-  const categoriesHBS = [];
-  for (let i = 0; i < categories.length; i++) {
-    const name = categories[i].categoryName;
-    const order = i + 1;
-    const numberOfCourse = await Course.count({ category: name });
-    const levelName = categories[i].categoryLevel;
-
-    categoriesHBS.push({
-      name,
-      order,
-      levelName,
-      numberOfCourse: +numberOfCourse,
-    });
-  }
-
-  res.render("vwAdmin/categories", {
-    layout: "admin.hbs",
-    title: "Project | Categories",
-    categories: categoriesHBS,
-    //categorylevelName: categoryLevelsHBS,
   });
 };
 
@@ -85,89 +59,174 @@ export const handle_delete_course_post = async (req, res) => {
   res.redirect("/admin/courses");
 };
 
-export const handle_add_category_get = async (req, res) => {
-  const categoryLevels = await CategoryLevel.find({}, "levelName");
-  const levelName = categoryLevels.map((categoryLevel) => {
-    return categoryLevel.levelName;
-  });
+export const getAllCategories = async (req, res) => {
+  const categories = await Category.find().populate('subCategories').lean();
 
-  res.render("vwAdmin/addCategory", {
+  res.render("vwAdmin/categories", {
     layout: "admin.hbs",
-    title: "Project | Create Category",
-    levelName,
+    title: "Project | Categories",
+    categories : [...categories]
   });
 };
 
-export const handle_is_available_category_name = async (req, res) => {
-  const categoryName = req.query.categoryName;
+export const isCategoryExist = async (req, res) => {
+  const name = req.query.name;
 
-  const isExistCategoryName = await Category.exists({
-    categoryName: categoryName,
+  const isExist = await Category.exists({
+    name: name,
   });
 
-  res.json({ isExistCategoryName });
+  res.json({ isExist });
 };
 
-export const handle_is_available_category_level = async (req, res) => {
-  const levelName = req.query.levelName;
+export const isSubCategoryExist = async (req, res) => {
+  const name = req.query.name;
 
-  const isExistLevelName = await CategoryLevel.exists({
-    levelName: levelName,
+  const isExist = await SubCategory.exists({
+    name: name,
   });
 
-  res.json({ isExistLevelName });
+  res.json({ isExist });
 };
 
-export const handle_add_category_post = async (req, res) => {
-  const { categoryName, categoryDetail, levelName } = req.body;
+export const addSubCategory = async (req, res) => {
+  const {name , parentName, detail} = req.body
+  const parentCategory = await Category.findOne({name : parentName}).lean()
+
+  const newSubCategory = new SubCategory({
+    name : name,
+    detail : detail,
+    view : 0,
+    numOfCourses : 0,
+    parent : parentCategory._id
+  })
+
+  await newSubCategory.save()
+
+  const subCate = await SubCategory.findOne({name}).lean()
+
+  const parent = await Category.findOne({name : parentName})
+  parent.subCategories = [...parent.subCategories, subCate._id]
+  await parent.save()
+
+  res.redirect("/admin/categories");
+}
+
+export const deleteSubCategory = async (req, res) => {
+  const {name} = req.body
+  const subCate = await SubCategory.findOne({name}).lean()
+
+  const parentID = subCate.parent
+  const parent = await Category.findById(parentID)
+  const index = parent.subCategories.indexOf(subCate._id)
+  if (index > -1) parent.subCategories.splice(index, 1)
+  await parent.save()
+
+  await SubCategory.findOneAndDelete({name})
+
+  res.redirect("/admin/categories");
+} 
+
+export const getSubCategoryForUpdate = async (req, res) => {
+  const name = req.query.name
+  const subCate = await SubCategory.findOne({name}).lean()
+
+  const categories = await Category.find().lean()
+  const names = categories.map((value) => value.name)
+
+  res.render("vwAdmin/updateSubcategory", {
+    layout: "admin.hbs",
+    title: "Project | Update Subcategory",
+    categories : [...names],
+    ...subCate
+  });
+}
+
+export const updateSubCategory = async (req, res) => {
+  const {name , parentName, detail} = req.body
+
+  const subCate = await SubCategory.findOne({name})
+  const oldParent = await Category.findById(subCate.parent)
+
+  if (oldParent.name != parentName){
+    oldParent.subCategories.splice(oldParent.subCategories.indexOf(subCate._id), 1)
+    await oldParent.save()
+
+    const newParent = await Category.findOne({name : parentName})
+    newParent.subCategories = [...newParent.subCategories, subCate._id]
+
+    subCate.parent = newParent._id
+
+    await newParent.save()
+  }
+  
+  subCate.name = name
+  subCate.detail = detail
+
+  await subCate.save()
+
+  res.redirect("/admin/categories");
+}
+
+export const addCategory = async (req, res) => {
+  const { name, detail } = req.body;
 
   const newCategory = new Category({
-    categoryLevel: levelName,
-    categoryName: categoryName,
-    categoryDetail: categoryDetail,
+    name: name,
+    detail: detail,
+    subCategories : []
   });
+
   await newCategory.save();
 
   res.redirect("/admin/categories");
 };
 
-export const handle_delete_category_post = async (req, res) => {
-  const { categoryName } = req.body;
+export const deleteCategory = async (req, res) => {
+  const { name } = req.body;
 
-  await Category.deleteOne({ categoryName: categoryName });
-
-  res.redirect("/admin/categories");
+  await Category.deleteOne({ name: name });
 };
 
-export const handle_update_category_get = async (req, res) => {
-  const { categoryName } = req.query;
+export const getAddSubcategoryView = async (req, res) => {
+  const categories = await Category.find().lean()
+  const names = categories.map((value) => value.name)
 
-  const category = await Category.findOne(
-    { categoryName: categoryName },
-    "categoryName categoryDetail"
-  );
+  res.render('vwAdmin/addSubcategory', {
+    layout : 'admin.hbs',
+    title : 'Project | Add Category',
+    names : [...names]
+  })
+}
 
-  const categoryLevels = await CategoryLevel.find({}, "levelName");
-  const levelName = categoryLevels.map((categoryLevel) => {
-    return categoryLevel.levelName;
-  });
+export const getAddCategoryView = (req, res) => {
+  res.render('vwAdmin/addCategory', {
+    layout : 'admin.hbs',
+    title : 'Project | Add Category',
+  })
+}
+
+export const getCategoryForUpdate = async (req, res) => {
+  const name = req.query.name;
+
+  const category = await Category.findOne({name}).populate('subCategories').lean()
 
   res.render("vwAdmin/updateCategory", {
     layout: "admin.hbs",
     title: "Project | Update Category",
-    name: category.categoryName,
-    detail: category.categoryDetail,
-    levelName,
+    ...category
   });
 };
 
-export const handle_update_category_post = async (req, res) => {
-  const { categoryName, categoryDetail, levelName } = req.body;
+export const updateCategory = async (req, res) => {
+  const { name, detail } = req.body;
 
-  await Category.updateOne(
-    { categoryName: categoryName },
-    { categoryDetail: categoryDetail, categoryLevel: levelName }
-  );
+  const category = await Category.findOne({name})
+
+  category.name = name
+  category.detail = detail
+
+  await category.save()
 
   res.redirect("/admin/categories");
 };
@@ -304,23 +363,4 @@ export const handle_add_teacher_post = async (req, res) => {
 
   const url = "/admin/teachers";
   res.redirect(url);
-};
-
-export const handle_add_category_level_get = (req, res) => {
-  res.render("vwAdmin/addCategoryLevel", {
-    title: "Project | Category levels",
-    layout: "admin.hbs",
-  });
-};
-
-export const handle_add_category_level_post = async (req, res) => {
-  const levelName = req.body.levelName;
-
-  const newCategorylevel = new CategoryLevel({
-    levelName,
-  });
-
-  await newCategorylevel.save();
-
-  res.redirect(`/admin/categories`);
 };

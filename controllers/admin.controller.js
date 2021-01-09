@@ -96,7 +96,7 @@ export const addSubCategory = async (req, res) => {
   const newSubCategory = new SubCategory({
     name : name,
     detail : detail,
-    view : 0,
+    subscribe : 0,
     numOfCourses : 0,
     parent : parentCategory._id
   })

@@ -4,6 +4,8 @@ import Student from "../models/students.model.js";
 import Teacher from "../models/teachers.model.js";
 import Admin from "../models/admins.model.js";
 
+import { getCategories } from '../controllers/category.controller.js'
+
 const sendMailTo = (mailAddress, OTP) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",

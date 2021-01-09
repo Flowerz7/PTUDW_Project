@@ -14,7 +14,7 @@ const subCategoryScheme = new Schema(
       required: true,
       trim: true,
     },
-    view : {
+    subscribe : {
       type : Number,
       required: true
     },

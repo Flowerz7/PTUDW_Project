@@ -14,6 +14,19 @@
     <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
     <title>Online Academy</title>
+
+    <style>
+        .dropdown-menu{
+            position: relative;
+        }
+        .subcate-section{
+            display: none;
+            position: absolute;
+            left: 100%;
+            background-color: white;
+            border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body style="visibility: hidden;" onload="document.body.style.visibility='visible'">
@@ -32,7 +45,17 @@
                 <li class="nav-item dropdown">
                     <a href="/course/all" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">Category</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="/" class="dropdown-item">Information Technology</a>
+                        {{#each categories}}
+                        <div class="dropdown-item">
+                            <a href="/" >{{name}}</a>
+                            <div class="subcate-section">
+                                {{#each subcates}}
+                                    <a href="">{{this}}</a>
+                                {{/each}}
+                            </div>
+                        </div>
+                            
+                        {{/each}}
                     </div>
                 </li>
                 {{#if isAuth}}
@@ -64,5 +87,19 @@
     </noscript>
 
 </body>
+
+<script>
+    $(document).ready(() => {
+        $('.dropdown-item').mouseenter((e) => {
+            e.preventDefault()
+            $(e.target).children('.subcate-section').css('display', 'block')
+        })
+
+        $('.dropdown-item').mouseleave((e) => {
+            e.preventDefault()
+            $(e.target).children('.subcate-section').css('display', 'none')
+        })
+    })
+</script>
 
 </html>

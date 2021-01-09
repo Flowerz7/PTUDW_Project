@@ -2,7 +2,9 @@ import Course from "../models/courses.model.js";
 import RemarkableCourses from '../models/remarkableCourses.model.js'
 import SubCategory from "../models/subCategory.model.js";
 
-export const loadCourses = async (req , res) => {
+import { getCategories } from '../controllers/category.controller.js'
+
+export const loadHome = async (req , res) => {
     const milestone = new Date(2021, 0, 1)
     const countDocs = await RemarkableCourses.find().countDocuments()
 
@@ -25,14 +27,18 @@ export const loadCourses = async (req , res) => {
 
     rmkCourses = await RemarkableCourses.findOne().populate('remarkableCourses').lean()
     const mostViewedCourses = await Course.find().sort({view : -1}).limit(10).lean()
-    const newestCourses = await Course.find().sort({$natural:-1}).limit(10).lean()
-    const mostSubscribedCategories = await SubCategory.aggregate([{$sample : {size : 5}}])
+    const newestCourses = await Course.find().sort({$natural : -1}).limit(10).lean()
+    const mostSubscribedCategories = await SubCategory.find().sort({subscribe : -1}).limit(5).lean()
+
+    const categories = await getCategories()
 
     const props = {
         RemarkableCourses : rmkCourses.remarkableCourses,
         MostViewedCoureses : mostViewedCourses,
         NewestCourses : newestCourses,
         MostSubscribedCategories : mostSubscribedCategories,
+
+        categories : [...categories],
 
         isAuth : req.session.isAuth,
         username : req.session.username

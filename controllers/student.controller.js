@@ -1,5 +1,6 @@
 import Student from '../models/students.model.js'
 import Course from '../models/courses.model.js'
+import SubCategory from '../models/subCategory.model.js'
 
 export const addToWatchList = async (req, res) => {
     const {username, course_id} = req.body
@@ -72,9 +73,16 @@ export const addToJC = async (req, res) => {
     try{
         const user = await Student.findOne({ username })
         const course = await Course.findById(course_id)
-
+        
         user.joinedCourses = [...user.joinedCourses, course]
+        course.numOfStudent += 1
+
+        const subcate = await SubCategory.find({name : course.category})
+        subcate.subscribe += 1
+
+        await subcate.save()
         await user.save()
+        await course.save()
 
         res.json({isSuccess : true})
     }

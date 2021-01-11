@@ -53,9 +53,13 @@ export const handle_detail_course_get = async (req, res) => {
 
 export const handle_delete_course_post = async (req, res) => {
   const { courseID } = req.body;
+  const course = await Course.findById(courseID)
+  
+  const subcategory = await SubCategory.findOne({name : course.category})
+  subcategory.numOfCourses -= 1
+  await subcategory.save()
 
-  await Course.deleteOne({ _id: courseID });
-
+  await course.remove()
   res.redirect("/admin/courses");
 };
 
@@ -174,6 +178,7 @@ export const addCategory = async (req, res) => {
   const newCategory = new Category({
     name: name,
     detail: detail,
+    subscribe : 0,
     subCategories : []
   });
 
@@ -184,8 +189,27 @@ export const addCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   const { name } = req.body;
+  const cate = await Category.findOne({ name: name }).populate('subCategories').lean();
 
-  await Category.deleteOne({ name: name });
+  var canBeDeleted = true
+  cate.subCategories.map((item) => {
+    if (item.numOfCourses !== 0){
+      canBeDeleted = false
+    }
+  })
+
+  if (canBeDeleted === true){
+    await cate.subCategories.map(async (item) => {
+      await SubCategory.deleteOne({name : item.name})
+    })
+
+    await Category.deleteOne({ name: name })
+
+    res.json({isSuccess : true})
+  }
+  else {
+    res.json({isSuccess : false})
+  }
 };
 
 export const getAddSubcategoryView = async (req, res) => {

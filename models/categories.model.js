@@ -14,6 +14,10 @@ const categorySchema = new Schema(
       required: true,
       trim: true,
     },
+    subscribe: {
+      type: String,
+      required: true,
+    },
     subCategories : [{
       type : Schema.Types.ObjectId,
       ref : 'SubCategory'

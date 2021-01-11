@@ -101,6 +101,11 @@ export const handle_add_course_post = async (req, res) => {
 
       await newCourse.save();
 
+      const subcate = await SubCategory.findOne({name : category})
+      subcate.numOfCourses += 1
+
+      await subcate.save()
+
       res.redirect(`/teacher/upload/${newCourse._id}`);
     }
   });

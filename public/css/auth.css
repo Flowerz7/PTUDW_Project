@@ -1,0 +1,118 @@
+body {
+  line-height: 1.6em;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+form {
+  width: 40%;
+  position: relative;
+}
+form h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+form .login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  border: none;
+}
+form .btn-group {
+  width: 100%;
+  margin-bottom: 1em;
+  background-color: #044BD9;
+}
+form .btn-group .btn-outline-primary {
+  border: none;
+  outline: none;
+}
+form .mb-3 label {
+  font-weight: 400;
+}
+form .btn-login {
+  width: 100%;
+  background-color: #044BD9;
+  color: #fff;
+  border: solid 1px #044BD9;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 1em;
+  outline: none;
+}
+form .btn-login:hover {
+  transform: scale(1.01);
+}
+form .btn-signup {
+  background-color: #F27405;
+  color: #fff;
+  border: solid 1px #F27405;
+  height: 40px;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 1em;
+  outline: none;
+}
+form .btn-signup:hover {
+  transform: scale(1.01);
+}
+form p {
+  width: 100%;
+  text-align: center;
+  margin-top: 1em;
+}
+form p a {
+  color: #F27405;
+  font-weight: bold;
+}
+form p a:hover {
+  text-decoration: underline;
+  color: #F27405;
+}
+
+.thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100vh;
+  background-color: #044BD9;
+}
+.thumbnail h1 {
+  width: 80%;
+  color: #fff;
+  font-size: 50px;
+}
+
+.thumbnail-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100vh;
+  background-color: #F27405;
+}
+.thumbnail-signup h1 {
+  width: 80%;
+  color: #fff;
+  font-size: 50px;
+}
+
+/*# sourceMappingURL=auth.css.map */

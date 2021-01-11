@@ -1,33 +1,33 @@
-{{#section 'scripts'}}
-<script>
-</script>
-{{/section}}
-
-<form action="" method="POST">
-  <div class="card mx-auto login-form" style="width: 40%;">
-    <div class="card-body">
-      {{#if err_message}}
-      <div class="alert alert-danger" role="alert">{{err_message}}</div>
-      {{/if}}
-			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-  			<input type="radio" class="btn-check" name="role" value="student" id="btnradio1" autocomplete="off" checked>
-  			<label class="btn btn-outline-primary" for="btnradio1">Student</label>
-
-  			<input type="radio" class="btn-check" name="role" value="teacher" id="btnradio2" autocomplete="off">
-  			<label class="btn btn-outline-primary" for="btnradio2">Teacher</label>
-
-  			<input type="radio" class="btn-check" name="role" value="admin" id="btnradio3" autocomplete="off">
-  			<label class="btn btn-outline-primary" for="btnradio3">Admin</label>
-			</div>
-			<div class="mb-3">
-  			<label for="txtUsername" class="form-label">Username</label>
-        <input type="text" name="username" class="form-control" id="txtUsername" placeholder="">
-			</div>
-			<div class="mb-3">
-  			<label for="txtPassword" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="txtPassword" placeholder="">
-			</div>
-      <button type="submit" class="btn btn-primary">Login</button>
+<div class="auth-container">
+  <form action="" method="POST">
+    <div class="card mx-auto login-form">
+      <div class="card-body">
+       	<h1>Login</h1> 
+        {{#if err_message}}
+        <div class="alert alert-danger" role="alert">{{err_message}}</div>
+        {{/if}}
+        <div class="mb-3">
+          <label class="form-label">Role</label>
+          <select class="form-select" name="role" aria-label="Default select example">
+            <option selected value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="txtUsername" class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" id="txtUsername" placeholder="">
+        </div>
+        <div class="mb-3">
+          <label for="txtPassword" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="txtPassword" placeholder="">
+        </div>
+        <button type="submit" class="btn-login">Login</button>
+        <p>Do you have an account? <a href="/account/register">Signup</a></p>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+	<div class="thumbnail">
+    <h1>Starting your educational path and <span>enjoy!</span></h1>
+	</div>	
+</div>

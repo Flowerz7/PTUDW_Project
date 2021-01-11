@@ -1,14 +1,19 @@
-<form action="" method="POST">
-  <div class="card mx-auto" style="width: 40%;">
-    <div class="card-body">
-      {{#if err_message}}
-      <div class="alert alert-danger" role="alert">{{err_message}}</div>
-      {{/if}}
-			<div class="mb-3">
-  			<label for="txtOPT" class="form-label">OTP</label>
-        <input type="text" name="otp" class="form-control" id="txtOTP" placeholder="">
-			</div>
-      <button type="submit" class="btn btn-primary">Send</button>
-    </div>
-  </div>
-</form>
+<div class="auth-container">
+  <form action="" method="POST" id="formRegister">
+      <div class="card mx-auto login-form">
+        <div class="card-body">
+       	  <h1>OTP</h1> 
+          {{#if err_message}}
+          <div class="alert alert-danger" role="alert">{{err_message}}</div>
+          {{/if}}
+			    <div class="mb-3">
+            <input type="text" name="otp" class="form-control" id="txtOTP" placeholder="">
+			    </div>
+          <button type="submit" class="btn-signup">Send</button>
+        </div>
+      </div>
+  </form>
+	<div class="thumbnail-signup">
+    <h1>Starting your educational path and <span>enjoy!</span></h1>
+	</div>	
+</div>

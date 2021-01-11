@@ -1,0 +1,116 @@
+@import 'config';
+@import 'utilities';
+
+form {
+  width: 40%;
+  position: relative;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  .login-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    
+    border: none;
+  }
+
+  .btn-group {
+    width: 100%;
+    margin-bottom: 1em;
+    background-color: $thirdary-color;
+
+    .btn-outline-primary {
+      border: none;
+      outline: none;
+    }
+  }
+
+  .mb-3 {
+    label {
+      font-weight: 400;
+    }
+  }
+
+  .btn-login {
+    width: 100%;
+    background-color: $thirdary-color;
+    color: $primary-color;
+    border: solid 1px $thirdary-color;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 1em;
+    outline: none;
+  }
+
+  .btn-login:hover {
+    transform: scale(1.01);
+  }
+
+  .btn-signup {
+    background-color: $danger-color;
+    color: $primary-color;
+    border: solid 1px $danger-color;
+    height: 40px;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 1em;
+    outline: none;
+  }
+
+  .btn-signup:hover {
+    transform: scale(1.01);
+  }
+
+  p {
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+
+    a {
+      color: $danger-color;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: $danger-color;
+    }
+  }
+}
+
+.thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100vh;
+  background-color: $thirdary-color;
+
+  h1 {
+    width: 80%;
+    color: $primary-color;
+    font-size: 50px;
+  }
+}
+
+.thumbnail-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100vh;
+  background-color: $danger-color;
+
+  h1 {
+    width: 80%;
+    color: $primary-color;
+    font-size: 50px;
+  }
+}
+

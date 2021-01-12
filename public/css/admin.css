@@ -191,6 +191,7 @@ body {
 
 .table {
   margin: auto;
+  position: relative;
 }
 
 .form {
@@ -215,6 +216,19 @@ body {
   font-size: 3em;
   width: 80%;
   font-weight: bold;
+}
+
+.subCategories-section, .detail-section {
+  margin-top: 0.5em;
+  position: absolute;
+}
+
+.detail-section {
+  background-color: #f0f0f0;
+}
+
+.subCategories-section {
+  width: 70%;
 }
 
 /*# sourceMappingURL=admin.css.map */

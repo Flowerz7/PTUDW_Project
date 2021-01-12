@@ -1,0 +1,154 @@
+$main-color : #0e6cff;
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.btn, button{
+    background-color: $main-color;
+}
+
+b{
+    font-weight: 550;
+}
+
+.navbar{
+    position: sticky;
+    z-index: 1;
+    box-shadow: 0em .2em .2em rgba(0,0,0,.2);
+
+    .navbar-brand{
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: $main-color;
+    }
+}
+
+#navbarMenu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-left: 1em;
+
+    .navbar-nav{
+        li.nav-item{
+            margin-right: .5em;
+            .nav-link{
+                color: black;
+
+                &:hover{
+                    color: $main-color;
+                }
+            }
+        }
+    }
+}
+
+.dropdown-item{
+    a{
+        color: black;
+        text-decoration: none;
+
+        &:hover{
+            color: $main-color;
+        }
+    }
+
+    .card{
+        border: 1px solid rgba(0,0,0,.15);
+
+        .card-body{
+            display: flex;
+            flex-direction: column;
+
+            a{
+                margin-bottom: .5em;
+            }
+        }
+    }
+}
+
+form{
+    display: flex;
+    width: 50%;
+
+    button{
+        margin-left: .5em;
+    }
+}
+
+.auth-control{
+    button{
+        margin-left: .5em;
+    }
+
+    a{
+        text-decoration: none;
+    }
+}
+
+.dropdown-menu{
+    position: relative;
+}
+.subcate-section{
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0%;
+    background-color: white;
+}
+
+.carousel-container{
+    display: flex;
+    align-items: center;
+    margin: 2em 0em;
+}
+
+.carousel-item{
+    height: 350px;
+}
+
+#carouselExampleIndicators{
+    width: 65%;
+    box-shadow: .2em .2em .2em rgba(0,0,0,.2);
+}
+
+.section-title{
+    margin-left: 1em;
+
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title-sm{
+    margin-left:.2em;
+
+    font-size: 2rem;
+    font-weight: 700;
+    color: black;
+}
+
+.course-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .7em;
+    margin-bottom: 2em;
+
+    img{
+        width: 250px;
+        height: auto;
+        cursor: pointer;
+    }
+
+    .card{
+        margin-right: .4em;
+        box-shadow: .1em .1em .2em rgba(0,0,0,.2);
+    }
+}

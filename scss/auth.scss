@@ -1,18 +1,23 @@
 @import 'config';
 @import 'utilities';
 @import 'buttons';
+@import 'mobile';
 
 form {
-  width: 40%;
+  width: 500px;
   position: relative;
+  flex-shrink: 0;
 
   h1 {
     text-align: center;
     margin-bottom: 1em;
+    font-size: 30px;
   }
   
   .login-form {
+    padding: 1em;
     position: absolute;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -58,9 +63,9 @@ form {
 
 .thumbnail {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  width: 60%;
   height: 100vh;
   background-color: $thirdary-color;
 
@@ -73,9 +78,9 @@ form {
 
 .thumbnail-signup {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  width: 60%;
   height: 100vh;
   background-color: $danger-color;
 
@@ -85,4 +90,3 @@ form {
     font-size: 50px;
   }
 }
-

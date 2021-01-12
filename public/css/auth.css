@@ -1,5 +1,6 @@
 body {
   line-height: 1.6em;
+  box-sizing: border-box;
 }
 
 a {
@@ -18,21 +19,161 @@ li {
 
 .auth-container {
   display: flex;
+  justify-content: start;
+  align-items: center;
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
+.table-container {
+  background-color: #fff;
+  width: 70%;
+  margin: auto;
+  margin-top: 2em;
+  padding: 1em;
+  border-radius: 12px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 80%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.form-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  margin-top: 2em;
+}
+
+footer {
+  margin-top: 50px;
+  background-color: #ff8700;
+  height: 100px;
+  width: 100%;
+}
+
+.btn-login {
+  width: 100%;
+  background-color: #0e6cff;
+  color: #fff;
+  border: solid 1px #0e6cff;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 1em;
+  outline: none;
+}
+
+.btn-login:hover {
+  transform: scale(1.01);
+}
+
+.cancel {
+  display: block;
+  color: #fff;
+  text-align: center;
+  padding-top: 5px;
+  width: 100%;
+  background-color: #FF393A;
+  border: solid 1px #FF393A;
+  height: 40px;
+  border-radius: 5px;
+  margin: 1em 0;
+  outline: none;
+}
+
+.cancel:hover {
+  transform: scale(1.01);
+  color: #fff;
+}
+
+.btn-signup {
+  background-color: #ff8700;
+  color: #fff;
+  border: solid 1px #ff8700;
+  height: 40px;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 1em;
+  outline: none;
+}
+
+.btn-signup:hover {
+  transform: scale(1.01);
+}
+
+@media (max-width: 1100px) {
+  .navbar-container {
+    position: relative;
+  }
+  .navbar-container .toggle-button {
+    display: inline-block;
+  }
+  .navbar-container .features {
+    background-color: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: absolute;
+    border-radius: 10px;
+    padding: 0;
+    top: 70px;
+    width: 100%;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+  }
+  .navbar-container .features li {
+    display: block;
+    padding: 0;
+    margin: 0.5em auto;
+    text-align: center;
+  }
+  .navbar-container .features li:hover {
+    background-color: #ffb766;
+  }
+  .navbar-container .features li:hover a {
+    color: #000;
+  }
+  .navbar-container .features.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: translateY(0px);
+  }
+}
+@media (max-width: 800px) {
+  .showcase {
+    width: 0;
+  }
+  .showcase h1 {
+    display: none;
+  }
+
+  .form {
+    width: 100%;
+  }
+}
 form {
-  width: 40%;
+  width: 500px;
   position: relative;
+  flex-shrink: 0;
 }
 form h1 {
   text-align: center;
   margin-bottom: 1em;
+  font-size: 30px;
 }
 form .login-form {
+  padding: 1em;
   position: absolute;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -51,48 +192,6 @@ form .btn-group .btn-outline-primary {
 form .mb-3 label {
   font-weight: 400;
 }
-form .btn-login {
-  width: 100%;
-  background-color: #0e6cff;
-  color: #fff;
-  border: solid 1px #0e6cff;
-  height: 40px;
-  border-radius: 5px;
-  margin-top: 1em;
-  outline: none;
-}
-form .btn-login:hover {
-  transform: scale(1.01);
-}
-form .cancel {
-  display: block;
-  color: #fff;
-  text-align: center;
-  padding-top: 5px;
-  width: 100%;
-  background-color: #FF393A;
-  border: solid 1px #FF393A;
-  height: 40px;
-  border-radius: 5px;
-  margin-top: 1em;
-  outline: none;
-}
-form .cancel:hover {
-  transform: scale(1.01);
-}
-form .btn-signup {
-  background-color: #ff8700;
-  color: #fff;
-  border: solid 1px #ff8700;
-  height: 40px;
-  border-radius: 5px;
-  width: 100%;
-  margin-top: 1em;
-  outline: none;
-}
-form .btn-signup:hover {
-  transform: scale(1.01);
-}
 form p {
   width: 100%;
   text-align: center;
@@ -109,9 +208,9 @@ form p a:hover {
 
 .thumbnail {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  width: 60%;
   height: 100vh;
   background-color: #0e6cff;
 }
@@ -123,9 +222,9 @@ form p a:hover {
 
 .thumbnail-signup {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  width: 60%;
   height: 100vh;
   background-color: #ff8700;
 }

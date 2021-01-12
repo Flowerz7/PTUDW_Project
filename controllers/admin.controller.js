@@ -239,40 +239,12 @@ export const updateCategory = async (req, res) => {
 };
 
 export const handle_students_get = async (req, res) => {
-  const students = await Student.find({}, "username email");
+  const students = await Student.find().lean();
 
-  const studentsHBS = [];
-
-  for (let i = 0; i < students.length; i++) {
-    const username = students[i].username;
-    const order = i + 1;
-    const email = students[i].email;
-    const studentID = students[i]._id;
-
-    studentsHBS.push({
-      username,
-      order,
-      email,
-      studentID,
-    });
-  }
   res.render("vwAdmin/students", {
     layout: "admin.hbs",
     title: "Project | Students",
-    students: studentsHBS,
-  });
-};
-
-export const handle_detail_student_get = async (req, res) => {
-  const { studentID } = req.body;
-
-  const student = await Student.findOne({ _id: studentID });
-
-  console.log(`Student detail: ${JSON.stringify(student)}`);
-
-  res.render("vwAdmin/studentDetail", {
-    title: "Project | Student detail",
-    layout: "admin.hbs",
+    students: students,
   });
 };
 
@@ -285,27 +257,12 @@ export const handle_delete_student_post = async (req, res) => {
 };
 
 export const handle_teachers_get = async (req, res) => {
-  const teachers = await Teacher.find({}, "username email");
+  const teachers = await Teacher.find().lean()
 
-  const teachersHBS = [];
-
-  for (let i = 0; i < teachers.length; i++) {
-    const username = teachers[i].username;
-    const order = i + 1;
-    const email = teachers[i].email;
-    const teacherID = teachers[i]._id;
-
-    teachersHBS.push({
-      username,
-      order,
-      email,
-      teacherID,
-    });
-  }
   res.render("vwAdmin/teachers", {
     layout: "admin.hbs",
     title: "Project | Teacher",
-    teachers: teachersHBS,
+    teachers: teachers,
   });
 };
 
@@ -315,19 +272,6 @@ export const handle_delete_teacher_post = async (req, res) => {
   await Teacher.deleteOne({ _id: teacherID });
 
   res.redirect("/admin/teachers");
-};
-
-export const handle_detail_teacher_get = async (req, res) => {
-  const { teacherID } = req.body;
-
-  const teacher = await Teacher.findOne({ _id: teacherID });
-
-  console.log(`Teacher detail: ${JSON.stringify(teacher)}`);
-
-  res.render("vwAdmin/teacherDetail", {
-    title: "Project | Teacher detail",
-    layout: "admin.hbs",
-  });
 };
 
 export const handle_add_teacher_get = (req, res) => {

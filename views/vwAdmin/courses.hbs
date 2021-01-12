@@ -16,7 +16,7 @@
         <td>{{title}}</td>
         <td>
           <form style="display: inline-block;" action="/admin/courses/delete" method="post">
-            <input type="hidden" name="courseID" value="{{courseID}}">
+            <input type="hidden" name="courseID" value="{{_id}}">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
           </form>
           <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>

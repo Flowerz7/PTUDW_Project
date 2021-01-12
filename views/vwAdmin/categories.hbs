@@ -12,7 +12,7 @@
       <tbody>
         {{#each categories}}
           <tr>
-            <th scope="row">{{@index}}</th>
+            <th scope="row">{{inc @index}}</th>
             <td>{{name}}</td>
             <td>
               <a href="/admin/category/{{name}}" class="btn btn-sm btn-primary detail-btn">Detail</a>
@@ -32,7 +32,7 @@
                     <tbody>
                       {{#each subCategories}}
                         <tr>
-                          <th scope="row">{{@index}}</th>
+                          <th scope="row">{{inc @index}}</th>
                           <td>{{name}}</td>
                           <td>
                             <a href="/admin/subCategory/{{name}}" class="btn btn-sm btn-primary detail-subcategory-btn">Detail</a>

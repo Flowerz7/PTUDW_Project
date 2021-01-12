@@ -39,6 +39,15 @@ li {
   margin: auto;
 }
 
+.form-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  margin-top: 2em;
+}
+
 footer {
   margin-top: 1em;
   background-color: #ff8700;
@@ -117,7 +126,7 @@ body {
   font-weight: 800;
   padding-bottom: 15px;
   letter-spacing: 0.05em;
-  color: #ff8700;
+  color: #0e6cff;
 }
 .navbar-container a {
   color: #000;
@@ -125,7 +134,7 @@ body {
   font-size: 1.2em;
 }
 .navbar-container a:hover {
-  color: #ff8700;
+  color: #0e6cff;
 }
 .navbar-container li {
   display: inline-block;
@@ -163,7 +172,7 @@ body {
   text-align: center;
 }
 .navbar-container .dropdown-list ul li:hover {
-  background-color: #ffb766;
+  background-color: #74aaff;
 }
 .navbar-container .dropdown-list:hover ul {
   opacity: 1;
@@ -186,7 +195,7 @@ body {
   font-weight: bold;
 }
 .welcome h1 span {
-  color: #ff8700;
+  color: #0e6cff;
 }
 
 .table {
@@ -217,4 +226,9 @@ body {
   font-weight: bold;
 }
 
-/*# sourceMappingURL=admin.css.map */
+footer {
+  background-color: #0e6cff;
+  margin-top: 2em;
+}
+
+/*# sourceMappingURL=teacher.css.map */

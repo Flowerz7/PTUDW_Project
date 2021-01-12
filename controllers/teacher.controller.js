@@ -1,8 +1,18 @@
 import Teacher from "../models/teachers.model.js";
 import Course from "../models/courses.model.js";
 import Category from "../models/categories.model.js";
-import SubCategory from '../models/subCategory.model.js'
+import SubCategory from "../models/subCategory.model.js";
 import multer from "multer";
+
+export const handle_welcome_get = (req, res) => {
+  const name = req.session.name;
+
+  res.render("vwTeacher/welcome", {
+    layout: "teacher.hbs",
+    title: "Project | Welcome",
+    name,
+  });
+};
 
 export const handle_teacher_page_get = async (req, res) => {
   const username = req.session.username;
@@ -47,8 +57,8 @@ export const handle_add_course_get = async (req, res) => {
   const username = req.session.username;
   const teacher = await Teacher.findOne({ username: username }, "_id").exec();
 
-  const subcategories = await SubCategory.find().lean()
-  const subcategoryNames = subcategories.map(value => value.name)
+  const subcategories = await SubCategory.find().lean();
+  const subcategoryNames = subcategories.map((value) => value.name);
 
   res.render("vwTeacher/addCourse", {
     title: "Project | Add course",
@@ -89,7 +99,7 @@ export const handle_add_course_post = async (req, res) => {
       const newCourse = new Course({
         teacherID,
         title,
-        view : 0,
+        view: 0,
         avatarLink: req.file.filename,
         price,
         category,
@@ -101,10 +111,10 @@ export const handle_add_course_post = async (req, res) => {
 
       await newCourse.save();
 
-      const subcate = await SubCategory.findOne({name : category})
-      subcate.numOfCourses += 1
+      const subcate = await SubCategory.findOne({ name: category });
+      subcate.numOfCourses += 1;
 
-      await subcate.save()
+      await subcate.save();
 
       res.redirect(`/teacher/upload/${newCourse._id}`);
     }
@@ -161,7 +171,7 @@ export const handle_upload_videos_post = (req, res) => {
       await Course.updateOne(
         { _id: courseID },
         { $push: { videos: newVideo } }
-      )
+      );
 
       res.redirect(`/teacher/upload/${courseID}`);
     }

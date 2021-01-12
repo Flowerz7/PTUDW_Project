@@ -70,7 +70,7 @@ export const handle_login_post = async (req, res) => {
         { username: username },
         "password name username"
       ).exec();
-      url = "/teacher";
+      url = "/teacher/welcome";
       break;
     case "admin":
       user = await Admin.findOne(
@@ -317,7 +317,7 @@ export const handle_change_personal_info_post = async (req, res) => {
         { username: username },
         { name: newName, email: newEmail }
       );
-      url = "/teacher";
+      url = "/teacher/welcome";
       break;
     case "admin":
       await Admin.findOneAndUpdate(

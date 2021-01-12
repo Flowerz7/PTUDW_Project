@@ -24,7 +24,7 @@ body {
     font-weight: 800;
     padding-bottom: 15px;
     letter-spacing: 0.05em;
-    color: $danger-color;
+    color: $thirdary-color;
   }
 
   a {
@@ -34,7 +34,7 @@ body {
   }
 
   a:hover {
-    color: $danger-color;
+    color: $thirdary-color;
   }
 
   li {
@@ -76,7 +76,7 @@ body {
       }
 
       li:hover {
-        background-color: lighten($danger-color, 20);
+        background-color: lighten($thirdary-color, 20);
       }
     }
   }
@@ -103,7 +103,7 @@ body {
     font-weight: bold;
 
     span {
-      color: $danger-color;
+      color: $thirdary-color;
     }
   }
 }
@@ -136,5 +136,10 @@ body {
     width: 80%;
     font-weight: bold;
   }
+}
+
+footer {
+  background-color: $thirdary-color;
+  margin-top: 2em;
 }
 

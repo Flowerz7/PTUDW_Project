@@ -20,6 +20,15 @@
   margin: auto;
 }
 
+.form-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;  
+  margin: auto;
+  margin-top: 2em;
+}
+
 footer {
   margin-top: 1em;
   background-color: $danger-color;

@@ -5,6 +5,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 import * as teacher from "../../controllers/teacher.controller.js";
 
+router.route("/welcome").get(teacher.handle_welcome_get);
+
 router.route("/").get(teacher.handle_teacher_page_get);
 
 router.route("/add").get(teacher.handle_add_course_get);

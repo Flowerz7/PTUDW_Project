@@ -6,9 +6,12 @@ import SubCategory from "../models/subCategory.model.js";
 import bcrypt from "bcryptjs";
 
 export const handle_admin_get = (req, res) => {
+  const name = req.session.name;
+
   res.render("vwAdmin/dashboard", {
     layout: "admin.hbs",
     title: "Project | Dashboard",
+    name,
   });
 };
 
@@ -53,23 +56,23 @@ export const handle_detail_course_get = async (req, res) => {
 
 export const handle_delete_course_post = async (req, res) => {
   const { courseID } = req.body;
-  const course = await Course.findById(courseID)
-  
-  const subcategory = await SubCategory.findOne({name : course.category})
-  subcategory.numOfCourses -= 1
-  await subcategory.save()
+  const course = await Course.findById(courseID);
 
-  await course.remove()
+  const subcategory = await SubCategory.findOne({ name: course.category });
+  subcategory.numOfCourses -= 1;
+  await subcategory.save();
+
+  await course.remove();
   res.redirect("/admin/courses");
 };
 
 export const getAllCategories = async (req, res) => {
-  const categories = await Category.find().populate('subCategories').lean();
+  const categories = await Category.find().populate("subCategories").lean();
 
   res.render("vwAdmin/categories", {
     layout: "admin.hbs",
     title: "Project | Categories",
-    categories : [...categories]
+    categories: [...categories],
   });
 };
 
@@ -94,83 +97,86 @@ export const isSubCategoryExist = async (req, res) => {
 };
 
 export const addSubCategory = async (req, res) => {
-  const {name , parentName, detail} = req.body
-  const parentCategory = await Category.findOne({name : parentName}).lean()
+  const { name, parentName, detail } = req.body;
+  const parentCategory = await Category.findOne({ name: parentName }).lean();
 
   const newSubCategory = new SubCategory({
-    name : name,
-    detail : detail,
-    subscribe : 0,
-    numOfCourses : 0,
-    parent : parentCategory._id
-  })
+    name: name,
+    detail: detail,
+    subscribe: 0,
+    numOfCourses: 0,
+    parent: parentCategory._id,
+  });
 
-  await newSubCategory.save()
+  await newSubCategory.save();
 
-  const subCate = await SubCategory.findOne({name}).lean()
+  const subCate = await SubCategory.findOne({ name }).lean();
 
-  const parent = await Category.findOne({name : parentName})
-  parent.subCategories = [...parent.subCategories, subCate._id]
-  await parent.save()
+  const parent = await Category.findOne({ name: parentName });
+  parent.subCategories = [...parent.subCategories, subCate._id];
+  await parent.save();
 
   res.redirect("/admin/categories");
-}
+};
 
 export const deleteSubCategory = async (req, res) => {
-  const {name} = req.body
-  const subCate = await SubCategory.findOne({name}).lean()
+  const { name } = req.body;
+  const subCate = await SubCategory.findOne({ name }).lean();
 
-  const parentID = subCate.parent
-  const parent = await Category.findById(parentID)
-  const index = parent.subCategories.indexOf(subCate._id)
-  if (index > -1) parent.subCategories.splice(index, 1)
-  await parent.save()
+  const parentID = subCate.parent;
+  const parent = await Category.findById(parentID);
+  const index = parent.subCategories.indexOf(subCate._id);
+  if (index > -1) parent.subCategories.splice(index, 1);
+  await parent.save();
 
-  await SubCategory.findOneAndDelete({name})
+  await SubCategory.findOneAndDelete({ name });
 
   res.redirect("/admin/categories");
-} 
+};
 
 export const getSubCategoryForUpdate = async (req, res) => {
-  const name = req.query.name
-  const subCate = await SubCategory.findOne({name}).lean()
+  const name = req.query.name;
+  const subCate = await SubCategory.findOne({ name }).lean();
 
-  const categories = await Category.find().lean()
-  const names = categories.map((value) => value.name)
+  const categories = await Category.find().lean();
+  const names = categories.map((value) => value.name);
 
   res.render("vwAdmin/updateSubcategory", {
     layout: "admin.hbs",
     title: "Project | Update Subcategory",
-    categories : [...names],
-    ...subCate
+    categories: [...names],
+    ...subCate,
   });
-}
+};
 
 export const updateSubCategory = async (req, res) => {
-  const {name , parentName, detail} = req.body
+  const { name, parentName, detail } = req.body;
 
-  const subCate = await SubCategory.findOne({name})
-  const oldParent = await Category.findById(subCate.parent)
+  const subCate = await SubCategory.findOne({ name });
+  const oldParent = await Category.findById(subCate.parent);
 
-  if (oldParent.name != parentName){
-    oldParent.subCategories.splice(oldParent.subCategories.indexOf(subCate._id), 1)
-    await oldParent.save()
+  if (oldParent.name != parentName) {
+    oldParent.subCategories.splice(
+      oldParent.subCategories.indexOf(subCate._id),
+      1
+    );
+    await oldParent.save();
 
-    const newParent = await Category.findOne({name : parentName})
-    newParent.subCategories = [...newParent.subCategories, subCate._id]
+    const newParent = await Category.findOne({ name: parentName });
+    newParent.subCategories = [...newParent.subCategories, subCate._id];
 
-    subCate.parent = newParent._id
+    subCate.parent = newParent._id;
 
-    await newParent.save()
+    await newParent.save();
   }
-  
-  subCate.name = name
-  subCate.detail = detail
 
-  await subCate.save()
+  subCate.name = name;
+  subCate.detail = detail;
+
+  await subCate.save();
 
   res.redirect("/admin/categories");
-}
+};
 
 export const addCategory = async (req, res) => {
   const { name, detail } = req.body;
@@ -178,8 +184,8 @@ export const addCategory = async (req, res) => {
   const newCategory = new Category({
     name: name,
     detail: detail,
-    subscribe : 0,
-    subCategories : []
+    subscribe: 0,
+    subCategories: [],
   });
 
   await newCategory.save();
@@ -189,68 +195,71 @@ export const addCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   const { name } = req.body;
-  const cate = await Category.findOne({ name: name }).populate('subCategories').lean();
+  const cate = await Category.findOne({ name: name })
+    .populate("subCategories")
+    .lean();
 
-  var canBeDeleted = true
+  var canBeDeleted = true;
   cate.subCategories.map((item) => {
-    if (item.numOfCourses !== 0){
-      canBeDeleted = false
+    if (item.numOfCourses !== 0) {
+      canBeDeleted = false;
     }
-  })
+  });
 
-  if (canBeDeleted === true){
+  if (canBeDeleted === true) {
     await cate.subCategories.map(async (item) => {
-      await SubCategory.deleteOne({name : item.name})
-    })
+      await SubCategory.deleteOne({ name: item.name });
+    });
 
-    await Category.deleteOne({ name: name })
+    await Category.deleteOne({ name: name });
 
-    res.json({isSuccess : true})
-  }
-  else {
-    res.json({isSuccess : false})
+    res.json({ isSuccess: true });
+  } else {
+    res.json({ isSuccess: false });
   }
 };
 
 export const getAddSubcategoryView = async (req, res) => {
-  const categories = await Category.find().lean()
-  const names = categories.map((value) => value.name)
+  const categories = await Category.find().lean();
+  const names = categories.map((value) => value.name);
 
-  res.render('vwAdmin/addSubcategory', {
-    layout : 'admin.hbs',
-    title : 'Project | Add Category',
-    names : [...names]
-  })
-}
+  res.render("vwAdmin/addSubcategory", {
+    layout: "admin.hbs",
+    title: "Project | Add Category",
+    names: [...names],
+  });
+};
 
 export const getAddCategoryView = (req, res) => {
-  res.render('vwAdmin/addCategory', {
-    layout : 'admin.hbs',
-    title : 'Project | Add Category',
-  })
-}
+  res.render("vwAdmin/addCategory", {
+    layout: "admin.hbs",
+    title: "Project | Add Category",
+  });
+};
 
 export const getCategoryForUpdate = async (req, res) => {
   const name = req.query.name;
 
-  const category = await Category.findOne({name}).populate('subCategories').lean()
+  const category = await Category.findOne({ name })
+    .populate("subCategories")
+    .lean();
 
   res.render("vwAdmin/updateCategory", {
     layout: "admin.hbs",
     title: "Project | Update Category",
-    ...category
+    ...category,
   });
 };
 
 export const updateCategory = async (req, res) => {
   const { name, detail } = req.body;
 
-  const category = await Category.findOne({name})
+  const category = await Category.findOne({ name });
 
-  category.name = name
-  category.detail = detail
+  category.name = name;
+  category.detail = detail;
 
-  await category.save()
+  await category.save();
 
   res.redirect("/admin/categories");
 };

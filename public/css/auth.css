@@ -6,6 +6,10 @@ a {
   text-decoration: none;
 }
 
+li {
+  list-style-type: none;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -38,7 +42,7 @@ form .login-form {
 form .btn-group {
   width: 100%;
   margin-bottom: 1em;
-  background-color: #044BD9;
+  background-color: #0e6cff;
 }
 form .btn-group .btn-outline-primary {
   border: none;
@@ -49,9 +53,9 @@ form .mb-3 label {
 }
 form .btn-login {
   width: 100%;
-  background-color: #044BD9;
+  background-color: #0e6cff;
   color: #fff;
-  border: solid 1px #044BD9;
+  border: solid 1px #0e6cff;
   height: 40px;
   border-radius: 5px;
   margin-top: 1em;
@@ -60,10 +64,26 @@ form .btn-login {
 form .btn-login:hover {
   transform: scale(1.01);
 }
-form .btn-signup {
-  background-color: #F27405;
+form .cancel {
+  display: block;
   color: #fff;
-  border: solid 1px #F27405;
+  text-align: center;
+  padding-top: 5px;
+  width: 100%;
+  background-color: #FF393A;
+  border: solid 1px #FF393A;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 1em;
+  outline: none;
+}
+form .cancel:hover {
+  transform: scale(1.01);
+}
+form .btn-signup {
+  background-color: #ff8700;
+  color: #fff;
+  border: solid 1px #ff8700;
   height: 40px;
   border-radius: 5px;
   width: 100%;
@@ -79,12 +99,12 @@ form p {
   margin-top: 1em;
 }
 form p a {
-  color: #F27405;
+  color: #ff8700;
   font-weight: bold;
 }
 form p a:hover {
   text-decoration: underline;
-  color: #F27405;
+  color: #ff8700;
 }
 
 .thumbnail {
@@ -93,7 +113,7 @@ form p a:hover {
   align-items: center;
   width: 60%;
   height: 100vh;
-  background-color: #044BD9;
+  background-color: #0e6cff;
 }
 .thumbnail h1 {
   width: 80%;
@@ -107,7 +127,7 @@ form p a:hover {
   align-items: center;
   width: 60%;
   height: 100vh;
-  background-color: #F27405;
+  background-color: #ff8700;
 }
 .thumbnail-signup h1 {
   width: 80%;

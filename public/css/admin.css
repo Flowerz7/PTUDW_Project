@@ -1,0 +1,112 @@
+body {
+  line-height: 1.6em;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background-color: #0e6cff;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  height: 100px;
+  color: #fff;
+}
+.navbar-container .brand-text {
+  font-size: 2em;
+  font-weight: 500;
+  padding-bottom: 12px;
+}
+.navbar-container a {
+  color: #fff;
+  font-size: 1.2em;
+}
+.navbar-container a:hover {
+  color: #ff8700;
+}
+.navbar-container li {
+  display: inline-block;
+  padding: 0 1.5em;
+}
+.navbar-container .dropdown-list {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100px;
+}
+.navbar-container .dropdown-list ul {
+  position: absolute;
+  background-color: white;
+  left: -60px;
+  top: 60px;
+  padding: 0;
+  width: 200px;
+  margin-top: 1em;
+  border-radius: 5px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+}
+.navbar-container .dropdown-list ul a {
+  color: black;
+  font-size: 16px;
+}
+.navbar-container .dropdown-list ul li {
+  display: block;
+  padding: 0.5em;
+  text-align: center;
+}
+.navbar-container .dropdown-list ul li:hover {
+  background-color: #74aaff;
+}
+.navbar-container .dropdown-list:hover ul {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transform: translateY(0px);
+}
+
+.welcome {
+  width: 80%;
+  height: 70vh;
+  margin: auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.welcome h1 {
+  font-size: 4em;
+  width: 70%;
+  font-weight: bold;
+}
+.welcome h1 span {
+  color: #fff;
+}
+
+/*# sourceMappingURL=admin.css.map */

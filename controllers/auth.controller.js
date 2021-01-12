@@ -4,7 +4,7 @@ import Student from "../models/students.model.js";
 import Teacher from "../models/teachers.model.js";
 import Admin from "../models/admins.model.js";
 
-import { getCategories } from '../controllers/category.controller.js'
+import { getCategories } from "../controllers/category.controller.js";
 
 const sendMailTo = (mailAddress, OTP) => {
   const transporter = nodemailer.createTransport({
@@ -77,7 +77,7 @@ export const handle_login_post = async (req, res) => {
         { username: username },
         "password name username"
       ).exec();
-      url = "/admin/categories";
+      url = "/admin";
       break;
   }
 
@@ -302,6 +302,7 @@ export const handle_change_personal_info_post = async (req, res) => {
   const { newName, newEmail } = req.body;
   const username = req.session.username;
   const role = req.session.role;
+  let url;
 
   switch (role) {
     case "student":
@@ -309,22 +310,25 @@ export const handle_change_personal_info_post = async (req, res) => {
         { username: username },
         { name: newName, email: newEmail }
       );
+      url = "/";
       break;
     case "teacher":
       await Teacher.findOneAndUpdate(
         { username: username },
         { name: newName, email: newEmail }
       );
+      url = "/teacher";
       break;
     case "admin":
       await Admin.findOneAndUpdate(
         { username: username },
         { name: newName, email: newEmail }
       );
+      url = "/admin";
       break;
   }
 
-  res.redirect("/");
+  res.redirect(url);
 };
 
 export const handle_is_available_email_get = async (req, res) => {
@@ -341,11 +345,11 @@ export const handle_is_available_email_get = async (req, res) => {
       break;
     case "teacher":
       isExistEmail = await Teacher.exists({ email: newEmail });
-      info = await Student.findOne({ username: username }, "email").exec();
+      info = await Teacher.findOne({ username: username }, "email").exec();
       break;
     case "admin":
       isExistEmail = await Admin.exists({ email: newEmail });
-      info = await Student.findOne({ username: username }, "email").exec();
+      info = await Admin.findOne({ username: username }, "email").exec();
       break;
   }
 
@@ -359,19 +363,22 @@ export const handle_is_available_email_get = async (req, res) => {
 };
 
 export const getUsername = (req, res) => {
-  res.json({username : req.session.username})
-}
+  res.json({ username: req.session.username });
+};
 
 export const getPersonalProfile = async (req, res) => {
-  const username = req.query.username
+  const username = req.query.username;
 
-  const student = await Student.findOne({username}).populate('watchList').populate('joinedCourses').lean()
+  const student = await Student.findOne({ username })
+    .populate("watchList")
+    .populate("joinedCourses")
+    .lean();
   const props = {
-    ...student
-  }
+    ...student,
+  };
 
-  res.render('vwAccount/profile', props)
-}
+  res.render("vwAccount/profile", props);
+};
 
 export const handle_logout_get = (req, res) => {
   req.session.isAuth = false;

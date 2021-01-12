@@ -1,7 +1,8 @@
 $primary-color: #fff;
 $secondary-color: #000;
-$thirdary-color: #044BD9;
-$danger-color: #F27405;
+$thirdary-color: #0e6cff;
+$danger-color: #ff8700;
+$cancel-color: #FF393A;
 
 
 body {
@@ -10,6 +11,10 @@ body {
 
 a {
   text-decoration: none;
+}
+
+li {
+  list-style-type: none;
 }
 
 * {

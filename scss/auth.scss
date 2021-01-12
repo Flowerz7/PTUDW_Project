@@ -52,6 +52,24 @@ form {
     transform: scale(1.01);
   }
 
+  .cancel {
+    display: block;
+    color: $primary-color;
+    text-align: center;
+    padding-top: 5px;
+    width: 100%;
+    background-color: $cancel-color;
+    border: solid 1px $cancel-color;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 1em;
+    outline: none;
+  }
+
+  .cancel:hover {
+    transform: scale(1.01);
+  }
+
   .btn-signup {
     background-color: $danger-color;
     color: $primary-color;

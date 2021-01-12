@@ -1,0 +1,101 @@
+@import 'config';
+@import 'utilities';
+@import 'buttons';
+
+body {
+  background-color: $thirdary-color;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  height: 100px;
+  color: $primary-color;
+
+  .brand-text {
+    font-size: 2em;
+    font-weight: 500;
+    padding-bottom: 12px;
+  }
+
+  a {
+    color: $primary-color;
+    font-size: 1.2em;
+  }
+
+  a:hover {
+    color: $danger-color;
+  }
+
+  li {
+    display: inline-block;
+    padding: 0 1.5em;
+  }
+
+  .dropdown-list {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100px;
+
+    ul {
+      position: absolute;
+      background-color: white;
+      left: -60px;
+      top: +60px;
+      padding: 0;
+      width: 200px;
+      margin-top: 1em;
+      border-radius: 5px;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.4s ease;
+
+      a {
+        color: black;
+        font-size: 16px;
+      }
+
+      li {
+        display: block;
+        padding: 0.5em;
+        text-align: center;
+      }
+
+      li:hover {
+        background-color: lighten($thirdary-color, 20);
+      }
+    }
+  }
+
+  .dropdown-list:hover ul {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: translateY(0px);
+  }
+}
+
+.welcome {
+  width: 80%;
+  height: 70vh;
+  margin: auto;
+  display: flex;
+  justify-content: start; 
+  align-items: center;
+
+  h1 {
+    font-size: 4em;
+    width: 70%;
+    font-weight: bold;
+
+    span {
+      color: $primary-color;
+    }
+  }
+}

@@ -42,6 +42,15 @@
     </div>
   </div>
 
+  <div class="category-section">
+    <h3>Top Categories</h3>
+    <div class="section-content">
+      {{#each MostSubscribedCategories}}
+        <button class="btn btn-outline-primary category-btn" onclick="window.location='/courses/category/{{name}}'">{{name}}</button>
+      {{/each}}
+    </div>
+  </div>
+
   <div class="course-section">
     <div class="section-title">
       <div>What Is</div>
@@ -53,8 +62,11 @@
         <div class="card">
           <img class="card-img-top" src="images/{{this.avatarLink}}" onclick="window.location='/courses?id={{this._id}}'">
           <div class="card-body">
-            <h6 class="card-title">{{this.title}}</h6>
-            <p class="card-text">{{this.briefDescription}}</p>
+            <h4 class="card-title">{{this.title}}</h4>
+            <p class="card-text">{{category}}</p>
+            <p class="card-text">{{teacherID.name}}</p>
+            <p class="card-text">{{averageReviewPoint}} ({{reviewCount}})</p>
+            <p class="card-text"><b>{{price}}$</b></p>
           </div>
         </div>
       {{/each}}
@@ -63,9 +75,9 @@
 
   <div class="course-section">
     <div class="section-title">
+      <div>Brand</div>
       <div>New</div>
-      <div>Courses</div>
-      <div>Is Coming</div>
+      <div>Breezes</div>
       <button class="btn btn-primary">Show more</button>
     </div>
     <div class="course-container">
@@ -74,23 +86,15 @@
           <img class="card-img-top" src="images/{{this.avatarLink}}" onclick="window.location='/courses?id={{this._id}}'">
           <div class="card-body">
             <h4 class="card-title">{{this.title}}</h4>
-            <p class="card-text">{{this.briefDescription}}</p>
+            <p class="card-text">{{category}}</p>
+            <p class="card-text">{{teacherID.name}}</p>
+            <p class="card-text">{{averageReviewPoint}} ({{reviewCount}})</p>
+            <p class="card-text"><b>{{price}}$</b></p>
           </div>
         </div>
       {{/each}}
     </div>
   </div>
-
-  {{!-- <div class="course-container">
-    {{#each MostSubscribedCategories}}
-      <div class="card" id="{{this._id}}">
-        <div class="card-body">
-          <h4 class="card-title">{{this.name}}</h4>
-          <a href="" class="btn btn-primary">Detail</a>
-        </div>
-      </div>
-    {{/each}}
-  </div> --}}
 </div>
 
 {{#section 'scripts'}}
@@ -110,7 +114,7 @@
       }
       else{
         container.css('overflow', 'hidden')
-        container.css('height', '250px')
+        container.css('height', '270px')
         btn.text('Show more')
         isOverflowContentOfMostViewCoursesVisible = !isOverflowContentOfMostViewCoursesVisible
       }

@@ -56,14 +56,14 @@
 
 .course-container {
   width: 85%;
-  height: 250px;
+  height: 270px;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
 }
 .course-container .card {
   width: 19%;
-  height: 250px;
+  height: 270px;
   margin-right: 0.4em;
   margin-bottom: 0.4em;
   box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.2);
@@ -75,13 +75,60 @@
   cursor: pointer;
   margin: 0 auto;
 }
+.course-container .card h4 {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.course-container .card p {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .course-container .card-title {
   text-align: center;
 }
 .course-container .card-body {
+  margin-top: 1em;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.category-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 3em;
+  background-color: #0e6cff;
+}
+.category-section h3 {
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.4em;
+}
+.category-section .section-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.category-section .section-content .category-btn {
+  background-color: transparent;
+  margin: 0em 0.2em;
+  color: white;
+  border: 1px solid white;
+}
+.category-section .section-content .category-btn:hover {
+  color: #0e6cff;
+  background-color: white;
 }
 
 /*# sourceMappingURL=home.css.map */

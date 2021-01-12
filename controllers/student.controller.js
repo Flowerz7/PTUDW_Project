@@ -81,7 +81,7 @@ export const addToJC = async (req, res) => {
         const subcate = await SubCategory.find({name : course.category})
         subcate.subscribe += 1
 
-        const cate = await Category.findById(subcare._id)
+        const cate = await Category.findById(subcate._id)
         cate.subscribe += 1
 
         await cate.save()

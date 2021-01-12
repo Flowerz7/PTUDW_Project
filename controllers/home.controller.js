@@ -31,7 +31,7 @@ export const loadHome = async (req , res) => {
     
     const milestone = new Date(2021, 0, 1)
     const isCourseNotUpdated = (Math.round(courseContainer.updatedAt - milestone) % 7) === 0
-    const isCategoryNotUpdated = (Math.round(categoryContainer.updatedAt - milestone) & 7 === 0)
+    const isCategoryNotUpdated = (Math.round(categoryContainer.updatedAt - milestone) & 7) === 0
 
     if (isCourseNotUpdated === true){
         const newRemarkableCourses = await Course.aggregate([{ $sample: { size: 4 } }])
@@ -47,9 +47,23 @@ export const loadHome = async (req , res) => {
 
     courseContainer = await RemarkableCourses.findOne().populate('remarkableCourses').lean()
     categoryContainer = await MostSubscribedCategory.findOne().populate('mostSubscribedCategories').lean()
-    
-    const mostViewedCourses = await Course.find().sort({view : -1}).limit(10).lean()
-    const newestCourses = await Course.find().sort({$natural : -1}).limit(10).lean()
+
+    const mostViewedCourses = await Course.find().sort({view : -1}).limit(10).populate('teacherID').lean()
+    const newestCourses = await Course.find().sort({$natural : -1}).limit(10).populate('teacherID').lean()
+
+    mostViewedCourses.forEach((item) => {
+        item.reviewCount = item.reviewList.length
+        item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+            return accumulator + item.numOfStar
+        }, 0) / item.reviewList.length) || 0
+    })
+
+    newestCourses.forEach((item) => {
+        item.reviewCount = item.reviewList.length
+        item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+            return accumulator + item.numOfStar
+        }, 0) / item.reviewList.length) || 0
+    })
 
     const categories = await getCategories()
 

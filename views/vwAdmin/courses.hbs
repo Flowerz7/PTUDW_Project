@@ -6,26 +6,28 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
-      <th scope="col">Number of students</th>
       <th scope="col">Handle</th>
     </tr>
   </thead>
   <tbody>
     {{#each this.courses}} 
       <tr>
-        <th scope="row">{{order}}</th>
+        <th scope="row">{{inc @index}}</th>
         <td>{{title}}</td>
-        <td>{{numOfStudent}}</td>
         <td>
           <form style="display: inline-block;" action="/admin/courses/delete" method="post">
             <input type="hidden" name="courseID" value="{{courseID}}">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
           </form>
-          <form style="display: inline-block;" action="/admin/courses/detail"
-            method="post">
-            <input type="hidden" name="courseID" value="{{courseID}}">
-            <button type="submit" class="btn btn-sm btn-primary">Detail</button>
-          </form>
+          <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>
+          <div class="detail-section" style="display: none;">
+            <div>{{title}}</div>
+            <div>{{teacherID.username}}</div>
+            <div>{{view}}</div>
+            <div>{{price}}</div>
+            <div>{{numOfStudent}}</div>
+            <div>{{category}}</div>
+          </div>
         </td>
       </tr>
     {{/each}}
@@ -33,3 +35,22 @@
 </table>
   </div>
 </div>
+
+{{#section 'scripts'}}
+<script>
+  $(document).ready(() => {
+    var isDetailSectionVisible = false
+    $('.detail-btn').click((e) => {
+      e.preventDefault()
+      if (isDetailSectionVisible == false){
+        $(e.target).siblings('.detail-section').css('display', 'block')
+      }
+      else {
+        $(e.target).siblings('.detail-section').css('display', 'none')
+      }
+
+      isDetailSectionVisible = !isDetailSectionVisible
+    })
+  })
+</script>
+{{/section}}

@@ -13,28 +13,12 @@ export const handle_admin_get = (req, res) => {
 };
 
 export const handle_courses_get = async (req, res) => {
-  const courses = await Course.find({}, "title numOfStudent");
-
-  const coursesHBS = [];
-
-  for (let i = 0; i < courses.length; i++) {
-    const title = courses[i].title;
-    const order = i + 1;
-    const numOfStudent = courses[i].numOfStudent;
-    const courseID = courses[i]._id;
-
-    coursesHBS.push({
-      title,
-      order,
-      numOfStudent,
-      courseID,
-    });
-  }
+  const courses = await Course.find().populate('teacherID').lean()
 
   res.render("vwAdmin/courses", {
     layout: "admin.hbs",
     title: "Project | Courses",
-    courses: coursesHBS,
+    courses: courses,
   });
 };
 
@@ -43,11 +27,10 @@ export const handle_detail_course_get = async (req, res) => {
 
   const course = await Course.findOne({ _id: courseID });
 
-  console.log(`Course detail: ${JSON.stringify(course)}`);
-
   res.render("vwAdmin/courseDetail", {
     title: "Project | Course detail",
     layout: "admin.hbs",
+    ...course
   });
 };
 

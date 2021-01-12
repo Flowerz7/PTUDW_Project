@@ -50,14 +50,13 @@
 
                 <div class="card-footer text-muted">
                   <a href="/admin/subCategories/add" class="btn-sm btn btn-primary add-subcategory-btn">Add subcategory</a>
-                  <a class="btn-sm btn btn-danger close-btn">Close</a>
                 </div>
               </div>
 
               <div class="card detail-section" style="display: none;">
                 <div class="card-body">
-                  <div>{{name}}]</div>
-                  <div>{{detail}}]</div>
+                  <div>{{name}}</div>
+                  <div>{{detail}}</div>
                   <div>{{subscribe}}</div>
                 </div>
               </div>
@@ -76,19 +75,30 @@
   <script>
     $(document).ready(() => {
       //#region UI cripts
+      var isSubcategorySectionVisible = false
       $('.view-btn').click((e) => {
         e.preventDefault()
-        $(e.target).siblings('.subCategories-section').css('display', 'block')
+        if (isSubcategorySectionVisible == false){
+          $(e.target).siblings('.subCategories-section').css('display', 'block')
+        }
+        else{
+          $(e.target).siblings('.subCategories-section').css('display', 'none')
+        }
+
+        isSubcategorySectionVisible = !isSubcategorySectionVisible
       })
 
-      $('.close-btn').click((e) => {
-        e.preventDefault()
-        $('.subCategories-section').css('display', 'none')
-      })
-
+      var isDetailSectionVisible = false
       $('.detail-btn').click((e) => {
         e.preventDefault()
-        $(e.target).siblings('.detail-section'.css('display', 'block'))
+        if (isDetailSectionVisible == false){
+          $(e.target).siblings('.detail-section').css('display', 'block')
+        }
+        else{
+          $(e.target).siblings('.detail-section').css('display', 'none')
+        }
+
+        isDetailSectionVisible = !isDetailSectionVisible
       })
       //#endregion
 

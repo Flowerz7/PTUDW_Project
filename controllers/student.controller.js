@@ -43,6 +43,10 @@ export const removeFromWatchList = async (req, res) => {
 }
 
 export const checkWatchList = async (req, res) => {
+    if (req.session.isAuth === false) {
+        res.json({isInWatchList : false})
+    }
+
     const username = req.query.username
     const courseID = req.query.id
 
@@ -59,6 +63,10 @@ export const checkWatchList = async (req, res) => {
 }
 
 export const checkJoinedCourses = async (req, res) => {
+    if (req.session.isAuth === false) {
+        res.json({isJoined : false})
+    }
+
     const username = req.query.username
     const courseID = req.query.id
 
@@ -72,16 +80,16 @@ export const addToJC = async (req, res) => {
     const { username, course_id } = req.body
 
     try{
-        const user = await Student.findOne({ username })
+        const user = await Student.findOne({ username : username })
         const course = await Course.findById(course_id)
         
         user.joinedCourses = [...user.joinedCourses, course]
         course.numOfStudent += 1
 
-        const subcate = await SubCategory.find({name : course.category})
+        const subcate = await SubCategory.findOne({name : course.category})
         subcate.subscribe += 1
 
-        const cate = await Category.findById(subcate._id)
+        const cate = await Category.findById(subcate.parent)
         cate.subscribe += 1
 
         await cate.save()
@@ -92,6 +100,7 @@ export const addToJC = async (req, res) => {
         res.json({isSuccess : true})
     }
     catch (e) {
+        console.log(e)
         res.json({isSuccess : false})
     }
 }

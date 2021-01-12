@@ -1,0 +1,129 @@
+.main-container {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.btn-primary {
+  background-color: #0e6cff;
+}
+
+.handle-section {
+  margin-top: 2em;
+  width: 15%;
+}
+.handle-section .buy-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.handle-section .buy-section h2 {
+  font-weight: 700;
+}
+.handle-section .buy-section a {
+  margin-bottom: 0.75em;
+  width: 100%;
+}
+
+.information-section {
+  margin-top: 2em;
+  margin-bottom: 3em;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.information-section .text-section {
+  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.information-section .text-section h2 {
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  margin-right: 2em;
+}
+.information-section .lectures-section, .information-section .viewfeedback-section {
+  margin-left: 2em;
+  margin-top: 3em;
+}
+.information-section .viewfeedback-section .section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.information-section .lectures-section th {
+  border-top: none;
+}
+.information-section .lectures-section .section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.decoration-rectangle {
+  width: 100px;
+  height: 100%;
+  top: 0;
+  transform: translateX(50%);
+  position: fixed;
+  background-color: #0e6cff;
+  z-index: -10;
+}
+
+.img-container {
+  margin-top: 2em;
+  margin-right: 2em;
+  width: 40%;
+  height: 350px;
+  overflow: hidden;
+}
+.img-container img {
+  width: 100%;
+  height: auto;
+}
+
+.givefeedback-section {
+  margin-left: 2em;
+  margin-top: 1em;
+}
+.givefeedback-section .stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+}
+.givefeedback-section .stars .btn {
+  background-color: transparent;
+  color: #0e6cff;
+  margin-right: 0.5em;
+}
+.givefeedback-section input {
+  margin-bottom: 0.5em;
+}
+
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 720px;
+  height: 360px;
+  background-color: white;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  margin-top: 1em;
+}
+
+/*# sourceMappingURL=detailCourse.css.map */

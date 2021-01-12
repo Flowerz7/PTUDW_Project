@@ -1,0 +1,153 @@
+$main-color : #0e6cff;
+
+.main-container{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.btn-primary{
+    background-color: $main-color;
+}
+
+.handle-section{
+    margin-top: 2em;
+    width: 15%;
+
+    .buy-section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+        h2{
+            font-weight: 700;
+        }
+
+        a{
+            margin-bottom: .75em;
+            width: 100%;
+        }
+    }
+}
+
+.information-section{
+    margin-top: 2em;
+    margin-bottom: 3em;
+
+    width: 55%;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .text-section{
+        margin-left: 2em;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        h2{
+            font-weight: 700;
+            padding: 0;
+            margin: 0;
+
+            margin-right: 2em;
+        }
+    }
+
+    .lectures-section, .viewfeedback-section{
+        margin-left: 2em;
+        margin-top: 3em;
+    }
+
+    .viewfeedback-section{
+        .section-title{
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    }
+
+    .lectures-section{
+        th {
+            border-top: none;
+        }
+        .section-title{
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    }
+}
+
+.decoration-rectangle{
+    width: 100px;
+    height: 100%;
+
+    top: 0;
+    transform: translateX(50%);
+
+    position: fixed;
+    background-color: $main-color;
+    z-index: -10;
+}
+
+.img-container{
+    
+    margin-top: 2em;
+    margin-right: 2em;
+
+    width: 40%;
+    height: 350px;
+    overflow: hidden;
+
+    img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+.givefeedback-section{
+    margin-left: 2em;
+    margin-top: 1em;
+    .stars{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    
+        .btn{
+            background-color: transparent;
+            color: $main-color;
+            margin-right: .5em;
+        }
+    
+        margin-bottom: .5em;
+    }
+
+    input{
+        margin-bottom: .5em;
+    }
+}
+
+.modal{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 720px;
+    height: 360px;
+    background-color: white;
+}
+
+.modal-content{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.close {
+    margin-top: 1em;
+}

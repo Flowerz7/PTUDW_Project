@@ -13,7 +13,16 @@ export const loadSingleCourse = async (req, res) => {
 
     course = await Course.findById(_id).populate('teacherID').lean()
 
-    res.render('vwCourse/course', {...course, isAuth : req.session.isAuth})
+    course.reviewCount = course.reviewList.length
+    course.averageReviewPoint = Math.floor(course.reviewList.reduce((accumulator, item) => {
+        return accumulator + item.numOfStar
+    }, 0) / course.reviewCount) || 0
+
+    const category = await SubCategory.findOne({name : course.category}).populate('parent').lean()
+
+    const categories = await getCategories()
+
+    res.render('vwCourse/course', {...course, parentCate : category.parent.name, isAuth : req.session.isAuth, categories : [...categories]})
 }
 
 export const loadAllCourses = async (req, res) => {
@@ -27,12 +36,14 @@ export const loadAllCourses = async (req, res) => {
     const courses = (await Course.paginate({}, options)).docs
     const docsCount = await Course.find().countDocuments()
 
+    const categories = await getCategories()
     const props = {
         Courses : courses,
         current : page,
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
-        isAuth : req.session.isAuth
+        isAuth : req.session.isAuth,
+        categories : [...categories]
     }
 
     res.render('vwCourse/all', props)
@@ -51,12 +62,14 @@ export const loadCoursesBySubcategory = async (req, res) => {
     const courses = (await Course.paginate({category : subcategory_params}, options)).docs
     const docsCount = await Course.find().countDocuments()
 
+    const categories = await getCategories()
     const props = {
         Courses : courses,
         current : page,
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
-        isAuth : req.session.isAuth
+        isAuth : req.session.isAuth,
+        categories : [...categories]
     }
 
     res.render('vwCourse/all', props)
@@ -81,12 +94,14 @@ export const loadCoursesByCategory = async (req, res) => {
 
     const result = await cate.subCategories.reduce(reducer, [])
 
+    const categories = await getCategories()
     const props = {
         Courses : result,
         current : page,
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
-        isAuth : req.session.isAuth
+        isAuth : req.session.isAuth,
+        categories : [...categories]
     }
 
     res.render('vwCourse/all', props)
@@ -100,13 +115,16 @@ export const loadQueriedCourse = async (req, res) => {
 
     const result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
     const docsCount = result.length
+
+    const categories = await getCategories()
     const props = {
         Courses : result,
         q : q,
         current : page,
         start : page === 1,
         last : (page * limit) > docsCount,
-        isAuth : req.session.isAuth
+        isAuth : req.session.isAuth,
+        categories : [...categories]
     }
 
     res.render('vwCourse/search', props)

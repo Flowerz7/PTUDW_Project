@@ -1,155 +1,152 @@
-<img src="images/{{avatarLink}}" alt="">
-<p>{{title}}</p>
-<p>{{category}}</p>
-
-{{#each reviewList}}
-<p>{{feedback}}</p>
-{{/each}}
-
-{{#if isAuth}}
-<a href="" id="subscribeBtn" style="background-color: blue; display : hidden;" class="btn btn-primary">Add to watch list</a>
-<a href="" id="buyBtn" style="background-color: blue;" class="btn btn-primary">Buy this course</a>
-
-<div class="feedback-section" style="display: none;">
-    <div class="stars">
-        <button class="btn">5</button>
-        <button class="btn">4</button>
-        <button class="btn">3</button>
-        <button class="btn">2</button>
-        <button class="btn">1</button>
+<link rel="stylesheet" href="/css/detailCourse.css">
+<div class="main-container">
+    <div class="img-container">
+        <img src="images/{{avatarLink}}" alt="">
+        <div class="decoration-rectangle"></div>
     </div>
-    <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
-    <button id="fb-btn" class="btn btn-primary">feedback</button>
+    <div class="information-section">
+        <div class="text-section">
+            <div class="title">
+                <h2>{{title}}</h2>
+            </div>
+            <div style="margin-top: 1em;">{{parentCate}} => {{category}}</div>
+            <div>Last update: {{updatedAt}}</div>
+            <div class="review-section">
+                <div>Review mark: {{averageReviewPoint}} ({{reviewCount}} reviews) ({{numOfStudent}} students)</div>
+            </div>
+            <p>{{briefDescription}}</p>
+            <p>{{description}}</p>
+        </div>
+
+        <div class="viewfeedback-section">
+            <div class="section-title">Reviews</div>
+            <div class="section-content">
+            {{#each reviewList}}
+                <div>{{studentName}} gave {{numOfStar}} stars: {{feedback}}</div>
+            {{/each}}
+            </div>
+        </div>
+
+        {{#if isAuth}}
+        <div class="givefeedback-section" style="display: none;">
+            <div class="stars">
+                <button class="btn">5</button>
+                <button class="btn">4</button>
+                <button class="btn">3</button>
+                <button class="btn">2</button>
+                <button class="btn">1</button>
+            </div>
+            <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
+            <button id="fb-btn" class="btn btn-primary">Feedback</button>
+        </div>
+        {{/if}}
+
+        <div class="lectures-section">
+            <div class="section-title">Lectures</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if isAuth}}
+                        {{#each videos}}
+                        <tr>
+                            <th>{{inc @index}}</th>
+                            <td>
+                                <a href="">{{title}}</a>
+                                <div class="modal" style="display: none;">
+                                    <div class="modal-content">
+                                        <span class="close btn">Close</span>
+                                        <video
+                                            class="video-js"
+                                            controls
+                                            preload="auto"
+                                            width="640"
+                                            height="264"
+                                            data-setup="{}"
+                                        >
+                                            <source src="videos/{{link}}" type="video/mp4" />
+                                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
+                                        </video>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{description}}</td>
+                        </tr>
+                        {{/each}}
+                    {{else}}
+                        {{#each videos}}
+                            {{#unless @index}}
+                            <tr>
+                                <th>{{inc @index}}</th>
+                                <td>
+                                    <a href="">{{title}}</a>
+                                    <div class="modal" style="display: none;">
+                                        <div class="modal-content">
+                                            <span class="close btn">Close</span>
+                                            <video
+                                                class="video-js"
+                                                controls
+                                                preload="auto"
+                                                width="640"
+                                                height="264"
+                                                data-setup="{}"
+                                            >
+                                                <source src="videos/{{link}}" type="video/mp4" />
+                                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
+                                            </video>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{description}}</td>
+                            </tr>
+                            {{else}}
+                            <tr>
+                                <th>{{inc @index}}</th>
+                                <td>
+                                    <a href="" class="disabled">{{title}}</a>
+                                    <div class="modal" style="display: none;">
+                                        <div class="modal-content">
+                                            <span class="close btn">Close</span>
+                                            <video
+                                                class="video-js"
+                                                controls
+                                                preload="auto"
+                                                width="640"
+                                                height="264"
+                                                data-setup="{}"
+                                            >
+                                                <source src="videos/{{link}}" type="video/mp4" />
+                                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
+                                            </video>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{description}}</td>
+                            </tr>
+                            {{/unless}}
+                        {{/each}}
+                    {{/if}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="handle-section">
+        <div class="buy-section">
+            <h2>{{price}}$</h2>
+            {{#if isAuth}}
+                <a href="" id="buyBtn" class="btn btn-primary">Buy now</a>
+                <a href="" id="subscribeBtn" class="btn btn-primary">Add</a>
+            {{/if}}
+        </div>
+        
+    </div>
 </div>
-{{/if}}
-
-<table class="table lectures-section">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Title</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#if isAuth}}
-        {{#each videos}}
-        <tr>
-            <th>{{@index}}</th>
-            <td>
-                <a href="">{{title}}</a>
-                <div class="modal" style="display: none;">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <video
-                            class="video-js"
-                            controls
-                            preload="auto"
-                            width="640"
-                            height="264"
-                            data-setup="{}"
-                        >
-                            <source src="videos/{{link}}" type="video/mp4" />
-                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
-                        </video>
-                    </div>
-                </div>
-            </td>
-            <td>{{description}}</td>
-        </tr>
-        {{/each}}
-    {{else}}
-        {{#each videos}}
-            {{#unless @index}}
-            <tr>
-                <th>{{@index}}</th>
-                <td>
-                    <a href="">{{title}}</a>
-                    <div class="modal" style="display: none;">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <video
-                                class="video-js"
-                                controls
-                                preload="auto"
-                                width="640"
-                                height="264"
-                                data-setup="{}"
-                            >
-                                <source src="videos/{{link}}" type="video/mp4" />
-                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
-                            </video>
-                        </div>
-                    </div>
-                </td>
-                <td>{{description}}</td>
-            </tr>
-            {{else}}
-            <tr>
-                <th>{{@index}}</th>
-                <td>
-                    <a href="" class="disabled">{{title}}</a>
-                    <div class="modal" style="display: none;">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <video
-                                class="video-js"
-                                controls
-                                preload="auto"
-                                width="640"
-                                height="264"
-                                data-setup="{}"
-                            >
-                                <source src="videos/{{link}}" type="video/mp4" />
-                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
-                            </video>
-                        </div>
-                    </div>
-                </td>
-                <td>{{description}}</td>
-            </tr>
-            {{/unless}}
-        {{/each}}
-    {{/if}}
-  </tbody>
-</table>
-
-<style>
-    .stars{
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: flex-end;
-    }
-
-    .modal{
-        position: fixed;
-        z-index: 1;
-        width: 720px;
-        height: 360px;
-        background-color: rgb(0,0,0); 
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content{
-        width: 100%;
-        height: 100%;
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    
-</style>
 
 {{#section 'scripts'}}
     <script>
@@ -183,14 +180,17 @@
                 $('.stars>.btn').mouseenter((e) => {
                     e.preventDefault()
                     fbPoint = parseInt($(event.target).text())
-                    $('.stars>.btn').css('color', 'black')
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'red')
+                    $('.stars>.btn').css('color', '#0e6cff')
+                    $('.stars>.btn').css('background-color', 'transparent')
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'white')
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('background-color', '#0e6cff')
                 })
 
                 $('.stars>.btn').click((e) => {
                     e.preventDefault()
                     fbPoint = parseInt($(event.target).text())
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'red')
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'white')
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('background-color', '#0e6cff')
                 })
 
                 const validateFields = () => {
@@ -219,9 +219,8 @@
                 $.getJSON(`/students/update/watchList/check?username=${username}&id=${course_id}`, (data) => {
                     const subscribeBtn = $('#subscribeBtn')
                     if (data.isInWatchList === true){
-                        subscribeBtn.text('Remove from watch list')
+                        subscribeBtn.text('Remove')
                         subscribeBtn.css('background-color', 'red')
-                        subscribeBtn.css('display', 'initial')
                     }
 
                     subscribeBtn.click((e) => {
@@ -229,10 +228,7 @@
                         if (data.isInWatchList === true){
                             $.post(`/students/update/watchList/remove`, {username, course_id}, ({isSuccess}) => {
                                 if (isSuccess === true){
-                                    subscribeBtn.text('Add to watch list')
-                                    subscribeBtn.css('background-color', 'blue')
-
-                                    alert('remove successfully')
+                                    window.location = window.location.href
                                 }
                                 else {
                                     alert('failed')
@@ -242,10 +238,7 @@
                         else {
                             $.post(`/students/update/watchList/add`, {username, course_id}, ({isSuccess}) => {
                                 if (isSuccess === true){
-                                    subscribeBtn.text('Remove from watch list')
-                                    subscribeBtn.css('background-color', 'red')
-
-                                    alert('add successfully')
+                                    window.location = window.location.href
                                 }
                                 else {
                                     alert('failed')
@@ -261,7 +254,7 @@
                     const buyBtn = $('#buyBtn')
                     if (data.isJoined === true){
                         buyBtn.addClass('disabled')
-                        $('.feedback-section').css('display', 'block')
+                        $('.givefeedback-section').css('display', 'block')
                     } 
                     else{
 

@@ -4,7 +4,6 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Student name</th>
-      <th scope="col">Email</th>
       <th scope="col">Handle</th>
     </tr>
   </thead>
@@ -13,16 +12,21 @@
       <tr>
         <th scope="row">{{inc @index}}</th>
         <td>{{name}}</td>
-        <td>{{email}}</td>
         <td>
+          <button class="btn btn-sm btn-primary detail-btn">Detail</button>
+          <div class="detail-section" style="display: none;">
+              <div class="card">
+                <div class="card-body">
+                  <h4><b>{{name}}</b></h4>
+                  <div>Username: {{username}}</div>
+                  <dib>Email: {{email}}</dib>
+                </div>
+              </div>
+          </div>
           <form style="display: inline-block;" action="/admin/students/delete" method="post">
             <input type="hidden" name="studentID" value="{{_id}}">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
           </form>
-          <button class="btn btn-sm btn-primary detail-btn">Detail</button>
-          <div class="detail-section" style="display: none;">
-              <div>cai nay` la` detail {{username}}</div>
-          </div>
         </td>
       </tr>
     {{/each}}

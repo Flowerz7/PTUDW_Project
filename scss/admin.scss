@@ -109,6 +109,7 @@ body {
 
 .table {
   margin: auto;
+  position: relative;
 }
 
 .form {
@@ -137,3 +138,15 @@ body {
   }
 }
 
+.subCategories-section, .detail-section{
+  margin-top: .5em;
+  position: absolute;
+}
+
+.detail-section{
+  background-color: rgb(240, 240, 240);
+}
+
+.subCategories-section{
+  width: 70%;
+}

@@ -34,7 +34,17 @@
                           <th scope="row">{{inc @index}}</th>
                           <td>{{name}}</td>
                           <td>
-                            <a href="/admin/subCategory/{{name}}" class="btn btn-sm btn-primary detail-subcategory-btn">Detail</a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>
+                            <div class="detail-section" style="display: none;">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h4><b>{{name}}</b></h4>
+                                  <div>Detail: {{detail}}</div>
+                                  <div>Subscribe: {{subscribe}}</div>
+                                  <div>Number of Course: {{numOfCourses}}</div>
+                                </div>
+                              </div>
+                            </div>
                             <a href='/admin/subCategories/update?name={{name}}' class="btn btn-sm btn-primary">Update</a>
 
                             {{#unless numOfCourses}}
@@ -54,9 +64,9 @@
 
               <div class="card detail-section" style="display: none;">
                 <div class="card-body">
-                  <div>{{name}}</div>
-                  <div>{{detail}}</div>
-                  <div>{{subscribe}}</div>
+                  <h4><b>{{name}}</b></h4>
+                  <div>Detail: {{detail}}</div>
+                  <div>Subscribe: {{subscribe}}</div>
                 </div>
               </div>
             </td>

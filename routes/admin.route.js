@@ -25,18 +25,10 @@ router.route('/subCategories/delete').post(urlencodedParser, admin.deleteSubCate
 router.route("/courses").get(admin.handle_courses_get);
 
 router
-  .route("/courses/detail")
-  .post(urlencodedParser, admin.handle_detail_course_get);
-
-router
   .route("/courses/delete")
   .post(urlencodedParser, admin.handle_delete_course_post);
 
 router.route("/students").get(admin.handle_students_get);
-
-router
-  .route("/students/detail")
-  .post(urlencodedParser, admin.handle_detail_student_get);
 
 router
   .route("/students/delete")
@@ -47,10 +39,6 @@ router.route("/teachers").get(admin.handle_teachers_get);
 router
   .route("/teachers/delete")
   .post(urlencodedParser, admin.handle_delete_teacher_post);
-
-router
-  .route("/teachers/detail")
-  .post(urlencodedParser, admin.handle_detail_teacher_get);
 
 router.route("/teachers/add").get(admin.handle_add_teacher_get);
 

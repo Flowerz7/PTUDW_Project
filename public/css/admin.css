@@ -1,5 +1,6 @@
 body {
   line-height: 1.6em;
+  box-sizing: border-box;
 }
 
 a {
@@ -23,26 +24,103 @@ li {
   overflow: hidden;
 }
 
-body {
+.table-container {
+  background-color: #fff;
+  width: 70%;
+  margin: auto;
+  margin-top: 2em;
+  padding: 1em;
+  border-radius: 12px;
+}
+
+.form-container {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+
+footer {
+  margin-top: 1em;
+  background-color: #ff8700;
+  height: 100px;
+  width: 100%;
+}
+
+.btn-login {
+  width: 100%;
   background-color: #0e6cff;
+  color: #fff;
+  border: solid 1px #0e6cff;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 1em;
+  outline: none;
+}
+
+.btn-login:hover {
+  transform: scale(1.01);
+}
+
+.cancel {
+  display: block;
+  color: #fff;
+  text-align: center;
+  padding-top: 5px;
+  width: 100%;
+  background-color: #FF393A;
+  border: solid 1px #FF393A;
+  height: 35px;
+  border-radius: 5px;
+  margin: 1em 0;
+  outline: none;
+}
+
+.cancel:hover {
+  transform: scale(1.01);
+  color: #fff;
+}
+
+.btn-signup {
+  background-color: #ff8700;
+  color: #fff;
+  border: solid 1px #ff8700;
+  height: 40px;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 1em;
+  outline: none;
+}
+
+.btn-signup:hover {
+  transform: scale(1.01);
+}
+
+body {
+  background-color: #fff;
+  min-height: 120vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .navbar-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 80%;
   margin: auto;
   height: 100px;
-  color: #fff;
+  color: #000;
 }
 .navbar-container .brand-text {
   font-size: 2em;
-  font-weight: 500;
-  padding-bottom: 12px;
+  font-weight: 800;
+  padding-bottom: 15px;
+  letter-spacing: 0.05em;
+  color: #ff8700;
 }
 .navbar-container a {
-  color: #fff;
+  color: #000;
   font-size: 1.2em;
 }
 .navbar-container a:hover {
@@ -67,6 +145,7 @@ body {
   width: 200px;
   margin-top: 1em;
   border-radius: 5px;
+  z-index: 1000;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -106,7 +185,35 @@ body {
   font-weight: bold;
 }
 .welcome h1 span {
-  color: #fff;
+  color: #ff8700;
+}
+
+.table {
+  margin: auto;
+}
+
+.form {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.form form {
+  display: block;
+  margin: auto;
+  width: 300px;
+  margin-top: 2em;
+}
+
+.showcase {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-self: start;
+}
+.showcase h1 {
+  font-size: 3em;
+  width: 80%;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=admin.css.map */

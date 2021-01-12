@@ -1,12 +1,11 @@
-<div class="card">
-  <div class="card-header">Teachers</div>
-  <div class="card-body">
-		<table class="table table-hover">
+<div class="table-container">
+		<table class="table table-borderless table-hover">
+      <a href="/admin/teachers/add" class="btn-sm btn btn-primary">Add teacher</a>
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Username</th>
-      <th scope="col">email</th>
+      <th scope="col">Teacher name</th>
+      <th scope="col">Email</th>
       <th scope="col">Handle</th>
     </tr>
   </thead>
@@ -14,7 +13,7 @@
     {{#each this.teachers}} 
       <tr>
         <th scope="row">{{inc @index}}</th>
-        <td>{{username}}</td>
+        <td>{{name}}</td>
         <td>{{email}}</td>
         <td>
           <form style="display: inline-block;" action="/admin/teachers/delete" method="post">
@@ -30,10 +29,6 @@
     {{/each}}
   </tbody>
 </table>
-  </div>
-    <div class="card-footer text-muted">
-      <a href="/admin/teachers/add" class="btn-sm btn btn-primary">Add teacher</a>
-    </div>
 </div>
 
 {{#section 'scripts'}}

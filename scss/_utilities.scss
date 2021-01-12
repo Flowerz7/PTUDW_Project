@@ -4,3 +4,25 @@
   height: 100vh;
   overflow: hidden;
 }
+
+.table-container {
+  background-color: $primary-color;
+  width: 70%;
+  margin: auto;
+  margin-top: 2em;
+  padding: 1em;
+  border-radius: 12px;
+}
+
+.form-container {
+  display: flex;
+  width: 80%;  
+  margin: auto;
+}
+
+footer {
+  margin-top: 1em;
+  background-color: $danger-color;
+  height: 100px;
+  width: 100%;
+}

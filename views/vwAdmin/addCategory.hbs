@@ -23,13 +23,16 @@
 </script>
 {{/section}}
 
-<form id="categoryForm"  style="display: block;" action="" method="POST">
-  <div class="card mx-auto" style="width: 40%;">
-    <div class="card-body">
-			<div class="mb-3">
-  			<label for="txtCategoryName" class="form-label">Category's name</label>
+<div class="form-container">
+  <div class="showcase">
+    <h1>Add a new category, start a new journey!</h1>
+  </div>
+  <div class="form">
+    <form id="categoryForm" action="" method="POST">
+      <div class="mb-3">
+        <label for="txtCategoryName" class="form-label">Category's name</label>
         <input type="text" name="name" class="form-control" id="txtCategoryName" placeholder="">
-			</div>
+      </div>
 
       <div class="mb-3">
         <label for="txtCategoryDetail" class="form-label">Category Detail</label>
@@ -37,9 +40,8 @@
           name="detail" rows="3"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a href="/admin/categories" class="btn btn-danger">Cancel</a>
-
-    </div>
+      <button type="submit" class="btn-login">Create</button>
+      <a href="/admin/categories" class="cancel">Cancel</a>
+    </form>
   </div>
-</form>
+</div>

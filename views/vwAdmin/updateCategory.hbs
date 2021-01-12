@@ -14,23 +14,23 @@
 </script>
 {{/section}}
 
-<form id="categoryForm"  style="display: block;" action="" method="POST">
-  <div class="card mx-auto" style="width: 40%;">
-    <div class="card-body">
+<div class="form-container">
+  <div class="showcase">
+    <h1>Update a category, update yourself, what?</h1>
+  </div>
+  <div class="form">
+    <form id="categoryForm" action="" method="POST">
 			<div class="mb-3">
   			<label for="txtCategoryName" class="form-label">Category's name</label>
         <input type="text" readonly name="name" class="form-control"
         id="txtCategoryName" value="{{name}}">        
 			</div>
-
       <div class="mb-3">
         <label for="txtCategoryDetail" class="form-label">Category Detail</label>
         <textarea class="form-control" id="txtCategoryDetail" name="detail" rows="3">{{detail}}</textarea>
       </div>
-
-      <button type="submit" class="btn btn-primary">OK</button>
-      <a href="/admin/categories" class="btn btn-danger">Cancel</a>
-
-    </div>
+      <button type="submit" class="btn-login">OK</button>
+      <a href="/admin/categories" class="cancel">Cancel</a>
+    </form>
   </div>
-</form>
+</div>

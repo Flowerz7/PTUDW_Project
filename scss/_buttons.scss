@@ -8,3 +8,53 @@
     transform: scale(0.98);
   }
 }
+
+
+  .btn-login {
+    width: 100%;
+    background-color: $thirdary-color;
+    color: $primary-color;
+    border: solid 1px $thirdary-color;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 1em;
+    outline: none;
+  }
+
+  .btn-login:hover {
+    transform: scale(1.01);
+  }
+
+  .cancel {
+    display: block;
+    color: $primary-color;
+    text-align: center;
+    padding-top: 5px;
+    width: 100%;
+    background-color: $cancel-color;
+    border: solid 1px $cancel-color;
+    height: 35px;
+    border-radius: 5px;
+    margin: 1em 0;
+    outline: none;
+  }
+
+  .cancel:hover {
+    transform: scale(1.01);
+    color: $primary-color;
+  }
+
+  .btn-signup {
+    background-color: $danger-color;
+    color: $primary-color;
+    border: solid 1px $danger-color;
+    height: 40px;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 1em;
+    outline: none;
+  }
+
+  .btn-signup:hover {
+    transform: scale(1.01);
+  }

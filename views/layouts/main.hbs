@@ -45,7 +45,6 @@
                                 </div>
                             </div>
                         </div>
-                            
                         {{/each}}
                     </div>
                 </li>
@@ -85,20 +84,20 @@
 
 <script>
     $(document).ready(() => {
-        $('.dropdown-menu > .dropdown-item').mouseenter((e) => {
+        $('.dropdown-item').mouseover((e) => {
             e.preventDefault()
             $(e.target).children('.subcate-section').css('display', 'block')
         })
 
-        $('.dropdown-menu > .dropdown-item').mouseleave((e) => {
+        $('.dropdown-item').mouseleave((e) => {
             e.preventDefault()
-            $(e.target).children('.subcate-section').css('display', 'none')
+            $('.subcate-section').css('display', 'none')
         })
 
-        $('.subcate-section').mouseleave((e) => {
+        {{!-- $('.subcate-section').mouseleave((e) => {
             e.preventDefault()
             $(e.target).css('display', 'none')
-        })
+        }) --}}
     })
 </script>
 

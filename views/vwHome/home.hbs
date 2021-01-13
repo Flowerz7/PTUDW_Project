@@ -65,7 +65,7 @@
             <h4 class="card-title">{{this.title}}</h4>
             <p class="card-text">{{category}}</p>
             <p class="card-text">{{teacherID.name}}</p>
-            <p class="card-text">{{averageReviewPoint}} ({{reviewCount}})</p>
+            <p class="card-text">{{averageReviewPoint}} ({{reviewCount}} reviews)</p>
             <p class="card-text"><b>{{price}}$</b></p>
           </div>
         </div>
@@ -107,13 +107,11 @@
       const container = btn.parent('.section-title').next('.course-container')
 
       if (isOverflowContentOfMostViewCoursesVisible === false){
-        container.css('overflow', 'unset')
         container.css('height', 'auto')
         btn.text('Show less')
         isOverflowContentOfMostViewCoursesVisible = !isOverflowContentOfMostViewCoursesVisible
       }
       else{
-        container.css('overflow', 'hidden')
         container.css('height', '270px')
         btn.text('Show more')
         isOverflowContentOfMostViewCoursesVisible = !isOverflowContentOfMostViewCoursesVisible

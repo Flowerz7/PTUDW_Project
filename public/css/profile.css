@@ -1,0 +1,90 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  position: relative;
+}
+
+.layout-buffer {
+  width: 25%;
+}
+
+.option-container {
+  position: fixed;
+  left: 5%;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #0e6cff;
+  box-shadow: 0.2em 0em 0.2em rgba(0, 0, 0, 0.2);
+}
+.option-container .button-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6.5em;
+}
+.option-container .button-container a {
+  border: none;
+  outline: none;
+}
+
+.information-container {
+  padding-left: 5em;
+  color: black;
+  width: 70%;
+}
+.information-container .personal-information-section div {
+  font-size: 1rem;
+}
+.information-container .personal-information-section .name {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+.information-container .courses-section {
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+}
+.information-container .courses-section .section-title {
+  display: flex;
+  align-items: center;
+}
+.information-container .courses-section .section-title h4 {
+  font-weight: 700;
+  margin-right: 2em;
+}
+.information-container .courses-section .section-title button {
+  margin-bottom: 0.75em;
+  width: 200px;
+  height: 38px;
+}
+.information-container .courses-section .section-content {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  height: 110px;
+}
+.information-container .courses-section .card {
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-right: 0.2em;
+  margin-bottom: 0.2em;
+  width: 19%;
+  height: 105px;
+}
+.information-container .courses-section .card-body {
+  display: flex;
+  flex-direction: column;
+}
+.information-container .courses-section .card-title, .information-container .courses-section .card-text {
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=profile.css.map */

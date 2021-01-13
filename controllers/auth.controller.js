@@ -369,10 +369,7 @@ export const getUsername = (req, res) => {
 export const getPersonalProfile = async (req, res) => {
   const username = req.query.username;
 
-  const student = await Student.findOne({ username })
-    .populate("watchList")
-    .populate("joinedCourses")
-    .lean();
+  const student = await Student.findOne({ username }).populate("watchList").populate("joinedCourses").lean();
   const props = {
     ...student,
   };

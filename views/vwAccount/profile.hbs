@@ -1,12 +1,110 @@
-<div>{{name}}</div>
+<link rel="stylesheet" href="/css/profile.css">
+<div class="main-container">
+    <div class="option-container">
+        <div class="button-container">
+            <a href="/account/change-personal-info" class="btn btn-primary">Update profile</a>
+            <a href="/account/change-password" class="btn btn-primary">Change password</a>
+        </div>
+    </div>
+    <div class="layout-buffer"></div>
+    <div class="information-container">
+        <div class="personal-information-section">
+            <div class="name">{{name}}</div>
+            <div>{{email}}</div>
+        </div>
 
-{{#each joinedCourses}}
-<div>{{title}}</div>
-{{/each}}
+        <div class="courses-section">
+            <div class="section-title">
+                <h4>Your Courses</h4>
+                {{#each joinedCourses}}
+                {{#unless @index}}
+                <button class="btn btn-primary toggle-joinedCourses-btn">More</button>
+                {{/unless}}
+                {{/each}}
+            </div>
+            <div class="section-content">
+                {{#each joinedCourses}}
+                <div class="card" onclick="window.location='/courses?id={{this._id}}'">
+                    <div class="card-body">
+                        <h4 class="card-title">{{title}}</h4>
+                        {{#if isFinish}}
+                        <div class="card-text">Finished</div>
+                        {{else}}
+                        <div class="card-text">Not Finished</div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{else}}
+                <div>You have not joined any course</div>
+                {{/each}}
+            </div>
+        </div>
 
-{{#each watchList}}
-<div>{{title}}</div>
-{{/each}}
+        <div class="courses-section">
+            <div class="section-title">
+                <h4>Watchlist</h4>
+                {{#each watchList}}
+                {{#unless @index}}
+                <button class="btn btn-primary toggle-joinedCourses-btn">More</button>
+                {{/unless}}
+                {{/each}}
+            </div>
+            <div class="section-content">
+                {{#each watchList}}
+                <div class="card" onclick="window.location='/courses?id={{this._id}}'">
+                    <div class="card-body">
+                        <h4 class="card-title">{{title}}</h4>
+                        {{#if isFinish}}
+                        <div class="card-text">Finished</div>
+                        {{else}}
+                        <div class="card-text">Not Finished</div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{else}}
+                <div>You have no course in your watchlist</div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
 
-<a href="/account/change-password" class="btn btn-secondary">Change password</a>
-<a href="/account/change-personal-info" class="btn btn-primary">Change personal info</a>
+{{#section 'scripts'}}
+<script>
+    $(document).ready(() => {
+        var isJoinedCourseVisible = false
+        var isWatchListVisible = false
+
+        const showMoreJoinedCoursesBtn = $('.toggle-joinedCourses-btn')
+        const showMoreWatchListBtn = $('.toggle-watchList-btn')
+
+        showMoreJoinedCoursesBtn.click(e => {
+            e.preventDefault()
+            if (isJoinedCourseVisible === false){
+                $(e.target).parent('.section-title').next('.section-content').css('height', 'auto')
+                $(e.target).text('Less')
+            }
+            else{
+                $(e.target).parent('.section-title').next('.section-content').css('height', '110px')
+                $(e.target).text('More')
+            }
+
+            isJoinedCourseVisible = !isJoinedCourseVisible
+        })
+
+        showMoreWatchListBtn.click(e => {
+            e.preventDefault()
+            if (isWatchListVisible === false){
+                $(e.target).parent('.section-title').next('.section-content').css('height', 'auto')
+                $(e.target).text('Less')
+            }
+            else{
+                $(e.target).parent('.section-title').next('.section-content').css('height', '110px')
+                $(e.target).text('More')
+            }
+
+            isWatchListVisible = !isWatchListVisible
+        })
+    })
+</script>
+{{/section}}

@@ -6,10 +6,6 @@ $main-color : #0e6cff;
     padding: 0;
 }
 
-.btn, button{
-    background-color: $main-color;
-}
-
 b{
     font-weight: 550;
 }
@@ -100,4 +96,13 @@ form{
     left: 100%;
     top: 0%;
     background-color: white;
+}
+
+.footer{
+    position: sticky;
+    background-color: $main-color;
+    width: 100%;
+    height: 50px;
+
+    z-index: 2;
 }

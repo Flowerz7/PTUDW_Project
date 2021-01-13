@@ -22,7 +22,7 @@ export const loadSingleCourse = async (req, res) => {
 
     const categories = await getCategories()
 
-    res.render('vwCourse/course', {...course, parentCate : category.parent.name, isAuth : req.session.isAuth, categories : [...categories]})
+    res.render('vwCourse/course', {...course, username : req.session.username, parentCate : category.parent.name, isAuth : req.session.isAuth, categories : [...categories]})
 }
 
 export const loadAllCourses = async (req, res) => {
@@ -43,7 +43,8 @@ export const loadAllCourses = async (req, res) => {
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
-        categories : [...categories]
+        categories : [...categories],
+        username : req.session.username
     }
 
     res.render('vwCourse/all', props)
@@ -69,6 +70,7 @@ export const loadCoursesBySubcategory = async (req, res) => {
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
+        username : req.session.username,
         categories : [...categories]
     }
 
@@ -101,6 +103,7 @@ export const loadCoursesByCategory = async (req, res) => {
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
+        username : req.session.username,
         categories : [...categories]
     }
 
@@ -124,6 +127,7 @@ export const loadQueriedCourse = async (req, res) => {
         start : page === 1,
         last : (page * limit) > docsCount,
         isAuth : req.session.isAuth,
+        username : req.session.username,
         categories : [...categories]
     }
 

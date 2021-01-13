@@ -66,8 +66,9 @@
 }
 .information-container .courses-section .section-title button {
   margin-bottom: 0.75em;
-  width: 200px;
-  height: 38px;
+  font-size: 0.75rem;
+  width: 100px;
+  height: 30px;
 }
 .information-container .courses-section .section-content {
   display: flex;

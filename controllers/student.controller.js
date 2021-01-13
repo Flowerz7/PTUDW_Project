@@ -45,6 +45,7 @@ export const removeFromWatchList = async (req, res) => {
 export const checkWatchList = async (req, res) => {
     if (req.session.isAuth === false) {
         res.json({isInWatchList : false})
+        return
     }
 
     const username = req.query.username
@@ -65,6 +66,7 @@ export const checkWatchList = async (req, res) => {
 export const checkJoinedCourses = async (req, res) => {
     if (req.session.isAuth === false) {
         res.json({isJoined : false})
+        return
     }
 
     const username = req.query.username

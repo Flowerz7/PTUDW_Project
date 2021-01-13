@@ -23,6 +23,8 @@
             <div class="section-content">
             {{#each reviewList}}
                 <div>{{studentName}} gave {{numOfStar}} stars: {{feedback}}</div>
+                {{else}}
+                <div>Be the first one to buy and review this course</div>
             {{/each}}
             </div>
         </div>
@@ -134,6 +136,24 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="suggest-section">
+            <div class="section-title">You may want to see</div>
+            <div class="section-content">
+                {{#each suggestignCourse}}
+                <div class="card" onclick="window.location='/courses?id={{this._id}}'">
+                    <img src="images/{{avatarLink}}" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">{{title}}</h4>
+                        <div class="card-text">{{category}}</div>
+                        <div class="card-text">{{teacherID.name}}</div>
+                        <div class="card-text">{{averageReviewPoint}} ({{reviewCount}} reviews)</div>
+                        <div class="card-text"><b>{{price}}$</b></div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
     </div>
 
     <div class="handle-section">
@@ -144,7 +164,6 @@
                 <a href="" id="subscribeBtn" class="btn btn-primary">Add</a>
             {{/if}}
         </div>
-        
     </div>
 </div>
 

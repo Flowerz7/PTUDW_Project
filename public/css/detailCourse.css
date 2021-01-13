@@ -45,11 +45,14 @@
   margin: 0;
   margin-right: 2em;
 }
-.information-section .lectures-section, .information-section .viewfeedback-section {
+.information-section .lectures-section, .information-section .viewfeedback-section, .information-section .suggest-section {
   margin-left: 2em;
   margin-top: 3em;
 }
-.information-section .viewfeedback-section .section-title {
+.information-section .section-title {
+  margin-bottom: 0.5em;
+}
+.information-section .viewfeedback-section .section-title, .information-section .suggest-section .section-title {
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -60,6 +63,35 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+.information-section .suggest-section .section-content {
+  display: flex;
+  flex-direction: column;
+}
+.information-section .suggest-section .card {
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-bottom: 0.4em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 170px;
+}
+.information-section .suggest-section img {
+  height: 100% px;
+  width: 250px;
+}
+.information-section .suggest-section .card-body {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+}
+.information-section .suggest-section .card-title, .information-section .suggest-section .card-text {
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 .decoration-rectangle {
   width: 100px;
@@ -69,6 +101,14 @@
   position: fixed;
   background-color: #0e6cff;
   z-index: -10;
+}
+.decoration-rectangle::after {
+  content: "";
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  height: 80px;
+  background-color: white;
 }
 
 .img-container {

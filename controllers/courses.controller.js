@@ -11,6 +11,8 @@ export const loadSingleCourse = async (req, res) => {
     var course = await Course.findById(_id)
     course.view += 1
 
+    await course.save()
+
     course = await Course.findById(_id).populate('teacherID').lean()
 
     course.reviewCount = course.reviewList.length
@@ -19,10 +21,42 @@ export const loadSingleCourse = async (req, res) => {
     }, 0) / course.reviewCount) || 0
 
     const category = await SubCategory.findOne({name : course.category}).populate('parent').lean()
+    const suggestingCourse = await Course.find({ category : course.category}).sort({numOfStudent : -1}).limit(6).lean()
+
+    const selfCourse = await Course.findById(_id).lean()
+    var indexToDelete = -1
+
+    suggestingCourse.forEach((item, index) => {
+        if (item._id.toString() == selfCourse._id.toString()){
+            indexToDelete = index
+        }
+    })
+
+    if (indexToDelete !== -1){
+        suggestingCourse.splice(indexToDelete, 1)
+    }
+    
+    if(suggestingCourse.length === 6){
+        suggestingCourse.pop()
+    }
+
+
+    suggestingCourse.forEach((item) => {
+        item.reviewCount = item.reviewList.length
+        item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+            return accumulator + item.numOfStar
+        }, 0) / item.reviewList.length) || 0
+    })
 
     const categories = await getCategories()
 
-    res.render('vwCourse/course', {...course, username : req.session.username, parentCate : category.parent.name, isAuth : req.session.isAuth, categories : [...categories]})
+    res.render('vwCourse/course', {
+        ...course, username : req.session.username,
+        parentCate : category.parent.name,
+        isAuth : req.session.isAuth, 
+        categories : [...categories],
+        suggestignCourse : [...suggestingCourse]
+    })
 }
 
 export const loadAllCourses = async (req, res) => {

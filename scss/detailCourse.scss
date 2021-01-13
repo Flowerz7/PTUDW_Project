@@ -55,12 +55,16 @@ $main-color : #0e6cff;
         }
     }
 
-    .lectures-section, .viewfeedback-section{
+    .lectures-section, .viewfeedback-section, .suggest-section{
         margin-left: 2em;
         margin-top: 3em;
     }
 
-    .viewfeedback-section{
+    .section-title{
+        margin-bottom: .5em;
+    }
+
+    .viewfeedback-section, .suggest-section{
         .section-title{
             font-size: 1.5rem;
             font-weight: 700;
@@ -76,6 +80,47 @@ $main-color : #0e6cff;
             font-weight: 700;
         }
     }
+
+    .suggest-section{
+        .section-content{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card{
+            box-shadow: .2em .2em .2em rgba(0,0,0,.2);
+            cursor: pointer;
+
+            margin-bottom: .4em;
+
+            width: 100%;
+
+            display: flex;
+            flex-direction: row;
+
+            height: 170px;
+        }
+
+        img{
+            height: 100%px;
+            width: 250px;
+        }
+
+        .card-body{
+            display: flex;
+            flex-direction: column;
+
+            margin-left: 2em;
+        }
+
+        .card-title, .card-text{
+            width: 100%;
+            text-align: left;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
 }
 
 .decoration-rectangle{
@@ -88,6 +133,16 @@ $main-color : #0e6cff;
     position: fixed;
     background-color: $main-color;
     z-index: -10;
+
+    &::after{
+        content: "";
+        position: absolute;
+        bottom: 0%;
+
+        width: 100%;
+        height: 80px;
+        background-color: white;
+    }
 }
 
 .img-container{

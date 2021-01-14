@@ -98,7 +98,7 @@ export const loadCoursesBySubcategory = async (req, res) => {
     const courses = (await Course.paginate({category : subcategory_params}, options)).docs
     const docsCount = await Course.find().countDocuments()
 
-    result.forEach((item) => {
+    courses.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
             return accumulator + item.numOfStar

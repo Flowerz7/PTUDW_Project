@@ -370,8 +370,10 @@ export const getPersonalProfile = async (req, res) => {
   const username = req.query.username;
 
   const student = await Student.findOne({ username }).populate("watchList").populate("joinedCourses").lean();
+  const categories = await getCategories()
   const props = {
     ...student,
+    categories : [...categories]
   };
 
   res.render("vwAccount/profile", props);

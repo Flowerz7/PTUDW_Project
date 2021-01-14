@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-container {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 3em;
+}
+
+.course-container .card {
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+.course-container .card {
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 170px;
+}
+.course-container img {
+  height: 100% px;
+  width: 250px;
+}
+.course-container .card-body {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+}
+.course-container .card-title, .course-container .card-text {
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=courseList.css.map */

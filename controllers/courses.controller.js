@@ -73,6 +73,7 @@ export const loadAllCourses = async (req, res) => {
     const categories = await getCategories()
     const props = {
         Courses : courses,
+        docsCount : docsCount,
         current : page,
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
@@ -97,9 +98,17 @@ export const loadCoursesBySubcategory = async (req, res) => {
     const courses = (await Course.paginate({category : subcategory_params}, options)).docs
     const docsCount = await Course.find().countDocuments()
 
+    result.forEach((item) => {
+        item.reviewCount = item.reviewList.length
+        item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+            return accumulator + item.numOfStar
+        }, 0) / item.reviewList.length) || 0
+    })
+
     const categories = await getCategories()
     const props = {
         Courses : courses,
+        docsCount : docsCount,
         current : page,
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
@@ -129,10 +138,18 @@ export const loadCoursesByCategory = async (req, res) => {
     }
 
     const result = await cate.subCategories.reduce(reducer, [])
+    
+    result.forEach((item) => {
+        item.reviewCount = item.reviewList.length
+        item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+            return accumulator + item.numOfStar
+        }, 0) / item.reviewList.length) || 0
+    })
 
     const categories = await getCategories()
     const props = {
         Courses : result,
+        docsCount : docsCount,
         current : page,
         start : page === 1,
         last : (options.page * options.limit) > docsCount,
@@ -153,9 +170,17 @@ export const loadQueriedCourse = async (req, res) => {
     const result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
     const docsCount = result.length
 
+    result.forEach((item) => {
+        item.reviewCount = item.reviewList.length
+        item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+            return accumulator + item.numOfStar
+        }, 0) / item.reviewList.length) || 0
+    })
+
     const categories = await getCategories()
     const props = {
         Courses : result,
+        docsCount : docsCount,
         q : q,
         current : page,
         start : page === 1,

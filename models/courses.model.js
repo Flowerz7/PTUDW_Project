@@ -70,7 +70,6 @@ const courseSchema = new Schema(
 );
 
 courseSchema.index({ title: "text", category: "text" });
-courseSchema.plugin(mongoosePaginate);
 
 const Course = mongoose.model("Course", courseSchema);
 

@@ -1,0 +1,95 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-container {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.annoucement {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1em;
+  width: 100%;
+}
+.annoucement span {
+  color: #0e6cff;
+}
+
+.filter-section {
+  margin-bottom: 1em;
+  width: 100%;
+}
+.filter-section form {
+  width: 100%;
+  display: flex;
+}
+.filter-section label {
+  font-weight: 700;
+  margin: 0;
+  margin-right: 0.6em;
+  padding: 0.4em;
+}
+.filter-section select {
+  width: 200px;
+  margin-right: 1em;
+}
+.filter-section button {
+  width: 200px;
+}
+
+.course-container {
+  width: 100%;
+}
+.course-container .card {
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+.course-container .card {
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 170px;
+  overflow: hidden;
+}
+.course-container img {
+  height: 100% px;
+  width: 250px;
+}
+.course-container .card-body {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+}
+.course-container .card-body::after {
+  content: "";
+  position: absolute;
+  right: 3%;
+  top: 0%;
+  width: 40px;
+  height: 90%;
+  background-color: #0e6cff;
+}
+.course-container .card-title, .course-container .card-text {
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.paginate-section .active {
+  background-color: #0e6cff;
+  color: white;
+}
+
+/*# sourceMappingURL=courseList.css.map */

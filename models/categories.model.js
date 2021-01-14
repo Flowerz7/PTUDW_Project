@@ -15,7 +15,7 @@ const categorySchema = new Schema(
       trim: true,
     },
     subscribe: {
-      type: String,
+      type: Number,
       required: true,
     },
     subCategories : [{

@@ -136,7 +136,9 @@ export const loadCoursesByCategory = async (req, res) => {
         const courses = await Course.find({category : item.name}).lean()
         return [...(await accumulator), ...courses]
     }
-    const result = await cate.subCategories.reduce(reducer, [])
+    var result = await cate.subCategories.reduce(reducer, [])
+    result = result.splice((options.page - 1)*options.limit, options.limit)
+
     
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length

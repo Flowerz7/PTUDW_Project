@@ -62,7 +62,7 @@ $main-color : #0e6cff;
 
 .course-container{
     width: 85%;
-    height: 270px;
+    height: 275px;
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
@@ -81,6 +81,9 @@ $main-color : #0e6cff;
             background-color: rgb(240, 240, 240);
             cursor: pointer;
             margin: 0 auto;
+
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
         }
 
         h4{

@@ -91,7 +91,7 @@ $main-color : #0e6cff;
             box-shadow: .2em .2em .2em rgba(0,0,0,.2);
             cursor: pointer;
 
-            margin-bottom: .4em;
+            margin-bottom: 1em;
 
             width: 100%;
 
@@ -104,6 +104,9 @@ $main-color : #0e6cff;
         img{
             height: 100%px;
             width: 250px;
+
+            border-top-left-radius: .25rem;
+            border-bottom-left-radius: .25rem;
         }
 
         .card-body{
@@ -168,6 +171,8 @@ $main-color : #0e6cff;
     img{
         width: 100%;
         height: auto;
+
+        border-radius: .25rem;
     }
 }
 

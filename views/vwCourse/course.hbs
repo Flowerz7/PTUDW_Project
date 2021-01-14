@@ -8,40 +8,21 @@
         <div class="text-section">
             <div class="title">
                 <h2>{{title}}</h2>
-            </div>
-            <div style="margin-top: 1em;">{{parentCate}} => {{category}}</div>
-            <div>Last update: {{updatedAt}}</div>
-            <div class="review-section">
-                <div>Review mark: {{averageReviewPoint}} ({{reviewCount}} reviews) ({{numOfStudent}} students)</div>
+                <h2>{{averageReviewPoint}} <span class="fa fa-star"></span></h2>
             </div>
             <p>{{briefDescription}}</p>
-            <p>{{description}}</p>
-        </div>
+            <div><a href="/courses/{{parentCate}}">{{parentCate}}</a> <span class="fa fa-long-arrow-right"></span> <a href="/courses/category/{{this}}">{{category}}</a></div>
+            <br>
+            <div style="font-weight: 500;"><span>{{numOfStudent}}</span> students are learning</div>
+            <div>Last update: {{updatedAt}}</div>
 
-        <div class="viewfeedback-section">
-            <div class="section-title">Reviews</div>
-            <div class="section-content">
-            {{#each reviewList}}
-                <div>{{studentName}} gave {{numOfStar}} stars: {{feedback}}</div>
-                {{else}}
-                <div>Be the first one to buy and review this course</div>
-            {{/each}}
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Overviewing</div>
+                    <div class="card-text">{{{description}}}</div>
+                </div>
             </div>
         </div>
-
-        {{#if isAuth}}
-        <div class="givefeedback-section" style="display: none;">
-            <div class="stars">
-                <button class="btn">5</button>
-                <button class="btn">4</button>
-                <button class="btn">3</button>
-                <button class="btn">2</button>
-                <button class="btn">1</button>
-            </div>
-            <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
-            <button id="fb-btn" class="btn btn-primary">Feedback</button>
-        </div>
-        {{/if}}
 
         <div class="lectures-section">
             <div class="section-title">Lectures</div>
@@ -137,6 +118,41 @@
             </table>
         </div>
 
+        <div class="viewfeedback-section">
+            <div class="section-title">Reviews</div>
+            <div class="section-content">
+            {{#each reviewList}}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title"><span>{{studentName}}</span> gave {{numOfStar}} <span class="fa fa-star"></span></div>
+                        <div class="card-text-container">
+                            <div class="square"></div>
+                            <div class="card-text">{{feedback}}</div>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <div>Be the first one to buy and review this course</div>
+            {{/each}}
+            </div>
+        </div>
+
+        {{#if isAuth}}
+        <div class="card givefeedback-section" style="display: none;">
+            <div class="card-body">
+                <div class="stars">
+                    <button class="btn">5</button>
+                    <button class="btn">4</button>
+                    <button class="btn">3</button>
+                    <button class="btn">2</button>
+                    <button class="btn">1</button>
+                </div>
+                <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
+                <button class="btn btn-primary">Feedback</button>
+            </div>
+        </div>
+        {{/if}}
+
         <div class="suggest-section">
             <div class="section-title">You may want to see</div>
             <div class="section-content">
@@ -147,8 +163,8 @@
                         <h4 class="card-title">{{title}}</h4>
                         <div class="card-text">{{category}}</div>
                         <div class="card-text">{{teacherID.name}}</div>
-                        <div class="card-text">{{averageReviewPoint}} ({{reviewCount}} reviews)</div>
-                        <div class="card-text"><b>{{price}}$</b></div>
+                        <div class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span> ({{reviewCount}} reviews)</div>
+                        <div class="card-text course-price">{{price}}</div>
                     </div>
                 </div>
                 {{/each}}
@@ -158,7 +174,8 @@
 
     <div class="handle-section">
         <div class="buy-section">
-            <h2>{{price}}$</h2>
+            <h2 class="course-price">{{price}}$</h2>
+            <br>
             {{#if isAuth}}
                 <a href="" id="buyBtn" class="btn btn-primary">Buy now</a>
                 <a href="" id="subscribeBtn" class="btn btn-primary">Add</a>
@@ -272,7 +289,7 @@
                 $.getJSON(`/students/update/joinedCourses/check?username=${username}&id=${course_id}`, (data) => {
                     const buyBtn = $('#buyBtn')
                     if (data.isJoined === true){
-                        buyBtn.addClass('disabled')
+                        buyBtn.addClass('disabled').text('Bought').css('background-color', 'gray').css('border', 'none')
                         $('.givefeedback-section').css('display', 'block')
                     } 
                     else{

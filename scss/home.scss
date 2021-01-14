@@ -6,6 +6,10 @@ $main-color : #0e6cff;
     padding: 0;
 }
 
+.course-price{
+    font-weight: 700;
+}
+
 .main-container{
     display: flex;
     flex-direction: column;
@@ -150,4 +154,8 @@ $main-color : #0e6cff;
             }
         }
     }
+}
+
+.fa{
+    color: $main-color;
 }

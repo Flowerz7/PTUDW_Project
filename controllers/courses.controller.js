@@ -40,7 +40,6 @@ export const loadSingleCourse = async (req, res) => {
         suggestingCourse.pop()
     }
 
-
     suggestingCourse.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
@@ -53,7 +52,7 @@ export const loadSingleCourse = async (req, res) => {
     res.render('vwCourse/course', {
         ...course, username : req.session.username,
         parentCate : category.parent.name,
-        isAuth : req.session.isAuth, 
+        isAuth : req.session.isAuth,
         categories : [...categories],
         suggestignCourse : [...suggestingCourse]
     })
@@ -67,7 +66,8 @@ export const loadAllCourses = async (req, res) => {
         limit: 5,
         lean : true
     };
-    const courses = (await Course.paginate({}, options)).docs
+
+    const courses = await Course.find().skip((options.page - 1) * options.limit).skip(options.limit).lean()
     const docsCount = await Course.find().countDocuments()
 
     const categories = await getCategories()

@@ -85,6 +85,15 @@
   flex-direction: column;
   margin-left: 2em;
 }
+.information-section .suggest-section .card-body::after {
+  content: "";
+  position: absolute;
+  right: 3%;
+  top: 0%;
+  width: 40px;
+  height: 90%;
+  background-color: #0e6cff;
+}
 .information-section .suggest-section .card-title, .information-section .suggest-section .card-text {
   width: 100%;
   text-align: left;

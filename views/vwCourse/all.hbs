@@ -1,6 +1,27 @@
 <link rel="stylesheet" href="/css/courseList.css">
 
 <div class="main-container">
+  <div class="annoucement">There are <span>{{docsCount}}</span> courses in total</div>
+
+  <div class="filter-section">
+    <form method="GET">
+      <label for="review-filter">Review: </label>
+      <select class="custom-select" name="review" id="review-filter">
+        <option class="dropdown-item" value="asc" selected>Ascending</option>
+        <option class="dropdown-item" value="desc">Descending</option>
+      </select>
+
+      <label for="price-filter">Price: </label>
+      <select class="custom-select" name="price" id="price-filter">
+        <option class="dropdown-item" value="asc" selected>Ascending</option>
+        <option class="dropdown-item" value="desc">Descending</option>
+      </select>
+
+      <input type="hidden" name="page" value="{{current}}">
+      <button type="submit" class="btn btn-primary">Apply filter</button>
+    </form>
+  </div>
+
   <div class="course-container">
     {{#each Courses}}
       <div class="card" onclick="window.location='/courses?id={{this._id}}'">
@@ -13,6 +34,7 @@
           <div class="card-text"><b>{{price}}$</b></div>
         </div>
       </div>
+      {{else}}
     {{/each}}
   </div>
 
@@ -21,7 +43,7 @@
     <nav>
       <ul class="pagination">
         {{#if start}}
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{current}}">Prev</a></li>
         {{else}}
         <li class="page-item"><a class="page-link" href="?page={{dec current}}">Previous</a></li>
         <li class="page-item"><a class="page-link" href="?page={{decBy2 current}}">{{decBy2 current}}</a></li>
@@ -35,7 +57,7 @@
     {{#if start}}
     <nav>
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{current}}">Prev</a></li>
         <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
         <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
         <li class="page-item"><a class="page-link" href="?page={{incBy2 current}}">{{incBy2 current}}</a></li>
@@ -45,7 +67,7 @@
     {{else}}
     <nav>
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{dec current}}">Prev</a></li>
         <li class="page-item"><a class="page-link" href="?page={{dec current}}">{{dec current}}</a></li>
         <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
         <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>

@@ -95,7 +95,7 @@ export const loadCoursesBySubcategory = async (req, res) => {
         lean : true
     };
 
-    const courses = (await Course.paginate({category : subcategory_params}, options)).docs
+    const courses = await Course.find({category : subcategory_params}).skip((options.page - 1)*options.limit).limit(5).lean()
     const docsCount = await Course.find().countDocuments()
 
     courses.forEach((item) => {
@@ -136,7 +136,6 @@ export const loadCoursesByCategory = async (req, res) => {
         const courses = await Course.find({category : item.name}).lean()
         return [...(await accumulator), ...courses]
     }
-
     const result = await cate.subCategories.reduce(reducer, [])
     
     result.forEach((item) => {

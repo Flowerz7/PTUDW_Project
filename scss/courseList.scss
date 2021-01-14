@@ -10,9 +10,53 @@ $main-color : #0e6cff;
     width: 90%;
     margin: 0 auto;
     margin-top: 3em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.annoucement{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1em;
+
+    width: 100%;
+
+    span{
+        color: $main-color;
+    }
+}
+
+.filter-section{
+    margin-bottom: 1em;
+    width: 100%;
+
+    form{
+        width: 100%;
+        display: flex;
+    }
+
+    label{
+        font-weight: 700;
+        margin: 0;
+        margin-right: .6em;
+        padding: .4em;
+    }
+
+    select{
+        width: 200px;
+        margin-right: 1em;
+    }
+
+    button{
+        width: 200px;
+    }
 }
 
 .course-container{
+    width: 100%;
+
     .card{
         cursor: pointer;
         margin-bottom: 1em;
@@ -28,6 +72,8 @@ $main-color : #0e6cff;
         flex-direction: row;
 
         height: 170px;
+
+        overflow: hidden;
     }
 
     img{
@@ -40,6 +86,17 @@ $main-color : #0e6cff;
         flex-direction: column;
 
         margin-left: 2em;
+
+        &::after{
+            content: "";
+            position: absolute;
+            right: 3%;
+            top: 0%;
+            width: 40px;
+            height: 90%;
+
+            background-color: $main-color;
+        }
     }
 
     .card-title, .card-text{
@@ -49,5 +106,11 @@ $main-color : #0e6cff;
         text-overflow: ellipsis;
         overflow: hidden;
     }
-    
+}
+
+.paginate-section{
+    .active{
+        background-color: $main-color;
+        color: white;
+    }
 }

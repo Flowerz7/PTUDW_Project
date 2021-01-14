@@ -85,6 +85,9 @@ $main-color : #0e6cff;
         flex-direction: column;
 
         margin-left: 2em;
+        padding-right: 5em;
+
+        width: 100%;
 
         &::after{
             content: "";
@@ -96,6 +99,10 @@ $main-color : #0e6cff;
 
             background-color: $main-color;
         }
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     .card-title, .card-text{

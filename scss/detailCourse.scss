@@ -15,8 +15,15 @@ span{
 }
 
 .handle-section{
+    position: fixed;
+    background-color: $main-color;
+    
+    right: 5%;
     margin-top: 2em;
+    
     width: 15%;
+
+    box-shadow: .25em .25em .3em rgba(0, 0, 0, .15);
 
     .buy-section{
         display: flex;
@@ -30,8 +37,17 @@ span{
         a{
             margin-bottom: .75em;
             width: 100%;
+
+            background-color: white;
+            color: $main-color;
         }
     }
+}
+
+#showMoreBtn{
+    display: block;
+    cursor: pointer;
+    margin-bottom: .5em;
 }
 
 .information-section{
@@ -42,28 +58,32 @@ span{
 
     display: flex;
     flex-direction: column;
-    width: 100%;
 
     a{
         text-decoration: none;
     }
 
     .text-section{
-        margin-left: 2em;
+        padding-left: 2em;
         display: flex;
         flex-direction: column;
         width: 100%;
 
-        h2{
-            font-weight: 700;
-            padding: 0;
-            margin: 0;
-
-            margin-right: 2em;
-        }
-
         .title{
             display: flex;
+            margin-bottom: .5em;
+
+            div, .course-title{
+                font-weight: 700;
+                padding: 0;
+                margin: 0;
+    
+                margin-right: 2em;
+            }
+    
+            .course-title{
+                font-size: 2.25rem;
+            }
         }
 
         p, :not(.card-text p){
@@ -73,9 +93,17 @@ span{
 
         .card{
             box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
+            margin-top: 2em;
+            width: 100%;
 
             .card-title{
                 font-weight: 700;
+                color: $main-color;
+            }
+
+            .card-body{
+                max-height: 250px;
+                overflow: hidden;
             }
         }
     }
@@ -110,6 +138,56 @@ span{
         .section-content{
             display: flex;
             flex-direction: column;
+
+            width: 100%; 
+            
+            img{
+                height: 170px;
+                width: 250px;
+                cursor: pointer;
+            }
+
+            .card{
+                margin-bottom: 1em;
+                box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
+
+                width: 100%;
+
+                display: flex;
+                flex-direction: row;
+
+            }
+
+            .card-body{
+                display: block;
+                margin-left: 2em;
+                padding-right: 5em;
+
+                width: 100%;
+
+                &::after{
+                    content: "";
+                    position: absolute;
+                    right: 3%;
+                    top: 0%;
+                    width: 40px;
+                    height: 90%;
+
+                    background-color: $main-color;
+                }
+
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .card-title, .card-text{
+                width: 100%;
+                text-align: left;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
         }
 
         .course-price{
@@ -117,54 +195,6 @@ span{
             margin-top: .5em;
 
             font-weight: 700;
-        }
-
-        .card{
-            box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
-            cursor: pointer;
-
-            margin-bottom: 1em;
-
-            width: 100%;
-
-            display: flex;
-            flex-direction: row;
-
-            height: 170px;
-        }
-
-        img{
-            height: 100%px;
-            width: 250px;
-
-            border-top-left-radius: .25rem;
-            border-bottom-left-radius: .25rem;
-        }
-
-        .card-body{
-            display: flex;
-            flex-direction: column;
-
-            margin-left: 2em;
-
-            &::after{
-                content: "";
-                position: absolute;
-                right: 3%;
-                top: 0%;
-                width: 40px;
-                height: 90%;
-    
-                background-color: $main-color;
-            }
-        }
-
-        .card-title, .card-text{
-            width: 100%;
-            text-align: left;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
         }
     }
 }
@@ -189,15 +219,35 @@ span{
         height: 80px;
         background-color: white;
     }
+
+    display: flex;
+    flex-direction: column;
+
+    div{
+        width: 100%;
+        text-align: center;
+        color: white;
+    }
+
+    .reviewPoint{
+        font-size: 2rem;
+        font-weight: 700;
+
+        margin-top: 7.75em;
+    }
+
+    .reviewCount{
+        margin-top: .75em;
+        font-weight: 350;
+        font-size: .75rem;
+    }
 }
 
 .img-container{
-    
     margin-top: 2em;
     margin-right: 2em;
 
-    width: 40%;
-    height: 350px;
+    width: 200px;
     overflow: hidden;
 
     img{

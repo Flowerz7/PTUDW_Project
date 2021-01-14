@@ -13,8 +13,12 @@ span {
 }
 
 .handle-section {
+  position: fixed;
+  background-color: #0e6cff;
+  right: 5%;
   margin-top: 2em;
   width: 15%;
+  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.15);
 }
 .handle-section .buy-section {
   display: flex;
@@ -27,6 +31,14 @@ span {
 .handle-section .buy-section a {
   margin-bottom: 0.75em;
   width: 100%;
+  background-color: white;
+  color: #0e6cff;
+}
+
+#showMoreBtn {
+  display: block;
+  cursor: pointer;
+  margin-bottom: 0.5em;
 }
 
 .information-section {
@@ -35,25 +47,28 @@ span {
   width: 55%;
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 .information-section a {
   text-decoration: none;
 }
 .information-section .text-section {
-  margin-left: 2em;
+  padding-left: 2em;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.information-section .text-section h2 {
+.information-section .text-section .title {
+  display: flex;
+  margin-bottom: 0.5em;
+}
+.information-section .text-section .title div, .information-section .text-section .title .course-title {
   font-weight: 700;
   padding: 0;
   margin: 0;
   margin-right: 2em;
 }
-.information-section .text-section .title {
-  display: flex;
+.information-section .text-section .title .course-title {
+  font-size: 2.25rem;
 }
 .information-section .text-section p, .information-section .text-section :not(.card-text p) {
   font-style: italic;
@@ -61,9 +76,16 @@ span {
 }
 .information-section .text-section .card {
   box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
+  margin-top: 2em;
+  width: 100%;
 }
 .information-section .text-section .card .card-title {
   font-weight: 700;
+  color: #0e6cff;
+}
+.information-section .text-section .card .card-body {
+  max-height: 250px;
+  overflow: hidden;
 }
 .information-section .lectures-section, .information-section .viewfeedback-section, .information-section .suggest-section {
   margin-left: 2em;
@@ -86,33 +108,30 @@ span {
 .information-section .suggest-section .section-content {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
-.information-section .suggest-section .course-price {
-  font-size: 1.25rem;
-  margin-top: 0.5em;
-  font-weight: 700;
-}
-.information-section .suggest-section .card {
-  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
+.information-section .suggest-section .section-content img {
+  height: 170px;
+  width: 250px;
   cursor: pointer;
+}
+.information-section .suggest-section .section-content .card {
   margin-bottom: 1em;
+  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
   width: 100%;
   display: flex;
   flex-direction: row;
-  height: 170px;
 }
-.information-section .suggest-section img {
-  height: 100% px;
-  width: 250px;
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-.information-section .suggest-section .card-body {
-  display: flex;
-  flex-direction: column;
+.information-section .suggest-section .section-content .card-body {
+  display: block;
   margin-left: 2em;
+  padding-right: 5em;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-.information-section .suggest-section .card-body::after {
+.information-section .suggest-section .section-content .card-body::after {
   content: "";
   position: absolute;
   right: 3%;
@@ -121,12 +140,17 @@ span {
   height: 90%;
   background-color: #0e6cff;
 }
-.information-section .suggest-section .card-title, .information-section .suggest-section .card-text {
+.information-section .suggest-section .section-content .card-title, .information-section .suggest-section .section-content .card-text {
   width: 100%;
   text-align: left;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+.information-section .suggest-section .course-price {
+  font-size: 1.25rem;
+  margin-top: 0.5em;
+  font-weight: 700;
 }
 
 .decoration-rectangle {
@@ -137,6 +161,8 @@ span {
   position: fixed;
   background-color: #0e6cff;
   z-index: -10;
+  display: flex;
+  flex-direction: column;
 }
 .decoration-rectangle::after {
   content: "";
@@ -146,12 +172,26 @@ span {
   height: 80px;
   background-color: white;
 }
+.decoration-rectangle div {
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+.decoration-rectangle .reviewPoint {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 7.75em;
+}
+.decoration-rectangle .reviewCount {
+  margin-top: 0.75em;
+  font-weight: 350;
+  font-size: 0.75rem;
+}
 
 .img-container {
   margin-top: 2em;
   margin-right: 2em;
-  width: 40%;
-  height: 350px;
+  width: 200px;
   overflow: hidden;
 }
 .img-container img {

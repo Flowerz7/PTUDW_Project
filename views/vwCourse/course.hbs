@@ -2,15 +2,18 @@
 <div class="main-container">
     <div class="img-container">
         <img src="images/{{avatarLink}}" alt="">
-        <div class="decoration-rectangle"></div>
+        <div class="decoration-rectangle">
+            <div class="reviewPoint">{{averageReviewPoint}}</div>
+            <div class="fa fa-star"></div>
+            <div class="reviewCount">{{reviewCount}} reviews</div>
+        </div>
     </div>
     <div class="information-section">
         <div class="text-section">
             <div class="title">
-                <h2>{{title}}</h2>
-                <h2>{{averageReviewPoint}} <span class="fa fa-star"></span></h2>
+                <div class="course-title">{{title}}</div>
             </div>
-            <p>{{briefDescription}}</p>
+            <div>{{briefDescription}}</div>
             <div><a href="/courses/{{parentCate}}">{{parentCate}}</a> <span class="fa fa-long-arrow-right"></span> <a href="/courses/category/{{this}}">{{category}}</a></div>
             <br>
             <div style="font-weight: 500;"><span>{{numOfStudent}}</span> students are learning</div>
@@ -18,9 +21,9 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Overviewing</div>
                     <div class="card-text">{{{description}}}</div>
                 </div>
+                <a style="display: block; margin-top: 1.25em; margin-left: 1.25rem" id="showMoreBtn" class="card-text">Show more</a>
             </div>
         </div>
 
@@ -58,7 +61,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>{{description}}</td>
+                            <td>{{{description}}}</td>
                         </tr>
                         {{/each}}
                     {{else}}
@@ -85,7 +88,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{description}}</td>
+                                <td>{{{description}}}</td>
                             </tr>
                             {{else}}
                             <tr>
@@ -109,7 +112,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{description}}</td>
+                                <td>{{{description}}}</td>
                             </tr>
                             {{/unless}}
                         {{/each}}
@@ -132,7 +135,7 @@
                     </div>
                 </div>
                 {{else}}
-                <div>Be the first one to buy and review this course</div>
+                <div style="font-style: italic;">Be the first one to buy and review this course</div>
             {{/each}}
             </div>
         </div>
@@ -148,7 +151,7 @@
                     <button class="btn">1</button>
                 </div>
                 <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
-                <button class="btn btn-primary">Feedback</button>
+                <button id="fb-btn" class="btn btn-primary">Feedback</button>
             </div>
         </div>
         {{/if}}
@@ -167,18 +170,20 @@
                         <div class="card-text course-price">{{price}}</div>
                     </div>
                 </div>
+                {{else}}
+                <div style="font-style: italic;">Sorry, there is no relevant course</div>
                 {{/each}}
             </div>
         </div>
     </div>
 
-    <div class="handle-section">
-        <div class="buy-section">
-            <h2 class="course-price">{{price}}$</h2>
-            <br>
+    <div class="handle-section card">
+        <div class="buy-section card-body">
+            <h2 style="color: white;" class="course-price">{{price}}$</h2>
             {{#if isAuth}}
-                <a href="" id="buyBtn" class="btn btn-primary">Buy now</a>
-                <a href="" id="subscribeBtn" class="btn btn-primary">Add</a>
+                <br>
+                <a href="" id="buyBtn" class="btn btn-primary">Enroll</a>
+                <a href="" id="subscribeBtn" class="btn btn-primary"><span class="fa fa-heart-o"></span> <span class="fa fa-heart"></span> Watchlist</a>
             {{/if}}
         </div>
     </div>
@@ -255,8 +260,9 @@
                 $.getJSON(`/students/update/watchList/check?username=${username}&id=${course_id}`, (data) => {
                     const subscribeBtn = $('#subscribeBtn')
                     if (data.isInWatchList === true){
-                        subscribeBtn.text('Remove')
-                        subscribeBtn.css('background-color', 'red')
+                        subscribeBtn.children('.fa-heart-o').css('display', 'none')
+                    } else{
+                        subscribeBtn.children('.fa-heart').css('display', 'none')
                     }
 
                     subscribeBtn.click((e) => {
@@ -289,7 +295,7 @@
                 $.getJSON(`/students/update/joinedCourses/check?username=${username}&id=${course_id}`, (data) => {
                     const buyBtn = $('#buyBtn')
                     if (data.isJoined === true){
-                        buyBtn.addClass('disabled').text('Bought').css('background-color', 'gray').css('border', 'none')
+                        buyBtn.addClass('disabled').text('Enrolled')
                         $('.givefeedback-section').css('display', 'block')
                     } 
                     else{
@@ -313,6 +319,18 @@
                 })
                 //#endregion
             })      
+        })
+    </script>
+
+    <script>
+        $(document).ready(() => {
+            const showDescription = (e) => {
+                e.preventDefault()
+                $(e.target).prev().css('max-height', 'none')
+                $(e.target).css('display', 'none')
+            }
+
+            $('#showMoreBtn').click(showDescription)
         })
     </script>
 {{/section}}

@@ -101,8 +101,8 @@
 
         const elements = $('.course-price')
         elements.each(function (index, item) {
-            var value = parseInt(item.textContent)
-            item.textContent = value.toLocaleString('us-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 1, maximumFractionDigits: 1 })
+            var value = parseFloat(item.textContent)
+            item.textContent = value.toLocaleString('us-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })
         })
     })
 </script>

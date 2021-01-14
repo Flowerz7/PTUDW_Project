@@ -6,6 +6,10 @@ $main-color : #0e6cff;
     margin: 0 auto;
 }
 
+span{
+    color: $main-color;
+}
+
 .btn-primary{
     background-color: $main-color;
 }
@@ -40,6 +44,10 @@ $main-color : #0e6cff;
     flex-direction: column;
     width: 100%;
 
+    a{
+        text-decoration: none;
+    }
+
     .text-section{
         margin-left: 2em;
         display: flex;
@@ -52,6 +60,23 @@ $main-color : #0e6cff;
             margin: 0;
 
             margin-right: 2em;
+        }
+
+        .title{
+            display: flex;
+        }
+
+        p, :not(.card-text p){
+            font-style: italic;
+            margin : 0;
+        }
+
+        .card{
+            box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
+
+            .card-title{
+                font-weight: 700;
+            }
         }
     }
 
@@ -87,8 +112,15 @@ $main-color : #0e6cff;
             flex-direction: column;
         }
 
+        .course-price{
+            font-size: 1.25rem;
+            margin-top: .5em;
+
+            font-weight: 700;
+        }
+
         .card{
-            box-shadow: .2em .2em .2em rgba(0,0,0,.2);
+            box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
             cursor: pointer;
 
             margin-bottom: 1em;
@@ -138,7 +170,7 @@ $main-color : #0e6cff;
 }
 
 .decoration-rectangle{
-    width: 100px;
+    width: 8%;
     height: 100%;
 
     top: 0;
@@ -176,9 +208,62 @@ $main-color : #0e6cff;
     }
 }
 
+.viewfeedback-section{
+    .card-title, .card-text{
+        width: 100%;
+        text-align: left;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .card{
+        margin-bottom: 1em;
+        box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
+    }
+
+    span{
+        color: $main-color;
+    }
+
+    .card-title{
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .card-text-container{
+        margin-top: .25em;
+        display: flex;
+        align-items: center;
+    }
+    
+    .square{
+        width: 30px;
+        height: 3px;
+        position: relative;
+        
+        background-color: $main-color;
+        margin-right: .5em;
+        margin-left: .25em;
+
+        &::before{
+            content: '';
+            width: 3px;
+            height: 10px;
+
+            position: absolute;
+            bottom: 100%;
+
+            background-color: $main-color;
+        }
+    }
+}
+
 .givefeedback-section{
     margin-left: 2em;
     margin-top: 1em;
+    box-shadow: .25em .25em .3em rgba(0, 0, 0, .05);
+
     .stars{
         display: flex;
         flex-direction: row-reverse;
@@ -195,6 +280,10 @@ $main-color : #0e6cff;
 
     input{
         margin-bottom: .5em;
+    }
+
+    .card-body > button{
+        margin-top: .5em;
     }
 }
 
@@ -221,4 +310,20 @@ $main-color : #0e6cff;
 
 .close {
     margin-top: 1em;
+}
+
+.fa{
+    color: $main-color;
+}
+
+@media (max-width:  700px){
+    .decoration-rectangle{
+        display: none;
+    }
+
+    .card-body{
+        &::after{
+            display: none;
+        }
+    }
 }

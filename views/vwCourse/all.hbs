@@ -1,8 +1,14 @@
 <link rel="stylesheet" href="/css/courseList.css">
 
 <div class="main-container">
-  <div class="annoucement">There are <span>{{docsCount}}</span> courses in total</div>
+  {{#unless docsCount}}
+  <div class="annoucement">Sorry :( There is no course available here...</div>
+  <button onclick="window.location='\\'"  class="btn btn-primary">Back to <span>Online Academy</span></button>
+  {{else}}
+  <div class="annoucement">There are <span>{{docsCount}}</span> courses in {{currentCategory}}</div>
+  {{/unless}}
 
+  {{#if docsCount}}
   <div class="filter-section">
     <form method="GET">
       <label for="filter">Filter: </label>
@@ -17,62 +23,35 @@
       <button type="submit" class="btn btn-primary">Apply filter</button>
     </form>
   </div>
+  {{/if}}
 
   <div class="course-container">
     {{#each Courses}}
-      <div class="card" onclick="window.location='/courses?id={{this._id}}'">
-        <img src="/images/{{avatarLink}}" alt="">
+      <div class="card">
+        <img src="/images/{{avatarLink}}" onclick="window.location='/courses?id={{this._id}}'" alt="">
         <div class="card-body">
           <h4 class="card-title">{{title}}</h4>
-          <div class="card-text">{{category}}</div>
+          <div onclick="window.location='/courses/category/{{category}}'" style="cursor: pointer;" class="card-text">{{category}}</div>
           <div class="card-text">{{teacherID.name}}</div>
-          <div class="card-text">{{averageReviewPoint}} ({{reviewCount}} reviews)</div>
-          <div class="card-text"><b>{{price}}$</b></div>
+          <div class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span> ({{reviewCount}} reviews)</div>
+          <div class="card-text course-price"><b>{{price}}$</b></div>
         </div>
       </div>
       {{else}}
     {{/each}}
   </div>
 
+  {{#ifLessThanOrEqualLimit docsCount}}
+  {{else}}
   <div class="paginate-section">
-    {{#if last}}
-    <nav>
-      <ul class="pagination">
-        {{#if start}}
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Prev</a></li>
-        {{else}}
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{decBy2 current}}">{{decBy2 current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">{{dec current}}</a></li>
-        {{/if}}
-        <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Next</a></li>
-      </ul>
-    </nav>
-    {{else}}
-    {{#if start}}
-    <nav>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Prev</a></li>
-        <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{incBy2 current}}">{{incBy2 current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
-      </ul>
-    </nav>
-    {{else}}
     <nav>
       <ul class="pagination">
         <li class="page-item"><a class="page-link" href="?page={{dec current}}">Prev</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">{{dec current}}</a></li>
-        <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
         <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
       </ul>
     </nav>
-    {{/if}}
-    {{/if}}
   </div>
+  {{/ifLessThanOrEqualLimit}}
 </div>
 
 {{#section 'scripts'}}

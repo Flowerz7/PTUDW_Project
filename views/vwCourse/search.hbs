@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/courseList.css">
 
 <div class="main-container">
-  <div class="annoucement">There are <span>{{docsCount}}</span> courses in total</div>
+  <div class="annoucement">We found <span>{{docsCount}}</span> courses for keyword <span>{{q}}</span></div>
 
   <div class="filter-section">
     <form method="GET">
@@ -28,7 +28,7 @@
           <div class="card-text">{{category}}</div>
           <div class="card-text">{{teacherID.name}}</div>
           <div class="card-text">{{averageReviewPoint}} ({{reviewCount}} reviews)</div>
-          <div class="card-text"><b>{{price}}$</b></div>
+          <div class="card-text course-price">{{price}}</div>
         </div>
       </div>
       {{else}}

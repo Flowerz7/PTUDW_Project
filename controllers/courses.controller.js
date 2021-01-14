@@ -113,13 +113,13 @@ export const loadAllCourses = async (req, res) => {
     const categories = await getCategories()
     const props = {
         Courses : courses,
+        docsViewing: courses.length,
         docsCount : docsCount,
         current : page,
-        start : page === 1,
-        last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
         categories : [...categories],
-        username : req.session.username
+        username : req.session.username,
+        currentCategory : 'total',
     }
 
     res.render('vwCourse/all', props)
@@ -154,13 +154,13 @@ export const loadCoursesBySubcategory = async (req, res) => {
     const categories = await getCategories()
     const props = {
         Courses : courses,
+        docsViewing: courses.length,
         docsCount : docsCount,
         current : page,
-        start : page === 1,
-        last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
         username : req.session.username,
-        categories : [...categories]
+        categories : [...categories],
+        currentCategory : subcategory_params
     }
 
     res.render('vwCourse/all', props)
@@ -200,13 +200,13 @@ export const loadCoursesByCategory = async (req, res) => {
     const categories = await getCategories()
     const props = {
         Courses : result,
+        docsViewing: result.length,
         docsCount : docsCount,
         current : page,
-        start : page === 1,
-        last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
         username : req.session.username,
-        categories : [...categories]
+        categories : [...categories],
+        currentCategory : cate_params
     }
 
     res.render('vwCourse/all', props)
@@ -240,14 +240,13 @@ export const loadQueriedCourse = async (req, res) => {
     const categories = await getCategories()
     const props = {
         Courses : result,
+        docsViewing: result.length,
         docsCount : docsCount,
         q : q,
         current : page,
-        start : page === 1,
-        last : (options.page * options.limit) > docsCount,
         isAuth : req.session.isAuth,
         username : req.session.username,
-        categories : [...categories]
+        categories : [...categories],
     }
 
     res.render('vwCourse/search', props)

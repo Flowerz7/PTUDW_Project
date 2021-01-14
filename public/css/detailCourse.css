@@ -4,6 +4,10 @@
   margin: 0 auto;
 }
 
+span {
+  color: #0e6cff;
+}
+
 .btn-primary {
   background-color: #0e6cff;
 }
@@ -33,6 +37,9 @@
   flex-direction: column;
   width: 100%;
 }
+.information-section a {
+  text-decoration: none;
+}
 .information-section .text-section {
   margin-left: 2em;
   display: flex;
@@ -44,6 +51,19 @@
   padding: 0;
   margin: 0;
   margin-right: 2em;
+}
+.information-section .text-section .title {
+  display: flex;
+}
+.information-section .text-section p, .information-section .text-section :not(.card-text p) {
+  font-style: italic;
+  margin: 0;
+}
+.information-section .text-section .card {
+  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
+}
+.information-section .text-section .card .card-title {
+  font-weight: 700;
 }
 .information-section .lectures-section, .information-section .viewfeedback-section, .information-section .suggest-section {
   margin-left: 2em;
@@ -67,8 +87,13 @@
   display: flex;
   flex-direction: column;
 }
+.information-section .suggest-section .course-price {
+  font-size: 1.25rem;
+  margin-top: 0.5em;
+  font-weight: 700;
+}
 .information-section .suggest-section .card {
-  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
+  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
   cursor: pointer;
   margin-bottom: 1em;
   width: 100%;
@@ -105,7 +130,7 @@
 }
 
 .decoration-rectangle {
-  width: 100px;
+  width: 8%;
   height: 100%;
   top: 0;
   transform: translateX(50%);
@@ -135,9 +160,50 @@
   border-radius: 0.25rem;
 }
 
+.viewfeedback-section .card-title, .viewfeedback-section .card-text {
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.viewfeedback-section .card {
+  margin-bottom: 1em;
+  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
+}
+.viewfeedback-section span {
+  color: #0e6cff;
+}
+.viewfeedback-section .card-title {
+  font-weight: 700;
+  margin: 0;
+}
+.viewfeedback-section .card-text-container {
+  margin-top: 0.25em;
+  display: flex;
+  align-items: center;
+}
+.viewfeedback-section .square {
+  width: 30px;
+  height: 3px;
+  position: relative;
+  background-color: #0e6cff;
+  margin-right: 0.5em;
+  margin-left: 0.25em;
+}
+.viewfeedback-section .square::before {
+  content: "";
+  width: 3px;
+  height: 10px;
+  position: absolute;
+  bottom: 100%;
+  background-color: #0e6cff;
+}
+
 .givefeedback-section {
   margin-left: 2em;
   margin-top: 1em;
+  box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
 }
 .givefeedback-section .stars {
   display: flex;
@@ -152,6 +218,9 @@
 }
 .givefeedback-section input {
   margin-bottom: 0.5em;
+}
+.givefeedback-section .card-body > button {
+  margin-top: 0.5em;
 }
 
 .modal {
@@ -176,6 +245,20 @@
 
 .close {
   margin-top: 1em;
+}
+
+.fa {
+  color: #0e6cff;
+}
+
+@media (max-width: 700px) {
+  .decoration-rectangle {
+    display: none;
+  }
+
+  .card-body::after {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=detailCourse.css.map */

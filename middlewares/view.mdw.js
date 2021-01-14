@@ -20,7 +20,23 @@ const useHBS = (app) => {
         decBy2 : (value) => {
           return parseInt(value) - 2
         },
-        log : value => console.log(value)
+        log : value => console.log(value),
+        ifEqualLimit : function (value, opts) {
+          if (value = 5){
+            return opts.fn(this)
+          }
+          else {
+            return opts.inverse(this)
+          }
+        },
+        ifLessThanOrEqualLimit : function (value, opts) {
+          if (value < 5){
+            return opts.fn(this)
+          }
+          else {
+            return opts.inverse(this)
+          }
+        }
       },
     })
   );

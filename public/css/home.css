@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.course-price {
+  font-weight: 700;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -131,6 +135,10 @@
 .category-section .section-content .category-btn:hover {
   color: #0e6cff;
   background-color: white;
+}
+
+.fa {
+  color: #0e6cff;
 }
 
 /*# sourceMappingURL=home.css.map */

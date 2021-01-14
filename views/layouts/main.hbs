@@ -13,6 +13,8 @@
     <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="/css/main.layout.css">
 
     <title>Online Academy</title>
@@ -32,8 +34,11 @@
                     <a href="/" class="nav-link"><b>Home</b></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="/course/all" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"><b>Category</b></a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"><b>Category</b></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-item">
+                            <a href="/courses/all">All</a>
+                        </div>
                         {{#each categories}}
                         <div class="dropdown-item">
                             <a href="/courses/{{name}}" >{{name}}</a>
@@ -94,10 +99,11 @@
             $('.subcate-section').css('display', 'none')
         })
 
-        {{!-- $('.subcate-section').mouseleave((e) => {
-            e.preventDefault()
-            $(e.target).css('display', 'none')
-        }) --}}
+        const elements = $('.course-price')
+        elements.each(function (index, item) {
+            var value = parseInt(item.textContent)
+            item.textContent = value.toLocaleString('us-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 1, maximumFractionDigits: 1 })
+        })
     })
 </script>
 

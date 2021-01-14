@@ -3,6 +3,7 @@
 @import 'buttons';
 @import 'mobile';
 
+
 form {
   width: 500px;
   position: relative;
@@ -12,18 +13,19 @@ form {
     text-align: center;
     margin-bottom: 1em;
     font-size: 30px;
+    font-weight: bold;
   }
   
   .login-form {
-    padding: 1em;
+    padding: 2em;
     position: absolute;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
-    
     border: none;
+
   }
 
   .btn-group {
@@ -54,9 +56,17 @@ form {
       font-weight: bold;
     }
 
+    a[class="login"] {
+      color: $thirdary-color;
+    }
+
     a:hover {
       text-decoration: underline;
       color: $danger-color;
+    }
+
+    a[class="login"]:hover {
+      color: $thirdary-color;
     }
   }
 }

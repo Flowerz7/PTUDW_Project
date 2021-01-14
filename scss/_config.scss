@@ -4,8 +4,13 @@ $thirdary-color: #0e6cff;
 $danger-color: #ff8700;
 $cancel-color: #FF393A;
 
+@font-face {
+  src: url("../public/fonts/HelveticaNeue.otf");
+  font-family: Helvetica;
+}
 
 body {
+  font-family: Helvetica;
   line-height: 1.6em;
   box-sizing: border-box;
 }

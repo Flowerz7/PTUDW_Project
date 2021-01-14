@@ -1,5 +1,6 @@
 {{#section 'scripts'}}
 <script>
+
 function isExistEmptyField(fields) {
   const length = fields.length;
   for (let i = 0; i < length; i++) {
@@ -24,16 +25,25 @@ $("#formRegister").on("submit", function (e) {
   fields.push(name);
   fields.push(email);
 
+  let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  let toastList = toastElList.map(function (toastEl) {
+      return new bootstrap.Toast(toastEl);
+  });
+
+
   if (isExistEmptyField(fields)) {
-    alert(`is exits empty field`);
+    document.getElementById("toast-content").innerHTML = "Do not leave fields empty!"; 
+    toastList[0].show();
     return;
   }
 
   $.getJSON(`/account/is-available?username=${username}&email=${email}`, function (data) {
     if(data.isUsernameExist) {
-      alert(`Username is exits in database.`);
+      document.getElementById("toast-content").innerHTML = "Username is existed!"; 
+      toastList[0].show();
     }else if(data.isEmailExist) {
-      alert(`Email is exist in database.`);
+      document.getElementById("toast-content").innerHTML = "Email is existed!"; 
+      toastList[0].show();
     }else {
       $('#formRegister').off('submit').submit();
     }
@@ -44,8 +54,15 @@ $("#formRegister").on("submit", function (e) {
 
 
 <div class="auth-container">
+				<div class="toast" data-autohide="false" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+  				<div class="toast-header">
+    				<strong class="me-auto">Notification</strong>
+    				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  				</div>
+          <div id="toast-content" class="toast-body">Hello!</div>
+				</div>
   <form action="" method="POST" id="formRegister">
-      <div class="card mx-auto login-form">
+      <div class="card mx-auto login-form register">
         <div class="card-body">
        	<h1>Signup</h1> 
           <div class="mb-3">
@@ -65,6 +82,7 @@ $("#formRegister").on("submit", function (e) {
             <input type="email" class="form-control" id="txtEmail" name="email">
           </div>  
           <button type="submit" class="btn-signup">Register</button>
+          <p>Have an account? <a href="/account/login" class="login">Login</a></p>
         </div>
       </div>
   </form>

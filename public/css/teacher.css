@@ -1,4 +1,9 @@
+@font-face {
+  src: url("../public/fonts/HelveticaNeue.otf");
+  font-family: Helvetica;
+}
 body {
+  font-family: Helvetica;
   line-height: 1.6em;
   box-sizing: border-box;
 }
@@ -27,12 +32,31 @@ li {
 }
 
 .table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   background-color: #fff;
-  width: 70%;
+  width: 1000px;
   margin: auto;
   margin-top: 2em;
-  padding: 1em;
+  padding: 2em;
   border-radius: 12px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.table-container .add {
+  margin-bottom: 10px;
+}
+.table-container h1 {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 30px;
+  color: #ff8700;
+}
+.table-container h1[class=teacher] {
+  color: #0e6cff;
 }
 
 .form-container {
@@ -63,6 +87,12 @@ li {
   font-weight: bold;
   font-size: 30px;
   margin-bottom: 1em;
+}
+
+.toast {
+  position: fixed;
+  top: 10px;
+  right: 10px;
 }
 
 footer {
@@ -228,7 +258,8 @@ body {
 }
 
 .table {
-  margin: auto;
+  margin: 1em;
+  margin-bottom: 30px;
 }
 
 .form {

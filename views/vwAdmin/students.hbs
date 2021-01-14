@@ -1,4 +1,5 @@
 <div class="table-container">
+    <h1>Students management</h1>
 		<table class="table table-borderless table-hover">
   <thead>
     <tr>
@@ -15,13 +16,9 @@
         <td>
           <button class="btn btn-sm btn-primary detail-btn">Detail</button>
           <div class="detail-section" style="display: none;">
-              <div class="card">
-                <div class="card-body">
                   <h4><b>{{name}}</b></h4>
-                  <div>Username: {{username}}</div>
-                  <dib>Email: {{email}}</dib>
-                </div>
-              </div>
+                  <div><strong>Username: </strong>{{username}}</div>
+                  <div><strong>Email: </strong>{{email}}</div>
           </div>
           <form style="display: inline-block;" action="/admin/students/delete" method="post">
             <input type="hidden" name="studentID" value="{{_id}}">

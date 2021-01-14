@@ -1,8 +1,8 @@
 const handlingError = (app) => {
   app.use((req, res, next) => {
-    res.status(404).json({
-      success: false,
-      message: "Page Not Found",
+    res.render("404.hbs", {
+      layout: "error.hbs",
+      title: "404 | Page not found",
     });
   });
 

@@ -1,4 +1,5 @@
 <div class="table-container">
+    <h1>Teachers management</h1>
 		<table class="table table-borderless table-hover">
       <a href="/admin/teachers/add" class="btn-sm btn btn-primary">Add teacher</a>
   <thead>
@@ -16,13 +17,9 @@
         <td>
           <button class="btn btn-sm btn-primary detail-btn">Detail</button>
           <div class="detail-section" style="display: none;">
-            <div class="card">
-              <div class="card-body">
                 <h4><b>{{name}}</b></h4>
-                <div>Username: {{username}}</div>
-                <div>Email: {{email}}</div>
-              </div>
-            </div>
+                <div><strong>Username:</strong> {{username}}</div>
+                <div><strong>Email: </strong>{{email}}</div>
           </div>
           <form style="display: inline-block;" action="/admin/teachers/delete" method="post">
             <input type="hidden" name="teacherID" value="{{_id}}">

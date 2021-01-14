@@ -48,8 +48,14 @@ function isExistEmptyField(fields) {
   fields.push(description);
   fields.push(videos);
 
+  let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  let toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl);
+  });
+
   if (isExistEmptyField(fields)) {
-    alert(`is exits empty field`);
+    document.getElementById("toast-content").innerHTML = "Do not leave empty field, please!"; 
+    toastList[0].show();
     return;
   }
 
@@ -94,8 +100,15 @@ function isExistEmptyField(fields) {
 
     <div class="col-12 mt-5">
       <button type="submit" class="btn btn-primary">Modify</button>
-      <a href="/teacher/" class="btn btn-success">Done</a>
+      <a href="/teacher/" class="btn btn-danger">Modify later</a>
     </div>
 
   </form>
+</div>
+<div class="toast" data-autohide="false" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <strong class="me-auto">Notification</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div id="toast-content" class="toast-body"></div>
 </div>

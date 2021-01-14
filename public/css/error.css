@@ -32,31 +32,12 @@ li {
 }
 
 .table-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   background-color: #fff;
-  width: 1000px;
+  width: 70%;
   margin: auto;
   margin-top: 2em;
-  padding: 2em;
+  padding: 1em;
   border-radius: 12px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-.table-container .add {
-  margin-bottom: 10px;
-}
-.table-container h1 {
-  font-size: 25px;
-  font-weight: bold;
-  text-align: left;
-  width: 100%;
-  margin-bottom: 30px;
-  color: #ff8700;
-}
-.table-container h1[class=teacher] {
-  color: #0e6cff;
 }
 
 .form-container {
@@ -87,12 +68,6 @@ li {
   font-weight: bold;
   font-size: 30px;
   margin-bottom: 1em;
-}
-
-.toast {
-  position: fixed;
-  top: 10px;
-  right: 10px;
 }
 
 footer {
@@ -149,6 +124,32 @@ footer {
 
 .btn-signup:hover {
   transform: scale(1.01);
+}
+
+.error-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 2em;
+}
+.error-container h1 {
+  text-align: center;
+  margin-top: 10px;
+}
+.error-container .signal {
+  color: #FF393A;
+}
+.error-container .btn-login {
+  margin-top: 20px;
+  width: 150px;
+  text-align: center;
+  padding-top: 6px;
 }
 
 @media (max-width: 1100px) {
@@ -213,85 +214,5 @@ footer {
     text-align: left;
   }
 }
-form {
-  width: 500px;
-  position: relative;
-  flex-shrink: 0;
-}
-form h1 {
-  text-align: center;
-  margin-bottom: 1em;
-  font-size: 30px;
-  font-weight: bold;
-}
-form .login-form {
-  padding: 2em;
-  position: absolute;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  border: none;
-}
-form .btn-group {
-  width: 100%;
-  margin-bottom: 1em;
-  background-color: #0e6cff;
-}
-form .btn-group .btn-outline-primary {
-  border: none;
-  outline: none;
-}
-form .mb-3 label {
-  font-weight: 400;
-}
-form p {
-  width: 100%;
-  text-align: center;
-  margin-top: 1em;
-}
-form p a {
-  color: #ff8700;
-  font-weight: bold;
-}
-form p a[class=login] {
-  color: #0e6cff;
-}
-form p a:hover {
-  text-decoration: underline;
-  color: #ff8700;
-}
-form p a[class=login]:hover {
-  color: #0e6cff;
-}
 
-.thumbnail {
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #0e6cff;
-}
-.thumbnail h1 {
-  width: 80%;
-  color: #fff;
-  font-size: 50px;
-}
-
-.thumbnail-signup {
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #ff8700;
-}
-.thumbnail-signup h1 {
-  width: 80%;
-  color: #fff;
-  font-size: 50px;
-}
-
-/*# sourceMappingURL=auth.css.map */
+/*# sourceMappingURL=error.css.map */

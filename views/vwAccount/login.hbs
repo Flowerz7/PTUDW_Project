@@ -1,11 +1,27 @@
+{{#section 'scripts'}}
+<script>
+  let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  let toastList = toastElList.map(function (toastEl) {
+      return new bootstrap.Toast(toastEl);
+  });
+
+  toastList[0].show();
+</script>
+{{/section}}
+
 <div class="auth-container">
-  <form action="" method="POST">
-    <div class="card mx-auto login-form">
-      <div class="card-body">
-       	<h1>Login</h1> 
         {{#if err_message}}
-        <div class="alert alert-danger" role="alert">{{err_message}}</div>
+				<div class="toast" data-autohide="false" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+  				<div class="toast-header">
+    				<strong class="me-auto">Notification</strong>
+    				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  				</div>
+          <div class="toast-body">{{err_message}}</div>
+				</div>
         {{/if}}
+  <form action="" method="POST">
+    <div class="login-form">
+       	<h1>Login</h1> 
         <div class="mb-3">
           <label class="form-label">Role</label>
           <select class="form-select" name="role" aria-label="Default select example">
@@ -23,8 +39,7 @@
           <input type="password" name="password" class="form-control" id="txtPassword" placeholder="">
         </div>
         <button type="submit" class="btn-login">Login</button>
-        <p>Do you have an account? <a href="/account/register">Signup</a></p>
-      </div>
+        <p>Not a member? <a href="/account/register">Signup</a></p>
     </div>
   </form>
 	<div class="thumbnail">

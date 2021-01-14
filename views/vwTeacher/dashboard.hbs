@@ -1,4 +1,5 @@
 <div class="table-container">
+  <h1 class="teacher" >Courses management</h1>
 		<table class="table table-borderless table-hover">
   <thead>
     <tr>
@@ -6,7 +7,7 @@
       <th scope="col">Course title</th>
       <th scope="col">Category</th>
       <th scope="col">Participants</th>
-      <th scope="col">status</th>
+      <th scope="col">Status</th>
       <th scope="col">Handle</th>
     </tr>
   </thead>
@@ -20,11 +21,13 @@
         <td>{{status}}</td>
         <td>
           <a href="/teacher/update/{{courseID}}"  class="btn btn-sm
-            btn-primary">Change Info</a>
+            btn-primary">Update</a>
 
           {{#unless isFinish}}
-          <a href="/teacher/videos/{{courseID}}"  class="btn btn-sm btn-primary">Add videos</a>
-          <a href="/teacher/complete/{{courseID}}"  class="btn btn-sm btn-success">Done</a>
+          <a href="/teacher/videos/{{courseID}}"  class="btn btn-sm
+            btn-primary">Modify</a>
+          <a href="/teacher/complete/{{courseID}}"  class="btn btn-sm
+            btn-danger">Complete</a>
           {{/unless}}
 
         </td>

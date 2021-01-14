@@ -1,4 +1,5 @@
 <div class="table-container">
+    <h1>Courses management</h1>
 		<table class="table table-borderless table-hover">
   <thead>
     <tr>
@@ -17,14 +18,12 @@
         <td>
           <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>
           <div class="detail-section card" style="display: none;">
-            <div class="card-body">
               <h4><b>{{title}}</b></h4>
-              <div>Teacher: {{teacherID.username}}</div>
-              <div>View: {{view}}</div>
-              <div>Price: {{price}}</div>
-              <div>Number of Student: {{numOfStudent}}</div>
-              <div>Category: {{category}}</div>
-            </div>
+              <div><strong>Teacher:</strong> {{teacherID.username}}</div>
+              <div><strong>View:</strong> {{view}}</div>
+              <div><strong>Price:</strong> {{price}}</div>
+              <div><strong>Number of Student:</strong> {{numOfStudent}}</div>
+              <div><strong>Category:</strong> {{category}}</div>
           </div>
           <form style="display: inline-block;" action="/admin/courses/delete" method="post">
             <input type="hidden" name="courseID" value="{{_id}}">

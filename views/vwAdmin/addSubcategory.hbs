@@ -6,14 +6,21 @@
       const categoryName = $('#txtCategoryName').val();
       const categoryDetail = $('#txtCategoryDetail').val();
 
+      let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+      let toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl);
+      });
+
       if(categoryName.length === 0 || categoryDetail.length === 0) {
-        alert(`Please fill all infomation before submit`);
+        document.getElementById("toast-content").innerHTML = "Do not leave empty field!"; 
+        toastList[0].show();
         return;
       }
 
       $.getJSON(`/admin/subCategories/check?name=${categoryName}`, function(data) {
           if(data.isExist) {
-              alert(`Subcategory name is existed!`);
+              document.getElementById("toast-content").innerHTML = "Subcategory name is existed!"; 
+              toastList[0].show();
           } else {
               $("#categoryForm").off("submit").submit();
           }
@@ -23,9 +30,13 @@
 </script>
 {{/section}}
 
-<form id="categoryForm"  style="display: block;" action="" method="POST">
-  <div class="card mx-auto" style="width: 40%;">
-    <div class="card-body">
+<div class="form-container">
+  <div class="showcase">
+    <h1>Adding a subcategory, adding a new challenge, what?</h1>
+  </div>
+  <div class="form">
+    <form id="categoryForm" action="" method="POST">
+      <h1>Add subcategory</h1>
 			<div class="mb-3">
   			<label for="txtCategoryName" class="form-label">Subcategory's name</label>
         <input type="text" name="name" class="form-control" id="txtCategoryName" placeholder="">
@@ -45,10 +56,15 @@
         <textarea class="form-control" id="txtCategoryDetail"
           name="detail" rows="3"></textarea>
       </div>
-
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a href="/admin/categories" class="btn btn-danger">Cancel</a>
-
-    </div>
+      <button type="submit" class="btn-login">OK</button>
+      <a href="/admin/categories" class="cancel">Cancel</a>
+    </form>
   </div>
-</form>
+</div>
+<div class="toast" data-autohide="false" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <strong class="me-auto">Notification</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div id="toast-content" class="toast-body"></div>
+</div>

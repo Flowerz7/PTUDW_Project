@@ -52,8 +52,14 @@ $("#addCourseForm").on("submit", function (e) {
   fields.push(description);
   fields.push(price);
 
+  let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  let toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl);
+  });
+
   if (isExistEmptyField(fields)) {
-    alert(`is exits empty field`);
+    document.getElementById("toast-content").innerHTML = "Do not leave empty field, please!"; 
+    toastList[0].show();
     return;
   }
 
@@ -113,4 +119,11 @@ $("#addCourseForm").on("submit", function (e) {
       <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
     </div>
   </form>
+</div>
+<div class="toast" data-autohide="false" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <strong class="me-auto">Notification</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div id="toast-content" class="toast-body"></div>
 </div>

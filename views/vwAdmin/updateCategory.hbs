@@ -4,8 +4,14 @@
       e.preventDefault();
       const categoryDetail = $('#txtCategoryDetail').val();
 
+      let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+      let toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl);
+      });
+
       if(categoryDetail.length === 0) {
-        alert(`Please type new detail!`);
+        document.getElementById("toast-content").innerHTML = "Do not leave empty detail, please!"; 
+        toastList[0].show();
         return;
       }
 
@@ -34,4 +40,11 @@
       <a href="/admin/categories" class="cancel">Cancel</a>
     </form>
   </div>
+</div>
+<div class="toast" data-autohide="false" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <strong class="me-auto">Notification</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div id="toast-content" class="toast-body"></div>
 </div>

@@ -85,7 +85,7 @@ export const handle_login_post = async (req, res) => {
     res.render("vwAccount/login", {
       layout: "account.hbs",
       title: "Project | Login",
-      err_message: "Invalid username or password",
+      err_message: "Invalid username!",
     });
   } else {
     // Check password is match in database:
@@ -95,7 +95,7 @@ export const handle_login_post = async (req, res) => {
       res.render("vwAccount/login", {
         layout: "account.hbs",
         title: "Project | Login",
-        err_message: "Invalid username or password",
+        err_message: "Invalid password!",
       });
     } else {
       // Save auth info into session:
@@ -369,7 +369,10 @@ export const getUsername = (req, res) => {
 export const getPersonalProfile = async (req, res) => {
   const username = req.query.username;
 
-  const student = await Student.findOne({ username }).populate("watchList").populate("joinedCourses").lean();
+  const student = await Student.findOne({ username })
+    .populate("watchList")
+    .populate("joinedCourses")
+    .lean();
   const props = {
     ...student,
   };

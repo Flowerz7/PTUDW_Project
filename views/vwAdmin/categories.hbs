@@ -1,31 +1,33 @@
 <div class="table-container">
-		<table class="table table-borderless table-hover">
-      <a href="/admin/categories/add" class="btn-sm btn btn-primary add-category-btn">Add category</a>
+    <h1>Categories management</h1>
+		<table class="table2">
+      <a href="/admin/categories/add" class="add btn-sm btn btn-primary add-category-btn">Add category</a>
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
-          <th scope="col">Handle</th>
+          <th class="handle" scope="col">Handle</th>
         </tr>
       </thead>
       <tbody>
         {{#each categories}}
           <tr>
-            <th scope="row">{{inc @index}}</th>
+            <td scope="row">{{inc @index}}</td>
             <td>{{name}}</td>
-            <td>
+            <td class="handle">
               <a href="/admin/category/{{name}}" class="btn btn-sm btn-primary detail-btn">Detail</a>
               <button class="btn btn-sm btn-primary view-btn">View Subcategory</button>
               <a href='/admin/categories/update?name={{name}}' class="btn btn-sm btn-primary">Update</a>
               <a href="{{name}}" class="btn btn-sm btn-danger delete-category-btn">Delete</a>
 
-              <div class="card subCategories-section" style="display: none;">
-                <div class="card-body">
-                  <table class="table">
+              <div class="subCategories-section" style="display: none;">
+                  <table class="table2">
                     <thead>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Handle</th>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Handle</th>
+                      </tr>
                     </thead>
 
                     <tbody>
@@ -33,17 +35,13 @@
                         <tr>
                           <th scope="row">{{inc @index}}</th>
                           <td>{{name}}</td>
-                          <td>
+                          <td class="handle">
                             <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>
                             <div class="detail-section" style="display: none;">
-                              <div class="card">
-                                <div class="card-body">
                                   <h4><b>{{name}}</b></h4>
-                                  <div>Detail: {{detail}}</div>
-                                  <div>Subscribe: {{subscribe}}</div>
-                                  <div>Number of Course: {{numOfCourses}}</div>
-                                </div>
-                              </div>
+                                  <div><strong>Detail:</strong> {{detail}}</div>
+                                  <div><strong>Subscribe:</strong> {{subscribe}}</div>
+                                  <div><strong>Number of Course:</strong> {{numOfCourses}}</div>
                             </div>
                             <a href='/admin/subCategories/update?name={{name}}' class="btn btn-sm btn-primary">Update</a>
 
@@ -55,19 +53,14 @@
                       {{/each}}
                     </tbody>
                   </table>
-                </div>
 
-                <div class="card-footer text-muted">
                   <a href="/admin/subCategories/add" class="btn-sm btn btn-primary add-subcategory-btn">Add subcategory</a>
-                </div>
               </div>
 
               <div class="card detail-section" style="display: none;">
-                <div class="card-body">
                   <h4><b>{{name}}</b></h4>
-                  <div>Detail: {{detail}}</div>
-                  <div>Subscribe: {{subscribe}}</div>
-                </div>
+                  <div><strong>Detail:</strong> {{detail}}</div>
+                  <div><strong>Subscribe:</strong> {{subscribe}}</div>
               </div>
             </td>
           </tr>

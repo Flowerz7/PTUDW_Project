@@ -1,13 +1,10 @@
 <div class="table-container">
-    <a class="btn btn-primary" href="/teacher/upload/{{courseID}}" style="display:
-              inline-block;">Add videos</a>
+  <h1 class="teacher">Course's videos</h1>
     <table class="table table-borderless table-hover">
       <thead>
         <tr>
           <th scope="col">Chapter</th>
           <th scope="col">Video title</th>
-          <th scope="col">description</th>
-          <th scope="col">Handle</th>
         </tr>
       </thead>
       <tbody>
@@ -15,14 +12,13 @@
         <tr>
           <th scope="row">{{chapterNumber}}</th>
           <td>{{title}}</td>
-          <td>{{{description}}}</td>
-        <td>
-          <a href=""  class="btn btn-sm btn-success">Watch</a>
-        </td>
       </tr>
     {{/each}}
   </tbody>
 </table>
-    <a class="btn btn-danger" href="javascript:history.back()" style="display:
-              inline-block;">Back</a>
+<div>
+  <a class="btn btn-primary" href="/teacher/upload/{{courseID}}">Modify video</a>
+  <a class="btn btn-danger" href="javascript:history.back()" style="display:
+    inline-block;">Back</a>
+</div>
 </div>

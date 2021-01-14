@@ -5,27 +5,24 @@
 
   <div class="filter-section">
     <form method="GET">
-      <label for="review-filter">Review: </label>
-      <select class="custom-select" name="review" id="review-filter">
-        <option class="dropdown-item" value="asc" selected>Ascending</option>
-        <option class="dropdown-item" value="desc">Descending</option>
-      </select>
-
-      <label for="price-filter">Price: </label>
-      <select class="custom-select" name="price" id="price-filter">
-        <option class="dropdown-item" value="asc" selected>Ascending</option>
-        <option class="dropdown-item" value="desc">Descending</option>
+      <label for="filter">Filter: </label>
+      <select class="custom-select" name="filter" id="filter">
+        <option value="price-asc" selected>Price Ascending</option>
+        <option value="price-desc">Price Descending</option>
+        <option value="review-asc">Review Ascending</option>
+        <option value="review-desc">Review Descending</option>
       </select>
 
       <input type="hidden" name="page" value="{{current}}">
+      <input type="hidden" name="q" value="{{q}}">
       <button type="submit" class="btn btn-primary">Apply filter</button>
     </form>
   </div>
-
+  
   <div class="course-container">
     {{#each Courses}}
       <div class="card" onclick="window.location='/courses?id={{this._id}}'">
-        <img src="//images/{{avatarLink}}" alt="">
+        <img src="/images/{{avatarLink}}" alt="">
         <div class="card-body">
           <h4 class="card-title">{{title}}</h4>
           <div class="card-text">{{category}}</div>

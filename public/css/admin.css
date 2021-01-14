@@ -47,9 +47,22 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
   margin: auto;
-  margin-top: 2em;
+  margin-top: 50px;
+  padding: 2em;
+  background-color: #fff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.form-container2 form {
+  width: 500px;
+}
+.form-container2 form h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 1em;
 }
 
 footer {
@@ -303,6 +316,9 @@ body {
     pointer-events: all;
     transform: translateY(0px);
   }
+  .navbar-container .teacher-features li:hover {
+    background-color: #74aaff;
+  }
 }
 @media (max-width: 800px) {
   .showcase {
@@ -314,6 +330,13 @@ body {
 
   .form {
     width: 100%;
+  }
+
+  .form-container2 form {
+    width: 100%;
+  }
+  .form-container2 form h1 {
+    text-align: left;
   }
 }
 

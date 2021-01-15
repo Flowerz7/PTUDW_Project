@@ -27,8 +27,8 @@
 
   <div class="course-container">
     {{#each Courses}}
-      <div class="card">
-        <img src="/images/{{avatarLink}}" onclick="window.location='/courses?id={{this._id}}'" alt="">
+      <div style="cursor: pointer" class="card" onclick="window.location='/courses?id={{this._id}}'">
+        <img src="/images/{{avatarLink}}" alt="">
         <div class="card-body">
           <h4 class="card-title">{{title}}</h4>
           <div onclick="window.location='/courses/category/{{category}}'" style="cursor: pointer;" class="card-text">{{category}}</div>

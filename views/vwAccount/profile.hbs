@@ -81,11 +81,11 @@
         showMoreJoinedCoursesBtn.click(e => {
             e.preventDefault()
             if (isJoinedCourseVisible === false){
-                $(e.target).parent('.section-title').next('.section-content').css('height', 'auto')
+                $(e.target).parent('.section-title').next('.section-content').css('max-height', 'none')
                 $(e.target).text('Less')
             }
             else{
-                $(e.target).parent('.section-title').next('.section-content').css('height', '110px')
+                $(e.target).parent('.section-title').next('.section-content').css('max-height', '110px')
                 $(e.target).text('More')
             }
 
@@ -95,11 +95,11 @@
         showMoreWatchListBtn.click(e => {
             e.preventDefault()
             if (isWatchListVisible === false){
-                $(e.target).parent('.section-title').next('.section-content').css('height', 'auto')
+                $(e.target).parent('.section-title').next('.section-content').css('max-height', 'none')
                 $(e.target).text('Less')
             }
             else{
-                $(e.target).parent('.section-title').next('.section-content').css('height', '110px')
+                $(e.target).parent('.section-title').next('.section-content').css('max-height', '110px')
                 $(e.target).text('More')
             }
 

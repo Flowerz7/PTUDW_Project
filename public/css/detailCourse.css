@@ -191,6 +191,16 @@ span {
   font-weight: 350;
   font-size: 0.75rem;
 }
+.decoration-rectangle .studentCounter {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.75em;
+}
+.decoration-rectangle .studentCounter + div {
+  margin-top: 0.25em;
+  font-weight: 350;
+  font-size: 0.75rem;
+}
 
 .img-container {
   margin-top: 2em;

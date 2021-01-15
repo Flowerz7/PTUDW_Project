@@ -245,6 +245,19 @@ span{
         font-weight: 350;
         font-size: .75rem;
     }
+
+    .studentCounter{
+        font-size: 2rem;
+        font-weight: 700;
+
+        margin-top: .75em;
+
+        & + div{
+            margin-top: .25em;
+            font-weight: 350;
+            font-size: .75rem;
+        }
+    }
 }
 
 .img-container{

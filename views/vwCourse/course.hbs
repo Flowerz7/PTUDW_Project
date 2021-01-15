@@ -6,6 +6,9 @@
             <div class="reviewPoint">{{averageReviewPoint}}</div>
             <div class="fa fa-star"></div>
             <div class="reviewCount">{{reviewCount}} reviews</div>
+
+            <div class="studentCounter">{{numOfStudent}}</div>
+            <div>are learning</div>
         </div>
     </div>
     <div class="information-section">
@@ -16,7 +19,8 @@
             <div>{{briefDescription}}</div>
             <div><a href="/courses/{{parentCate}}">{{parentCate}}</a> <span class="fa fa-long-arrow-right"></span> <a href="/courses/category/{{category}}">{{category}}</a></div>
             <br>
-            <div style="font-weight: 500;"><span>{{numOfStudent}}</span> students are learning</div>
+            <div><span style="font-weight: 500; color: black;">Lecturer:</span> {{teacherID.name}} ({{teacherID.email}})</div>
+            {{!-- <div style="font-weight: 500;"><span>{{numOfStudent}}</span> students are learning</div> --}}
             <div><span style="font-weight: 500; color: black;">Last update:</span> {{updatedAt}}</div>
 
             <div class="card">

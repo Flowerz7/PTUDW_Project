@@ -49,6 +49,16 @@ export const handle_delete_course_post = async (req, res) => {
   res.redirect("/admin/courses");
 };
 
+export const toggleCourseDisabling = async (req, res) =>{
+  const { courseID } = req.body;
+  const course = await Course.findById(courseID);
+
+  course.disabled = !course.disabled
+
+  await course.save()
+  res.json({isSuccess : true})
+}
+
 export const getAllCategories = async (req, res) => {
   const categories = await Category.find().populate("subCategories").lean();
 

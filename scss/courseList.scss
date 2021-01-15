@@ -87,17 +87,6 @@ $main-color : #0e6cff;
 
         width: 100%;
 
-        // &::after{
-            // content: "";
-            // position: absolute;
-            // right: 3%;
-            // top: 0%;
-            // width: 40px;
-            // height: 90%;
-
-            // background-color: $main-color;
-        // }
-
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -149,4 +138,13 @@ $main-color : #0e6cff;
         letter-spacing: 1.25px;
     }
 
+}
+
+.disabled-course::after{
+    content: '(Unavailable)';
+
+    font-size: .75rem;
+    font-weight: 500;
+
+    margin-left: 1em;
 }

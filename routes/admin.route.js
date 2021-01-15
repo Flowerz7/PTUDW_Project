@@ -23,6 +23,7 @@ router.route('/subCategories/update').post(urlencodedParser, admin.updateSubCate
 router.route('/subCategories/delete').post(urlencodedParser, admin.deleteSubCategory)
 
 router.route("/courses").get(admin.handle_courses_get);
+router.route("/courses/disable").post(urlencodedParser, admin.toggleCourseDisabling);
 
 router
   .route("/courses/delete")

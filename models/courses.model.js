@@ -33,6 +33,10 @@ const courseSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    disabled : {
+      type: Boolean,
+      required: true,
+    },
     briefDescription: {
       type: String,
       required: true,

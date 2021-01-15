@@ -264,7 +264,6 @@ export const loadQueriedCourse = async (req, res) => {
     const filter = req.query.filter
 
     var result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
-    const docsCount = result.length
     
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length
@@ -274,6 +273,8 @@ export const loadQueriedCourse = async (req, res) => {
     })
     
     sortListCourse(filter, result)
+    result = result.filter(item => item.disabled === false)
+    const docsCount = result.length
     result = result.splice((options.page - 1) * options.limit, options.limit)
     
     await ejectBadge(result)

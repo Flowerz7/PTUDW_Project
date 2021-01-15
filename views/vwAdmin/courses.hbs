@@ -25,6 +25,11 @@
               <div><strong>Number of Student:</strong> {{numOfStudent}}</div>
               <div><strong>Category:</strong> {{category}}</div>
           </div>
+          {{#if disabled}}
+          <a href="javascript:void(0)" data-id="{{_id}}" class="btn btn-sm btn-success disable-btn">Enable</a>
+          {{else}}
+          <a href="javascript:void(0)" data-id="{{_id}}" class="btn btn-sm btn-danger disable-btn">Disable</a>
+          {{/if}}
           <form style="display: inline-block;" action="/admin/courses/delete" method="post">
             <input type="hidden" name="courseID" value="{{_id}}">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -50,6 +55,13 @@
       }
 
       isDetailSectionVisible = !isDetailSectionVisible
+    })
+
+    $('.disable-btn').click((e) => {
+      const courseID = $(e.target).attr('data-id')
+      $.post('/admin/courses/disable', { courseID }, ({isSuccess}) => {
+        window.location = window.location.href
+      }, 'json')
     })
   })
 </script>

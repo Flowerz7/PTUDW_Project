@@ -105,6 +105,7 @@ export const handle_add_course_post = async (req, res) => {
         category,
         lastUpdate : Date.now(),
         isFinish: false,
+        disabled: false,
         briefDescription,
         description,
         numOfStudent: 0,

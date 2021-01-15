@@ -86,6 +86,54 @@ const sortListCourse = (filterType, courses) => {
     }
 }
 
+const ejectBadge = (courses) => {
+    //best seller -> num of student?
+    //new breeze -> createdAt
+    //trendy -> view
+
+    courses.sort((course1, course2) => {
+        return course2.numOfStudent - course1.numOfStudent
+    })
+
+    courses.map((item, index) => {
+        item.bestSeller = false
+        if (index < 5){
+            item.bestSeller = true
+            if (item.numOfStudent === 0){
+                item.bestSeller = false
+            }
+        }
+    })
+
+    courses.sort((course1, course2) => {
+        return course2.view - course1.view
+    })
+
+    courses.map((item, index) => {
+        item.trendy = false
+        if (index < 5){
+            item.trendy = true
+            if(item.view === 0){
+                item.trendy = false
+            }
+        }
+    })
+
+    courses.sort((course1, course2) => {
+        return course2.createdAt - course1.createdAt
+    })
+
+    courses.map((item, index) => {
+        item.newBreeze = false
+        if (index < 5){
+            item.newBreeze = true
+            if((item.createdAt - Date.now())/86400000 > 7){
+                item.newBreeze = false
+            }
+        }
+    })
+}
+
 export const loadAllCourses = async (req, res) => {
     const page = parseInt(req.query.page) || 1
     const filter = req.query.filter
@@ -99,16 +147,17 @@ export const loadAllCourses = async (req, res) => {
     var courses = await Course.find().lean()
     const docsCount = courses.length
 
-    courses = courses.splice((options.page - 1) * options.limit, options.limit)
-
     courses.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+    
+    ejectBadge(courses)
     sortListCourse(filter, courses)
+    
+    courses = courses.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {
@@ -140,8 +189,7 @@ export const loadCoursesBySubcategory = async (req, res) => {
     var courses = await Course.find({category : subcategory_params}).lean()
     const docsCount = courses.length
 
-    courses = courses.splice((options.page - 1) * options.limit, options.limit)
-
+    
     courses.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
@@ -149,7 +197,9 @@ export const loadCoursesBySubcategory = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
 
+    ejectBadge(courses)
     sortListCourse(filter, courses)
+    courses = courses.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {
@@ -186,7 +236,6 @@ export const loadCoursesByCategory = async (req, res) => {
     var result = await cate.subCategories.reduce(reducer, [])
     const docsCount = result.length
 
-    result = result.splice((options.page - 1) * options.limit, options.limit)
     
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length
@@ -194,8 +243,10 @@ export const loadCoursesByCategory = async (req, res) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+    
+    ejectBadge(result)
     sortListCourse(filter, result)
+    result = result.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {
@@ -226,16 +277,17 @@ export const loadQueriedCourse = async (req, res) => {
 
     var result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
     const docsCount = result.length
-    result = result.splice((options.page - 1) * options.limit, options.limit)
-
+    
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+    
+    ejectBadge(result)
     sortListCourse(filter, result)
+    result = result.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {

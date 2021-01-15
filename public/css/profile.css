@@ -74,7 +74,7 @@
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
-  height: 110px;
+  max-height: 110px;
 }
 .information-container .courses-section .card {
   box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);

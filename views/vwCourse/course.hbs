@@ -23,7 +23,6 @@
                 <div class="card-body">
                     <div class="card-text">{{{description}}}</div>
                 </div>
-                <a style="display: block; margin-top: 1.25em; margin-left: 1.25rem" id="showMoreBtn" class="card-text">Show more</a>
             </div>
         </div>
 
@@ -43,7 +42,7 @@
                         <tr>
                             <th>{{inc @index}}</th>
                             <td>
-                                <a href="">{{title}}</a>
+                                <a class="video-title" href="">{{title}}</a>
                                 <div class="modal" style="display: none;">
                                     <div class="modal-content">
                                         <span class="close btn">Close</span>
@@ -70,7 +69,7 @@
                             <tr>
                                 <th>{{inc @index}}</th>
                                 <td>
-                                    <a href="">{{title}}</a>
+                                    <a class="video-title" href="">{{title}}</a>
                                     <div class="modal" style="display: none;">
                                         <div class="modal-content">
                                             <span class="close btn">Close</span>
@@ -94,7 +93,7 @@
                             <tr>
                                 <th>{{inc @index}}</th>
                                 <td>
-                                    <a href="" class="disabled">{{title}}</a>
+                                    <a href="" class="disabled video-title">{{title}}</a>
                                     <div class="modal" style="display: none;">
                                         <div class="modal-content">
                                             <span class="close btn">Close</span>
@@ -143,12 +142,12 @@
         {{#if isAuth}}
         <div class="card givefeedback-section" style="display: none;">
             <div class="card-body">
-                <div class="stars">
-                    <button class="btn">5</button>
-                    <button class="btn">4</button>
-                    <button class="btn">3</button>
-                    <button class="btn">2</button>
-                    <button class="btn">1</button>
+                <div style="margin-bottom: .8em;" class="stars">
+                    <button class="btn fa fa-star" data-point="5"></button>
+                    <button class="btn fa fa-star" data-point="4"></button>
+                    <button class="btn fa fa-star" data-point="3"></button>
+                    <button class="btn fa fa-star" data-point="2"></button>
+                    <button class="btn fa fa-star" data-point="1"></button>
                 </div>
                 <input type="text" class="form-control" id="commentInput" name="comment" value="" placeholder="Wirte your comment">
                 <button id="fb-btn" class="btn btn-primary">Feedback</button>
@@ -160,7 +159,7 @@
             <div class="section-title">You may want to see</div>
             <div class="section-content">
                 {{#each suggestignCourse}}
-                <div class="card" onclick="window.location='/courses?id={{this._id}}'">
+                <div style="cursor: pointer;" class="card" onclick="window.location='/courses?id={{this._id}}'">
                     <img src="images/{{avatarLink}}" alt="">
                     <div class="card-body">
                         <h4 class="card-title">{{title}}</h4>
@@ -192,46 +191,25 @@
 {{#section 'scripts'}}
     <script>
         $(document).ready(() => {
-            //#region lecture script
-            $('.lectures-section a').click((e) => {
-                e.preventDefault()
-                $('.lectures-section a~.modal').css('display', 'block')
-            })
-
-            $('.close').click((e) => {
-                $('.modal').css('display', 'none')
-            })
-
-            $('a.disabled').off('click')
-
-            $('a.disabled').click((e) => {
-                e.preventDefault()
-                alert('buy this course to view this section')
-            })
-            //#endregion
-
             const currentUrl = window.location.href
             const course_id = currentUrl.split('=')[1].split('&')[0]
 
             $.getJSON('/account', ({username}) => {
 
                 //#region feedback script
-                var fbPoint, comment
+                var fbPoint = 5, comment
 
                 $('.stars>.btn').mouseenter((e) => {
                     e.preventDefault()
-                    fbPoint = parseInt($(event.target).text())
-                    $('.stars>.btn').css('color', '#0e6cff')
-                    $('.stars>.btn').css('background-color', 'transparent')
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'white')
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('background-color', '#0e6cff')
+                    fbPoint = parseInt($(event.target).attr('data-point'))
+                    $('.stars>.btn').css('color', 'gray')
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', '#0e6cff')
                 })
 
                 $('.stars>.btn').click((e) => {
                     e.preventDefault()
-                    fbPoint = parseInt($(event.target).text())
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', 'white')
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('background-color', '#0e6cff')
+                    fbPoint = parseInt($(event.target).attr('data-point'))
+                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', '#0e6cff')
                 })
 
                 const validateFields = () => {
@@ -299,8 +277,27 @@
                         $('.givefeedback-section').css('display', 'block')
                     } 
                     else{
-
+                        $('a.video-title').addClass('disabled')
+                        $('a.video-title').first().removeClass('disabled')
                     }
+
+                    //#region lecture script
+                    $('.lectures-section a').click((e) => {
+                        e.preventDefault()
+                        $('.lectures-section a~.modal').css('display', 'block')
+                    })
+
+                    $('.close').click((e) => {
+                        $('.modal').css('display', 'none')
+                    })
+
+                    $('a.disabled').off('click')
+
+                    $('a.disabled').click((e) => {
+                        e.preventDefault()
+                        alert('buy this course to view this section')
+                    })
+                    //#endregion     
 
                     buyBtn.click((e) => {
                         e.preventDefault()
@@ -318,7 +315,7 @@
                     })
                 })
                 //#endregion
-            })      
+            })         
         })
     </script>
 
@@ -326,11 +323,10 @@
         $(document).ready(() => {
             const showDescription = (e) => {
                 e.preventDefault()
-                $(e.target).prev().css('max-height', 'none')
-                $(e.target).css('display', 'none')
+                $(e.target).css('max-height', 'none')
             }
 
-            $('#showMoreBtn').click(showDescription)
+            $('.text-section .card').click(showDescription)
         })
     </script>
 {{/section}}

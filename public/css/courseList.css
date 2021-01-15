@@ -55,34 +55,25 @@
   margin-bottom: 1em;
   box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
   width: 100%;
+  height: 135px;
   display: flex;
   flex-direction: row;
-  height: 170px;
   overflow: hidden;
 }
 .course-container img {
-  height: 100% px;
-  width: 250px;
-  cursor: pointer;
+  height: 135px;
+  width: 240px;
 }
 .course-container .card-body {
   display: flex;
   flex-direction: column;
   margin-left: 2em;
+  padding: 0.75rem;
   padding-right: 5em;
   width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-.course-container .card-body::after {
-  content: "";
-  position: absolute;
-  right: 3%;
-  top: 0%;
-  width: 40px;
-  height: 90%;
-  background-color: #0e6cff;
 }
 .course-container .card-title, .course-container .card-text {
   width: 100%;
@@ -91,6 +82,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.course-container .card-title {
+  margin-bottom: 0.75rem;
+}
 
 .paginate-section .active {
   background-color: #0e6cff;
@@ -98,13 +92,28 @@
 }
 
 .course-price {
-  font-size: 1.25rem;
-  margin-top: 0.75em;
+  margin-top: 0.25em;
   font-weight: 700;
 }
 
 .fa {
   color: #0e6cff;
+}
+
+.badge {
+  position: absolute;
+  right: 3%;
+  top: 0%;
+  width: 40px;
+  height: 90%;
+  background-color: #0e6cff;
+  color: white;
+  border-radius: 0;
+}
+.badge div {
+  transform: rotate(90deg);
+  margin-top: 2em;
+  letter-spacing: 1.25px;
 }
 
 /*# sourceMappingURL=courseList.css.map */

@@ -34,8 +34,18 @@ export const loadHome = async (req , res) => {
     const isCategoryNotUpdated = (Math.round(categoryContainer.updatedAt - milestone) & 7) === 0
 
     if (isCourseNotUpdated === true){
-        const newRemarkableCourses = await Course.aggregate([{ $sample: { size: 4 } }])
-        courseContainer.remarkableCourses = [...newRemarkableCourses]
+        const newRemarkableCourses = await Course.find().lean()
+        newRemarkableCourses.forEach((item) => {
+            item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
+                return accumulator + item.numOfStar
+            }, 0) / item.reviewList.length) || 0
+        })
+
+        newRemarkableCourses.sort((course1, course2) => {
+            return course2.averageReviewPoint - course1.averageReviewPoint
+        })
+
+        courseContainer.remarkableCourses = [...(newRemarkableCourses.splice(0, 4))]
         await courseContainer.save()
     }
 

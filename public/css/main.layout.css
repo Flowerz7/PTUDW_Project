@@ -93,4 +93,9 @@ form button {
   z-index: 1;
 }
 
+.btn:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /*# sourceMappingURL=main.layout.css.map */

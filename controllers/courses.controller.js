@@ -86,6 +86,45 @@ const sortListCourse = (filterType, courses) => {
     }
 }
 
+const ejectBadge = (courses) => {
+    //best seller -> num of student?
+    //new breeze -> createdAt
+    //trendy -> view
+
+    courses.sort((course1, course2) => {
+        return course2.numOfStudent - course1.numOfStudent
+    })
+
+    courses.map((item, index) => {
+        item.bestSeller = false
+        if (index < 5){
+            item.bestSeller = true
+        }
+    })
+
+    courses.sort((course1, course2) => {
+        return course2.view - course1.view
+    })
+
+    courses.map((item, index) => {
+        item.trendy = false
+        if (index < 5){
+            item.trendy = true
+        }
+    })
+
+    courses.sort((course1, course2) => {
+        return course2.createdAt - course1.createdAt
+    })
+
+    courses.map((item, index) => {
+        item.newBreeze = false
+        if (index < 5){
+            item.newBreeze = true
+        }
+    })
+}
+
 export const loadAllCourses = async (req, res) => {
     const page = parseInt(req.query.page) || 1
     const filter = req.query.filter
@@ -105,7 +144,8 @@ export const loadAllCourses = async (req, res) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-        
+    
+    ejectBadge(courses)
     sortListCourse(filter, courses)
     
     courses = courses.splice((options.page - 1) * options.limit, options.limit)
@@ -147,7 +187,8 @@ export const loadCoursesBySubcategory = async (req, res) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-    
+
+    ejectBadge(courses)
     sortListCourse(filter, courses)
     courses = courses.splice((options.page - 1) * options.limit, options.limit)
 
@@ -194,6 +235,7 @@ export const loadCoursesByCategory = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
     
+    ejectBadge(result)
     sortListCourse(filter, result)
     result = result.splice((options.page - 1) * options.limit, options.limit)
 
@@ -234,6 +276,7 @@ export const loadQueriedCourse = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
     
+    ejectBadge(result)
     sortListCourse(filter, result)
     result = result.splice((options.page - 1) * options.limit, options.limit)
 

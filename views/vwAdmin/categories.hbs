@@ -20,8 +20,11 @@
               <button class="btn btn-sm btn-primary view-btn">View Subcategory</button>
               <a href='/admin/categories/update?name={{name}}' class="btn btn-sm btn-primary">Update</a>
               
-              <!--LAM MAT CAI DELETE-->
+              {{#if deletable}}
               <a href="{{name}}" class="btn btn-sm btn-danger delete-category-btn">Delete</a>
+              {{else}}
+              <a href="{{name}}" class="disabled btn btn-sm btn-danger delete-category-btn">Delete</a>
+              {{/if}}
 
               <div class="subCategories-section" style="display: none;">
                   <table class="table2">
@@ -50,6 +53,8 @@
 
                             {{#unless numOfCourses}}
                               <a href='{{name}}' class="btn btn-sm btn-danger delete-subcategory-btn">Delete</a>
+                              {{else}}
+                              <a href='{{name}}' class="disabled btn btn-sm btn-danger delete-subcategory-btn">Delete</a>
                             {{/unless}}
                           </td>
                         </tr>
@@ -114,14 +119,7 @@
       $('.delete-category-btn').click((e) => {
         e.preventDefault()
         const cateName = $(e.target).attr('href')
-        $.post('/admin/categories/delete', {name : cateName}, ({isSuccess}) => {
-          if (isSuccess === true){
-            window.location = window.location.href
-          }
-          else {
-            alert('failed')
-          }
-        })
+        $.post('/admin/categories/delete', {name : cateName})
       })
       //#endregion
     })

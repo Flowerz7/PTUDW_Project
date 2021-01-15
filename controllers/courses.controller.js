@@ -99,6 +99,9 @@ const ejectBadge = (courses) => {
         item.bestSeller = false
         if (index < 5){
             item.bestSeller = true
+            if (item.numOfStudent === 0){
+                item.bestSeller = false
+            }
         }
     })
 
@@ -110,6 +113,9 @@ const ejectBadge = (courses) => {
         item.trendy = false
         if (index < 5){
             item.trendy = true
+            if(item.view === 0){
+                item.trendy = false
+            }
         }
     })
 
@@ -121,6 +127,9 @@ const ejectBadge = (courses) => {
         item.newBreeze = false
         if (index < 5){
             item.newBreeze = true
+            if((item.createdAt - Date.now())/86400000 > 7){
+                item.newBreeze = false
+            }
         }
     })
 }

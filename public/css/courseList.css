@@ -75,15 +75,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.course-container .card-body::after {
-  content: "";
-  position: absolute;
-  right: 3%;
-  top: 0%;
-  width: 40px;
-  height: 90%;
-  background-color: #0e6cff;
-}
 .course-container .card-title, .course-container .card-text {
   width: 100%;
   text-align: left;
@@ -107,6 +98,22 @@
 
 .fa {
   color: #0e6cff;
+}
+
+.badge {
+  position: absolute;
+  right: 3%;
+  top: 0%;
+  width: 40px;
+  height: 90%;
+  background-color: #0e6cff;
+  color: white;
+  border-radius: 0;
+}
+.badge div {
+  transform: rotate(90deg);
+  margin-top: 2em;
+  letter-spacing: 1.25px;
 }
 
 /*# sourceMappingURL=courseList.css.map */

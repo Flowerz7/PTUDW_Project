@@ -1,19 +1,19 @@
 <div class="table-container">
     <h1>Students management</h1>
-		<table class="table table-borderless table-hover">
+		<table class="table2  table-borderless table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Student name</th>
-      <th scope="col">Handle</th>
+      <th class="order" scope="col">#</th>
+      <th class="content" scope="col">Student name</th>
+      <th class="handle-sm" scope="col">Handle</th>
     </tr>
   </thead>
   <tbody>
     {{#each this.students}} 
       <tr>
-        <th scope="row">{{inc @index}}</th>
-        <td>{{name}}</td>
-        <td>
+        <th class="order" scope="row">{{inc @index}}</th>
+        <td class="content">{{name}}</td>
+        <td class="handle-sm">
           <button class="btn btn-sm btn-primary detail-btn">Detail</button>
           <div class="detail-section" style="display: none;">
                   <h4><b>{{name}}</b></h4>

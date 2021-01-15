@@ -1,19 +1,20 @@
 <div class="table-container">
     <h1>Categories management</h1>
 		<table class="table2">
-      <a href="/admin/categories/add" class="add btn-sm btn btn-primary add-category-btn">Add category</a>
+      <a href="/admin/categories/add" class="adding-resource
+                                     adding-resource-admin"><i class="fas fa-plus"></i></a>
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
+          <th class="order" scope="col">#</th>
+          <th class="content" scope="col">Name</th>
           <th class="handle" scope="col">Handle</th>
         </tr>
       </thead>
       <tbody>
         {{#each categories}}
           <tr>
-            <td scope="row">{{inc @index}}</td>
-            <td>{{name}}</td>
+            <td class="order" scope="row">{{inc @index}}</td>
+            <td class="content">{{name}}</td>
             <td class="handle">
               <a href="/admin/category/{{name}}" class="btn btn-sm btn-primary detail-btn">Detail</a>
               <button class="btn btn-sm btn-primary view-btn">View Subcategory</button>
@@ -26,18 +27,18 @@
                   <table class="table2">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Handle</th>
+                        <th class="order" scope="col">#</th>
+                        <th class="content" scope="col">Name</th>
+                        <th class="handle-sm" scope="col">Handle</th>
                       </tr>
                     </thead>
 
                     <tbody>
                       {{#each subCategories}}
                         <tr>
-                          <th scope="row">{{inc @index}}</th>
-                          <td>{{name}}</td>
-                          <td class="handle">
+                          <th class="order" scope="row">{{inc @index}}</th>
+                          <td class="content">{{name}}</td>
+                          <td class="handle-sm">
                             <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>
                             <div class="detail-section" style="display: none;">
                                   <h4><b>{{name}}</b></h4>

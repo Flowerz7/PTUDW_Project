@@ -1,6 +1,8 @@
 <div class="table-container">
   <h1 class="teacher" >Courses management</h1>
 		<table class="table table-borderless table-hover">
+      <a href="/teacher/add" class="adding-resource
+                                     adding-resource-teacher"><i class="fas fa-plus"></i></a>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -8,7 +10,7 @@
       <th scope="col">Category</th>
       <th scope="col">Participants</th>
       <th scope="col">Status</th>
-      <th scope="col">Handle</th>
+      <th class="handle-col-lg" scope="col">Handle</th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +21,7 @@
         <td>{{category}}</td>
         <td>{{numOfStudent}}</td>
         <td>{{status}}</td>
-        <td>
+        <td class="handle-col-lg">
           <a href="/teacher/update/{{courseID}}"  class="btn btn-sm
             btn-primary">Update</a>
 

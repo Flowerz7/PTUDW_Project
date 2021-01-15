@@ -99,16 +99,16 @@ export const loadAllCourses = async (req, res) => {
     var courses = await Course.find().lean()
     const docsCount = courses.length
 
-    courses = courses.splice((options.page - 1) * options.limit, options.limit)
-
     courses.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+        
     sortListCourse(filter, courses)
+    
+    courses = courses.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {
@@ -140,16 +140,16 @@ export const loadCoursesBySubcategory = async (req, res) => {
     var courses = await Course.find({category : subcategory_params}).lean()
     const docsCount = courses.length
 
-    courses = courses.splice((options.page - 1) * options.limit, options.limit)
-
+    
     courses.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+    
     sortListCourse(filter, courses)
+    courses = courses.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {
@@ -186,7 +186,6 @@ export const loadCoursesByCategory = async (req, res) => {
     var result = await cate.subCategories.reduce(reducer, [])
     const docsCount = result.length
 
-    result = result.splice((options.page - 1) * options.limit, options.limit)
     
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length
@@ -194,8 +193,9 @@ export const loadCoursesByCategory = async (req, res) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+    
     sortListCourse(filter, result)
+    result = result.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {
@@ -226,16 +226,16 @@ export const loadQueriedCourse = async (req, res) => {
 
     var result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
     const docsCount = result.length
-    result = result.splice((options.page - 1) * options.limit, options.limit)
-
+    
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length
         item.averageReviewPoint = Math.floor(item.reviewList.reduce((accumulator, item) => {
             return accumulator + item.numOfStar
         }, 0) / item.reviewList.length) || 0
     })
-
+    
     sortListCourse(filter, result)
+    result = result.splice((options.page - 1) * options.limit, options.limit)
 
     const categories = await getCategories()
     const props = {

@@ -34,6 +34,14 @@ $main-color : #0e6cff;
             border: none;
             outline: none;
             background-color: $main-color;
+
+            margin-bottom: 1em;
+            transition: .5s all ease;
+
+            &:hover{
+                background-color: #3784ff;
+            }
+
         }
     }
 }
@@ -103,11 +111,17 @@ $main-color : #0e6cff;
             box-shadow: .2em .2em .2em rgba(0,0,0,.2);
             margin-bottom: .5em;
 
-            width: 98%;
+            width: 95%;
             height: 105px;
+
+            transition: .5s all ease;
 
             h4{
                 cursor: pointer;
+            }
+
+            &:hover{
+                width: 98%;
             }
         }
 

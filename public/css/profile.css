@@ -29,6 +29,11 @@
   border: none;
   outline: none;
   background-color: #0e6cff;
+  margin-bottom: 1em;
+  transition: 0.5s all ease;
+}
+.option-container .button-container a:hover {
+  background-color: #3784ff;
 }
 
 .fa-trophy {
@@ -80,11 +85,15 @@
 .information-container .courses-section .card {
   box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
   margin-bottom: 0.5em;
-  width: 98%;
+  width: 95%;
   height: 105px;
+  transition: 0.5s all ease;
 }
 .information-container .courses-section .card h4 {
   cursor: pointer;
+}
+.information-container .courses-section .card:hover {
+  width: 98%;
 }
 .information-container .courses-section .card-body {
   display: flex;

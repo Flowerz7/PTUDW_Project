@@ -87,6 +87,9 @@ span {
   max-height: 250px;
   overflow: hidden;
 }
+.information-section .text-section .card li::marker {
+  margin-left: 2em !important;
+}
 .information-section .lectures-section, .information-section .viewfeedback-section, .information-section .suggest-section {
   margin-left: 2em;
   margin-top: 3em;
@@ -212,8 +215,8 @@ span {
   overflow: hidden;
 }
 .img-container img {
-  width: 100%;
-  height: auto;
+  height: 112.5px;
+  width: 200px;
   border-radius: 0.25rem;
 }
 
@@ -270,7 +273,7 @@ span {
 }
 .givefeedback-section .stars .btn {
   background-color: transparent;
-  color: #0e6cff;
+  color: gray;
   margin-right: 0.5em;
 }
 .givefeedback-section input {
@@ -304,8 +307,8 @@ span {
   margin-top: 1em;
 }
 
-.fa {
-  color: #0e6cff;
+a.disabled {
+  color: gray;
 }
 
 @media (max-width: 700px) {

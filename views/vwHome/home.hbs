@@ -62,7 +62,7 @@
         <div class="card">
           <img class="card-img-top" src="images/{{this.avatarLink}}" onclick="window.location='/courses?id={{this._id}}'">
           <div class="card-body">
-            <h4 class="card-title">{{this.title}}</h4>
+            <h4 class="card-title" style='cursor: pointer;' onclick="window.location='/courses?id={{this._id}}'">{{this.title}}</h4>
             <p class="card-text">{{category}}</p>
             <p class="card-text">{{teacherID.name}}</p>
             <p class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span>  ({{reviewCount}} reviews)</p>
@@ -85,7 +85,7 @@
         <div class="card" id="{{this._id}}">
           <img class="card-img-top" src="images/{{this.avatarLink}}" onclick="window.location='/courses?id={{this._id}}'">
           <div class="card-body">
-            <h4 class="card-title">{{this.title}}</h4>
+            <h4 class="card-title" style='cursor: pointer;' onclick="window.location='/courses?id={{this._id}}'">{{this.title}}</h4>
             <p class="card-text">{{category}}</p>
             <p class="card-text">{{teacherID.name}}</p>
             <p class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span>  ({{reviewCount}} reviews)</p>
@@ -104,18 +104,10 @@
     $('.course-section .btn').click((e) => {
       e.preventDefault()
       const btn = $(e.target)
-      const container = btn.parent('.section-title').next('.course-container')
+      const container = btn.parent().next()
 
-      if (isOverflowContentOfMostViewCoursesVisible === false){
-        container.css('height', 'auto')
-        btn.text('Show less')
-        isOverflowContentOfMostViewCoursesVisible = !isOverflowContentOfMostViewCoursesVisible
-      }
-      else{
-        container.css('height', '275px')
-        btn.text('Show more')
-        isOverflowContentOfMostViewCoursesVisible = !isOverflowContentOfMostViewCoursesVisible
-      }
+      btn.css('opacity', '0').css('cursor', 'initial')
+      container.css('height', 'auto')
     })
   })
 </script>

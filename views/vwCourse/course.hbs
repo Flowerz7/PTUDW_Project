@@ -200,18 +200,12 @@
             $.getJSON('/account', ({username}) => {
 
                 //#region feedback script
-                var fbPoint = 5, comment
-
-                $('.stars>.btn').mouseenter((e) => {
-                    e.preventDefault()
-                    fbPoint = parseInt($(event.target).attr('data-point'))
-                    $('.stars>.btn').css('color', 'gray')
-                    $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', '#0e6cff')
-                })
+                var fbPoint = 0, comment
 
                 $('.stars>.btn').click((e) => {
                     e.preventDefault()
                     fbPoint = parseInt($(event.target).attr('data-point'))
+                    $('.stars>.btn').css('color', 'gray')
                     $('.stars>.btn:hover~.btn, .stars>.btn:hover').css('color', '#0e6cff')
                 })
 
@@ -338,7 +332,7 @@
             const lastUpdate = $('#lastUpdate')
             const lastUpdateTime = new Date(lastUpdate.text())
 
-            const diffInSecond = (lastUpdateTime - Date.now())/1000
+            const diffInSecond = (Date.now() - lastUpdateTime) / 1000
 
             if (Math.floor(diffInSecond) < 900){ //15min
                 lastUpdate.text('Now')
@@ -346,11 +340,11 @@
             else{
                 const diffInHour = diffInSecond / 3600
                 if (Math.floor(diffInHour) <= 23){
-                    lastUpdate.text(+(Math.floor(diffInHour) + 1) + 'hours ago')
+                    lastUpdate.text(+(Math.floor(diffInHour) + 1) + ' hours ago')
                 }
                 else {
                     const diffInDay = diffInHour / 24
-                    lastUpdate.text(+(Math.floor(diffInDay) + 1) + 'days ago')
+                    lastUpdate.text(+(Math.floor(diffInDay) + 1) + ' days ago')
                 }
             }
         })

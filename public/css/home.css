@@ -6,6 +6,7 @@
 
 .course-price {
   font-weight: 700;
+  margin-top: 0.25em !important;
 }
 
 .main-container {
@@ -83,12 +84,14 @@
 }
 .course-container .card h4 {
   width: 100%;
+  padding: 0 0.5em;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 .course-container .card p {
   margin: 0;
+  padding: 0 0.5em;
   width: 100%;
   text-align: center;
   white-space: nowrap;

@@ -8,6 +8,7 @@ $main-color : #0e6cff;
 
 .course-price{
     font-weight: 700;
+    margin-top: .25em !important;
 }
 
 .main-container{
@@ -92,6 +93,7 @@ $main-color : #0e6cff;
 
         h4{
             width: 100%;
+            padding: 0 .5em;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -99,6 +101,7 @@ $main-color : #0e6cff;
 
         p{
             margin: 0;
+            padding: 0 .5em;
             width: 100%;
             text-align: center;
             white-space: nowrap;

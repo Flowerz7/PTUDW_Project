@@ -35,17 +35,16 @@
         <div class="badge">
           {{#if bestSeller}}
           <div>Best Seller</div>
-          {{/if}}
-
-          {{#if trendy}}
-          <div>Trendy</div>
-          {{/if}}
-
-          {{#if newBreeze}}
-          <div>New Breeze</div>
+          {{else}}
+            {{#if trendy}}
+            <div>Trendy</div>
+            {{else}}
+              {{#if newBreeze}}
+              <div>New Breeze</div>
+              {{/if}}
+            {{/if}}
           {{/if}}
         </div>
-      </div>
       </div>
       {{else}}
     {{/each}}

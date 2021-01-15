@@ -42,7 +42,7 @@
                         <tr>
                             <th>{{inc @index}}</th>
                             <td>
-                                <a href="">{{title}}</a>
+                                <a class="video-title" href="">{{title}}</a>
                                 <div class="modal" style="display: none;">
                                     <div class="modal-content">
                                         <span class="close btn">Close</span>
@@ -69,7 +69,7 @@
                             <tr>
                                 <th>{{inc @index}}</th>
                                 <td>
-                                    <a href="">{{title}}</a>
+                                    <a class="video-title" href="">{{title}}</a>
                                     <div class="modal" style="display: none;">
                                         <div class="modal-content">
                                             <span class="close btn">Close</span>
@@ -93,7 +93,7 @@
                             <tr>
                                 <th>{{inc @index}}</th>
                                 <td>
-                                    <a href="" class="disabled">{{title}}</a>
+                                    <a href="" class="disabled video-title">{{title}}</a>
                                     <div class="modal" style="display: none;">
                                         <div class="modal-content">
                                             <span class="close btn">Close</span>
@@ -191,24 +191,6 @@
 {{#section 'scripts'}}
     <script>
         $(document).ready(() => {
-            //#region lecture script
-            $('.lectures-section a').click((e) => {
-                e.preventDefault()
-                $('.lectures-section a~.modal').css('display', 'block')
-            })
-
-            $('.close').click((e) => {
-                $('.modal').css('display', 'none')
-            })
-
-            $('a.disabled').off('click')
-
-            $('a.disabled').click((e) => {
-                e.preventDefault()
-                alert('buy this course to view this section')
-            })
-            //#endregion
-
             const currentUrl = window.location.href
             const course_id = currentUrl.split('=')[1].split('&')[0]
 
@@ -295,8 +277,27 @@
                         $('.givefeedback-section').css('display', 'block')
                     } 
                     else{
-
+                        $('a.video-title').addClass('disabled')
+                        $('a.video-title').first().removeClass('disabled')
                     }
+
+                    //#region lecture script
+                    $('.lectures-section a').click((e) => {
+                        e.preventDefault()
+                        $('.lectures-section a~.modal').css('display', 'block')
+                    })
+
+                    $('.close').click((e) => {
+                        $('.modal').css('display', 'none')
+                    })
+
+                    $('a.disabled').off('click')
+
+                    $('a.disabled').click((e) => {
+                        e.preventDefault()
+                        alert('buy this course to view this section')
+                    })
+                    //#endregion     
 
                     buyBtn.click((e) => {
                         e.preventDefault()
@@ -314,7 +315,7 @@
                     })
                 })
                 //#endregion
-            })      
+            })         
         })
     </script>
 

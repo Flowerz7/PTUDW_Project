@@ -123,6 +123,9 @@ span {
   display: flex;
   flex-direction: row;
 }
+.information-section .suggest-section .section-content .card:last-child {
+  margin-bottom: 2em;
+}
 .information-section .suggest-section .section-content .card-body {
   display: block;
   margin-left: 2em;

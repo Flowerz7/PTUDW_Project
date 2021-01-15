@@ -40,7 +40,7 @@ $main-color : #0e6cff;
 
 .fa-trophy{
     position: absolute;
-    right: 45px;
+    right: 30px;
     margin-top: 1em;
 
     transform: translateX(50%);
@@ -101,12 +101,14 @@ $main-color : #0e6cff;
 
         .card{
             box-shadow: .2em .2em .2em rgba(0,0,0,.2);
-            cursor: pointer;
-
             margin-bottom: .5em;
 
             width: 98%;
             height: 105px;
+
+            h4{
+                cursor: pointer;
+            }
         }
 
         .card-body{
@@ -118,7 +120,7 @@ $main-color : #0e6cff;
             &::after{
                 content: '';
                 position: absolute;
-                right: 30px;
+                right: 15px;
                 top: 0%;
 
                 width: 30px;
@@ -135,5 +137,28 @@ $main-color : #0e6cff;
             text-overflow: ellipsis;
             overflow: hidden;
         }
+    }
+}
+
+.fa-trash{
+    position: absolute;
+    color: white;
+    text-align: center;
+    padding-top: 1em;
+
+    background-color: #dc3545;
+    width: 30px;
+    height: 50px;
+
+    right: 55px;
+
+    border-bottom-left-radius: .25em;
+    border-bottom-right-radius: .25em;
+
+    transition: .5s;
+
+    &:hover{
+        height: 60px;
+        background-color: #9f1f2c;
     }
 }

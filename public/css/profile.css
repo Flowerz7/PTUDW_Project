@@ -33,7 +33,7 @@
 
 .fa-trophy {
   position: absolute;
-  right: 45px;
+  right: 30px;
   margin-top: 1em;
   transform: translateX(50%);
   color: white;
@@ -79,10 +79,12 @@
 }
 .information-container .courses-section .card {
   box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
-  cursor: pointer;
   margin-bottom: 0.5em;
   width: 98%;
   height: 105px;
+}
+.information-container .courses-section .card h4 {
+  cursor: pointer;
 }
 .information-container .courses-section .card-body {
   display: flex;
@@ -92,7 +94,7 @@
 .information-container .courses-section .card-body::after {
   content: "";
   position: absolute;
-  right: 30px;
+  right: 15px;
   top: 0%;
   width: 30px;
   height: 80%;
@@ -104,6 +106,24 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.fa-trash {
+  position: absolute;
+  color: white;
+  text-align: center;
+  padding-top: 1em;
+  background-color: #dc3545;
+  width: 30px;
+  height: 50px;
+  right: 55px;
+  border-bottom-left-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+  transition: 0.5s;
+}
+.fa-trash:hover {
+  height: 60px;
+  background-color: #9f1f2c;
 }
 
 /*# sourceMappingURL=profile.css.map */

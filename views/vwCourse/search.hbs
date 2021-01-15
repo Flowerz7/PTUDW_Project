@@ -3,6 +3,7 @@
 <div class="main-container">
   <div class="annoucement">We found <span>{{docsCount}}</span> courses for keyword <span>{{q}}</span></div>
 
+  {{#if docsCount}}
   <div class="filter-section">
     <form method="GET">
       <label for="filter">Filter: </label>
@@ -18,6 +19,7 @@
       <button type="submit" class="btn btn-primary">Apply filter</button>
     </form>
   </div>
+  {{/if}}
   
   <div class="course-container">
     {{#each Courses}}
@@ -35,45 +37,17 @@
     {{/each}}
   </div>
 
+  {{#ifLessThanOrEqualLimit docsCount}}
+  {{else}}
   <div class="paginate-section">
-    {{#if last}}
     <nav>
       <ul class="pagination">
-        {{#if start}}
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Prev</a></li>
-        {{else}}
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{decBy2 current}}">{{decBy2 current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">{{dec current}}</a></li>
-        {{/if}}
-        <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Prev</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
       </ul>
     </nav>
-    {{else}}
-    {{#if start}}
-    <nav>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="?page={{current}}">Prev</a></li>
-        <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{incBy2 current}}">{{incBy2 current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
-      </ul>
-    </nav>
-    {{else}}
-    <nav>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">Prev</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{dec current}}">{{dec current}}</a></li>
-        <li class="page-item"><a class="page-link active" href="?page={{current}}">{{current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">{{inc current}}</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
-      </ul>
-    </nav>
-    {{/if}}
-    {{/if}}
   </div>
+  {{/ifLessThanOrEqualLimit}}
 </div>
 
 {{#section 'scripts'}}

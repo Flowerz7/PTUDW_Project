@@ -111,20 +111,22 @@ span {
   width: 100%;
 }
 .information-section .suggest-section .section-content img {
-  height: 170px;
-  width: 250px;
+  width: 240px;
+  height: 135px;
   cursor: pointer;
 }
 .information-section .suggest-section .section-content .card {
   margin-bottom: 1em;
   box-shadow: 0.25em 0.25em 0.3em rgba(0, 0, 0, 0.05);
   width: 100%;
+  height: 135px;
   display: flex;
   flex-direction: row;
 }
 .information-section .suggest-section .section-content .card-body {
   display: block;
   margin-left: 2em;
+  padding: 0.75rem;
   padding-right: 5em;
   width: 100%;
   white-space: nowrap;
@@ -147,9 +149,11 @@ span {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.information-section .suggest-section .section-content .card-title {
+  margin-bottom: 0.25rem;
+}
 .information-section .suggest-section .course-price {
-  font-size: 1.25rem;
-  margin-top: 0.5em;
+  margin-top: 0.25em;
   font-weight: 700;
 }
 

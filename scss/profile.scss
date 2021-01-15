@@ -24,16 +24,6 @@ $main-color : #0e6cff;
 
     background-color: $main-color;
 
-    // &::after{
-    //     content: "";
-    //     position: absolute;
-    //     bottom: 0%;
-
-    //     width: 100%;
-    //     height: 100px;
-    //     background-color: white;
-    // }
-
     .button-container{
         display: flex;
         flex-direction: column;
@@ -48,13 +38,14 @@ $main-color : #0e6cff;
     }
 }
 
-.fa-flag{
+.fa-trophy{
     position: absolute;
-    right: 0%;
+    right: 45px;
+    margin-top: 1em;
 
-    transform: translate(50%, 0%);
+    transform: translateX(50%);
 
-    color: $main-color;
+    color: white;
 }
 
 .information-container{
@@ -114,7 +105,7 @@ $main-color : #0e6cff;
 
             margin-bottom: .5em;
 
-            width: 100%;
+            width: 98%;
             height: 105px;
         }
 

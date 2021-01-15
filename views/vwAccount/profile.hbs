@@ -28,15 +28,15 @@
                 <div class="card" onclick="window.location='/courses?id={{this._id}}'">
                     <div class="card-body">
                         <h4 class="card-title">{{title}}</h4>
-                        <div style="font-style: italic;" class="card-text">Finished</div>
+                        <div style="font-style: italic;" class="card-text">Completed</div>
                     </div>
-                    <span class="fa fa-flag"></span>
+                    <span class="fa fa-trophy"></span>
                 </div>
                 {{else}}
                 <div class="card" onclick="window.location='/courses?id={{this._id}}'">
                     <div class="card-body">
                         <h4 class="card-title">{{title}}</h4>
-                        <div style="font-style: italic;" class="card-text">Not Finished</div>
+                        <div style="font-style: italic;" class="card-text">Not Completed</div>
                     </div>
                 </div>
                 {{/if}}

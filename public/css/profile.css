@@ -31,11 +31,12 @@
   background-color: #0e6cff;
 }
 
-.fa-flag {
+.fa-trophy {
   position: absolute;
-  right: 0%;
-  transform: translate(50%, 0%);
-  color: #0e6cff;
+  right: 45px;
+  margin-top: 1em;
+  transform: translateX(50%);
+  color: white;
 }
 
 .information-container {
@@ -80,7 +81,7 @@
   box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.2);
   cursor: pointer;
   margin-bottom: 0.5em;
-  width: 100%;
+  width: 98%;
   height: 105px;
 }
 .information-container .courses-section .card-body {

@@ -4,6 +4,7 @@ import Student from "../models/students.model.js";
 import { getCategories } from '../controllers/category.controller.js'
 import Category from "../models/categories.model.js";
 import SubCategory from '../models/subCategory.model.js'
+import Badge from '../models/badge.model.js'
 
 export const loadSingleCourse = async (req, res) => {
     const _id  = req.query.id
@@ -86,51 +87,36 @@ const sortListCourse = (filterType, courses) => {
     }
 }
 
-const ejectBadge = (courses) => {
-    //best seller -> num of student?
-    //new breeze -> createdAt
-    //trendy -> view
-
-    courses.sort((course1, course2) => {
-        return course2.numOfStudent - course1.numOfStudent
+const ejectBadge = async (courses) => {
+    const badge = await Badge.findOne().lean()
+    courses.map(course => {
+        course.bestSeller = false
+        course.trendy = false
+        course.newBreeze = false
     })
 
-    courses.map((item, index) => {
-        item.bestSeller = false
-        if (index < 5){
-            item.bestSeller = true
-            if (item.numOfStudent === 0){
-                item.bestSeller = false
+    courses.map(course => {
+        badge.bestSeller.map(bestSellerCourse =>{
+            if (bestSellerCourse.toString() === course._id.toString()){
+                course.bestSeller = true
             }
-        }
+        })
     })
 
-    courses.sort((course1, course2) => {
-        return course2.view - course1.view
-    })
-
-    courses.map((item, index) => {
-        item.trendy = false
-        if (index < 5){
-            item.trendy = true
-            if(item.view === 0){
-                item.trendy = false
+    courses.map(course => {
+        badge.trendy.map(trendyCourse =>{
+            if (trendyCourse.toString() === course._id.toString()){
+                course.trendy = true
             }
-        }
+        })
     })
 
-    courses.sort((course1, course2) => {
-        return course2.createdAt - course1.createdAt
-    })
-
-    courses.map((item, index) => {
-        item.newBreeze = false
-        if (index < 5){
-            item.newBreeze = true
-            if((item.createdAt - Date.now())/86400000 > 7){
-                item.newBreeze = false
+    courses.map(course => {
+        badge.newBreeze.map(newBreezeCourse =>{
+            if (newBreezeCourse.toString() === course._id.toString()){
+                course.newBreeze = true
             }
-        }
+        })
     })
 }
 
@@ -154,10 +140,10 @@ export const loadAllCourses = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
     
-    ejectBadge(courses)
     sortListCourse(filter, courses)
-    
     courses = courses.splice((options.page - 1) * options.limit, options.limit)
+    
+    await ejectBadge(courses)
 
     const categories = await getCategories()
     const props = {
@@ -197,9 +183,10 @@ export const loadCoursesBySubcategory = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
 
-    ejectBadge(courses)
     sortListCourse(filter, courses)
     courses = courses.splice((options.page - 1) * options.limit, options.limit)
+    
+    await ejectBadge(courses)
 
     const categories = await getCategories()
     const props = {
@@ -244,9 +231,10 @@ export const loadCoursesByCategory = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
     
-    ejectBadge(result)
     sortListCourse(filter, result)
     result = result.splice((options.page - 1) * options.limit, options.limit)
+    
+    await ejectBadge(result)
 
     const categories = await getCategories()
     const props = {
@@ -285,9 +273,10 @@ export const loadQueriedCourse = async (req, res) => {
         }, 0) / item.reviewList.length) || 0
     })
     
-    ejectBadge(result)
     sortListCourse(filter, result)
     result = result.splice((options.page - 1) * options.limit, options.limit)
+    
+    await ejectBadge(result)
 
     const categories = await getCategories()
     const props = {

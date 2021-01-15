@@ -5,6 +5,7 @@ import MostSubscribedCategory from '../models/mostSubscribedCategories.model.js'
 import RemarkableCourses from '../models/remarkableCourses.model.js'
 
 import { getCategories } from '../controllers/category.controller.js'
+import { setBadge } from '../controllers/badge.controller.js'
 
 export const loadHome = async (req , res) => {
     const countRemarkableCourses = await RemarkableCourses.find().countDocuments()
@@ -76,6 +77,7 @@ export const loadHome = async (req , res) => {
     })
 
     const categories = await getCategories()
+    await setBadge()
 
     const props = {
         RemarkableCourses : courseContainer.remarkableCourses,

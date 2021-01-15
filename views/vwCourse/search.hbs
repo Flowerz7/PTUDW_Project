@@ -23,13 +23,13 @@
   
   <div class="course-container">
     {{#each Courses}}
-      <div class="card" onclick="window.location='/courses?id={{this._id}}'">
-        <img src="/images/{{avatarLink}}" alt="">
+      <div class="card">
+        <img style="cursor: pointer;" src="/images/{{avatarLink}}" onclick="window.location='/courses?id={{this._id}}'" alt="">
         <div class="card-body">
-          <h4 class="card-title">{{title}}</h4>
-          <div class="card-text">{{category}}</div>
+          <h4 style="cursor: pointer;" class="card-title" onclick="window.location='/courses?id={{this._id}}'">{{title}}</h4>
+          <div style="cursor: pointer; color: #0e6cff;" onclick="window.location='/courses/category/{{category}}'" class="card-text">{{category}}</div>
           <div class="card-text">{{teacherID.name}}</div>
-          <div class="card-text">{{averageReviewPoint}} ({{reviewCount}} reviews)</div>
+          <div class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span> ({{reviewCount}} reviews)</div>
           <div class="card-text course-price">{{price}}</div>
         </div>
       </div>

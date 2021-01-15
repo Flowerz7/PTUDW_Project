@@ -263,7 +263,7 @@ export const loadQueriedCourse = async (req, res) => {
 
     const filter = req.query.filter
 
-    var result = await Course.find({$text: {$search : q, $caseSensitive : false}}).lean()
+    var result = await Course.find({$text: {$search : q, $caseSensitive : false}}, {score: { $meta: "textScore" }}).sort({ score: { $meta: "textScore" }}).lean()
     
     result.forEach((item) => {
         item.reviewCount = item.reviewList.length

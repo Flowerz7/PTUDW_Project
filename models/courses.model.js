@@ -77,7 +77,7 @@ const courseSchema = new Schema(
   }
 );
 
-courseSchema.index({ title: "text", category: "text" });
+courseSchema.index({'$**': 'text'});
 
 const Course = mongoose.model("Course", courseSchema);
 

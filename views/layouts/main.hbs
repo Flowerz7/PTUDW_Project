@@ -89,12 +89,12 @@
 
 <script>
     $(document).ready(() => {
-        $('.dropdown-item').mouseover((e) => {
+        $('div.dropdown-item').mouseover((e) => {
             e.preventDefault()
             $(e.target).children('.subcate-section').css('display', 'block')
         })
 
-        $('.dropdown-item').mouseleave((e) => {
+        $('div.dropdown-item').mouseleave((e) => {
             e.preventDefault()
             $('.subcate-section').css('display', 'none')
         })

@@ -45,6 +45,10 @@ const courseSchema = new Schema(
       type: Number,
       required: true,
     },
+    lastUpdate: {
+      type: Date,
+      required: true
+    },
     category: {
       type: String,
       required: true,

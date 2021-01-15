@@ -20,8 +20,7 @@
             <div><a href="/courses/{{parentCate}}">{{parentCate}}</a> <span class="fa fa-long-arrow-right"></span> <a href="/courses/category/{{category}}">{{category}}</a></div>
             <br>
             <div><span style="font-weight: 500; color: black;">Lecturer:</span> {{teacherID.name}} ({{teacherID.email}})</div>
-            {{!-- <div style="font-weight: 500;"><span>{{numOfStudent}}</span> students are learning</div> --}}
-            <div><span style="font-weight: 500; color: black;">Last update:</span> {{updatedAt}}</div>
+            <div><span style="font-weight: 500; color: black;">Last update:</span> <span id="lastUpdate" style="color: #212529">{{lastUpdate}}</span></div>
 
             <div class="card">
                 <div class="card-body">
@@ -331,6 +330,29 @@
             }
 
             $('.text-section .card').click(showDescription)
+        })
+    </script>
+
+    <script>
+        $(document).ready(() => {
+            const lastUpdate = $('#lastUpdate')
+            const lastUpdateTime = new Date(lastUpdate.text())
+
+            const diffInSecond = (lastUpdateTime - Date.now())/1000
+
+            if (Math.floor(diffInSecond) < 900){ //15min
+                lastUpdate.text('Now')
+            }
+            else{
+                const diffInHour = diffInSecond / 3600
+                if (Math.floor(diffInHour) <= 23){
+                    lastUpdate.text(+(Math.floor(diffInHour) + 1) + 'hours ago')
+                }
+                else {
+                    const diffInDay = diffInHour / 24
+                    lastUpdate.text(+(Math.floor(diffInDay) + 1) + 'days ago')
+                }
+            }
         })
     </script>
 {{/section}}

@@ -56,8 +56,16 @@
   <div class="paginate-section">
     <nav>
       <ul class="pagination">
+        {{#if start}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Prev</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Prev</a></li>
+        {{/if}}
+        {{#if last}}
+        <li class="page-item"><a class="page-link" href="?page={{current}}&q={{q}}">Next</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
+        {{/if}}
       </ul>
     </nav>
   </div>
@@ -66,8 +74,16 @@
   <div class="paginate-section">
     <nav>
       <ul class="pagination">
+        {{#if start}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Prev</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Prev</a></li>
+        {{/if}}
+        {{#if last}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Next</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
+        {{/if}}
       </ul>
     </nav>
   </div>

@@ -26,12 +26,12 @@
           {{#if isClock}}
           <form style="display: inline-block;" action="/admin/teachers/unclock" method="post">
             <input type="hidden" name="teacherID" value="{{_id}}">
-            <button type="submit" class="btn btn-sm btn-primary">Unclock</button>
+            <button type="submit" class="btn btn-sm btn-primary">Unblock</button>
           </form>
           {{else}}
           <form style="display: inline-block;" action="/admin/teachers/clock" method="post">
             <input type="hidden" name="teacherID" value="{{_id}}">
-            <button type="submit" class="btn btn-sm btn-danger">Clock</button>
+            <button type="submit" class="btn btn-sm btn-danger">Block</button>
           </form>
           {{/if}}
           <form style="display: inline-block;" action="/admin/teachers/delete" method="post">

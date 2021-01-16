@@ -26,7 +26,7 @@
               <a href="{{name}}" class="disabled btn btn-sm btn-danger delete-category-btn">Delete</a>
               {{/if}}
 
-              <div class="subCategories-section" style="display: none;">
+              <div class="subCategories-section my-modal" style="display: none;">
                   <table class="table2">
                     <thead>
                       <tr>
@@ -43,7 +43,7 @@
                           <td class="content">{{name}}</td>
                           <td class="handle-sm">
                             <a href="javascript:void(0)" class="btn btn-sm btn-primary detail-btn">Detail</a>
-                            <div class="detail-section" style="display: none;">
+                            <div class="detail-section my-modal" style="display: none;">
                                   <h4><b>{{name}}</b></h4>
                                   <div><strong>Detail:</strong> {{detail}}</div>
                                   <div><strong>Subscribe:</strong> {{subscribe}}</div>
@@ -65,7 +65,7 @@
                   <a href="/admin/subCategories/add" class="btn-sm btn btn-primary add-subcategory-btn">Add subcategory</a>
               </div>
 
-              <div class="card detail-section" style="display: none;">
+              <div class="card detail-section my-modal" style="display: none;">
                   <h4><b>{{name}}</b></h4>
                   <div><strong>Detail:</strong> {{detail}}</div>
                   <div><strong>Subscribe:</strong> {{subscribe}}</div>
@@ -82,8 +82,15 @@
     $(document).ready(() => {
       //#region UI cripts
       var isSubcategorySectionVisible = false
+      var isDetailSectionVisible = false
+
       $('.view-btn').click((e) => {
         e.preventDefault()
+        var isDetailSectionVisible = false
+
+        $('.subCategories-section').css('display', 'none')
+        $('.my-modal').css('display', 'none')
+        $(e.target).siblings('.subCategories-section').css('display', 'block')
         if (isSubcategorySectionVisible == false){
           $(e.target).siblings('.subCategories-section').css('display', 'block')
         }
@@ -94,9 +101,13 @@
         isSubcategorySectionVisible = !isSubcategorySectionVisible
       })
 
-      var isDetailSectionVisible = false
       $('.detail-btn').click((e) => {
         e.preventDefault()
+        var isSubcategorySectionVisible = false
+
+        $('.my-modal').css('display', 'none')
+        $('.detail-section').css('display', 'none')
+        $(e.target).siblings('.detail-section').css('display', 'block')
         if (isDetailSectionVisible == false){
           $(e.target).siblings('.detail-section').css('display', 'block')
         }

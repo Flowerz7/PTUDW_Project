@@ -67,10 +67,11 @@
     $('.detail-btn').click((e) => {
       e.preventDefault()
       if (isDetailSectionVisible == false){
+        $('.detail-section').css('display', 'none')
         $(e.target).siblings('.detail-section').css('display', 'block')
       }
       else {
-        $(e.target).siblings('.detail-section').css('display', 'none')
+        $('.detail-section').css('display', 'none')
       }
 
       isDetailSectionVisible = !isDetailSectionVisible

@@ -31,8 +31,14 @@ export const loadHome = async (req , res) => {
     var categoryContainer = await MostSubscribedCategory.findOne()
     
     const milestone = new Date(2021, 0, 1)
-    const isCourseNotUpdated = (Math.round(courseContainer.updatedAt - milestone) % 7) === 0
-    const isCategoryNotUpdated = (Math.round(categoryContainer.updatedAt - milestone) & 7) === 0
+    const isCategoryNotUpdated = (Math.round(categoryContainer.updatedAt - milestone) & 7*86400000) === 0
+    var isCourseNotUpdated = (Math.round(courseContainer.updatedAt - milestone) % 7*86400000) === 0
+
+    courseContainer.remarkableCourses.map((item) => {
+        if (item.disabled == true){
+            isCourseNotUpdated = true
+        }
+    })
 
     if (isCourseNotUpdated === true){
         const newRemarkableCourses = await Course.find().lean()
@@ -41,6 +47,8 @@ export const loadHome = async (req , res) => {
                 return accumulator + item.numOfStar
             }, 0) / item.reviewList.length) || 0
         })
+
+        newRemarkableCourses.filter(item => item.disabled === false)
 
         newRemarkableCourses.sort((course1, course2) => {
             return course2.averageReviewPoint - course1.averageReviewPoint
@@ -59,8 +67,14 @@ export const loadHome = async (req , res) => {
     courseContainer = await RemarkableCourses.findOne().populate('remarkableCourses').lean()
     categoryContainer = await MostSubscribedCategory.findOne().populate('mostSubscribedCategories').lean()
 
-    const mostViewedCourses = await Course.find().sort({view : -1}).limit(10).populate('teacherID').lean()
-    const newestCourses = await Course.find().sort({$natural : -1}).limit(10).populate('teacherID').lean()
+    var mostViewedCourses = await Course.find().sort({view : -1}).populate('teacherID').lean()
+    var newestCourses = await Course.find().sort({$natural : -1}).populate('teacherID').lean()
+
+    newestCourses = newestCourses.filter(item => item.disabled === false)
+    mostViewedCourses = mostViewedCourses.filter(item => item.disabled === false)
+
+    newestCourses = newestCourses.splice(0, 10)
+    mostViewedCourses = mostViewedCourses.splice(0, 10)
 
     mostViewedCourses.forEach((item) => {
         item.reviewCount = item.reviewList.length

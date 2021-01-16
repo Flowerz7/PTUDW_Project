@@ -19,7 +19,7 @@
         <option value="review-desc">Review Descending</option>
       </select>
 
-      <input type="hidden" name="page" value="{{current}}">
+      <input type="hidden" name="page" value="{{1}}">
       <button type="submit" class="btn btn-primary">Apply filter</button>
     </form>
   </div>
@@ -27,40 +27,93 @@
 
   <div class="course-container">
     {{#each Courses}}
-      <div style="cursor: pointer" class="card" onclick="window.location='/courses?id={{this._id}}'">
-        <img src="/images/{{avatarLink}}" alt="">
-        <div class="card-body">
-          <h4 class="card-title">{{title}}</h4>
-          <div onclick="window.location='/courses/category/{{category}}'" style="cursor: pointer;" class="card-text">{{category}}</div>
-          <div class="card-text">{{teacherID.name}}</div>
-          <div class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span> ({{reviewCount}} reviews)</div>
-          <div class="card-text course-price"><b>{{price}}$</b></div>
-        </div>
-        <div class="badge">
-          {{#if bestSeller}}
-          <div>Best Seller</div>
-          {{else}}
-            {{#if trendy}}
-            <div>Trendy</div>
+      {{#if disabled}}
+        <div style="background-color: rgb(225, 225, 225); box-shadow: none; border: none;" class="card">
+          <img src="/images/{{avatarLink}}" alt="">
+          <div class="card-body">
+            <h4 class="card-title disabled-course">{{title}}</h4>
+            <div class="card-text">{{category}}</div>
+            <div class="card-text">{{teacherID.name}}</div>
+            <div class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span> ({{reviewCount}} reviews)</div>
+            <div class="card-text course-price"><b>{{price}}$</b></div>
+          </div>
+          <div class="badge">
+            {{#if bestSeller}}
+            <div>Best Seller</div>
             {{else}}
-              {{#if newBreeze}}
-              <div>New Breeze</div>
+              {{#if trendy}}
+              <div>Trendy</div>
+              {{else}}
+                {{#if newBreeze}}
+                <div>New Breeze</div>
+                {{/if}}
               {{/if}}
             {{/if}}
-          {{/if}}
+          </div>
         </div>
-      </div>
+      {{else}}
+        <div style="cursor: pointer" class="card" onclick="window.location='/courses?id={{this._id}}'">
+          <img src="/images/{{avatarLink}}" alt="">
+          <div class="card-body">
+            <h4 class="card-title">{{title}}</h4>
+            <div onclick="window.location='/courses/category/{{category}}'" style="cursor: pointer;" class="card-text">{{category}}</div>
+            <div class="card-text">{{teacherID.name}}</div>
+            <div class="card-text">{{averageReviewPoint}} <span class="fa fa-star"></span> ({{reviewCount}} reviews)</div>
+            <div class="card-text course-price"><b>{{price}}$</b></div>
+          </div>
+          <div class="badge">
+            {{#if bestSeller}}
+            <div>Best Seller</div>
+            {{else}}
+              {{#if trendy}}
+              <div>Trendy</div>
+              {{else}}
+                {{#if newBreeze}}
+                <div>New Breeze</div>
+                {{/if}}
+              {{/if}}
+            {{/if}}
+          </div>
+        </div>
+      {{/if}}
       {{else}}
     {{/each}}
   </div>
 
   {{#ifLessThanOrEqualLimit docsCount}}
+  {{#ifLessThanOrEqualLimit docsViewing}}
   {{else}}
   <div class="paginate-section">
     <nav>
       <ul class="pagination">
+        {{#if start}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Prev</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{dec current}}">Prev</a></li>
+        {{/if}}
+        {{#if last}}
+        <li class="page-item"><a class="page-link" href="?page={{current}}">Next</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+  </div>
+  {{/ifLessThanOrEqualLimit}}
+  {{else}}
+  <div class="paginate-section">
+    <nav>
+      <ul class="pagination">
+        {{#if start}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Prev</a></li>
+        {{else}}
+        <li class="page-item"><a class="page-link" href="?page={{dec current}}">Prev</a></li>
+        {{/if}}
+        {{#if last}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Next</a></li>
+        {{else}}
+        <li class="page-item"><a class="page-link" href="?page={{inc current}}">Next</a></li>
+        {{/if}}
       </ul>
     </nav>
   </div>

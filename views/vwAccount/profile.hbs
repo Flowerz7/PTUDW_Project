@@ -9,8 +9,8 @@
     <div class="layout-buffer"></div>
     <div class="information-container">
         <div class="personal-information-section">
-            <div class="name">{{name}}</div>
-            <div>{{email}}</div>
+            <div data-username="{{username}}" class="name">{{name}}</div>
+            <div><span style="font-weight: 500;">Email: </span>{{email}}</div>
         </div>
 
         <div class="courses-section">
@@ -24,18 +24,24 @@
             </div>
             <div class="section-content">
                 {{#each joinedCourses}}
-                <div class="card" onclick="window.location='/courses?id={{this._id}}'">
+                {{#if isFinish}}
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{title}}</h4>
-                        {{#if isFinish}}
-                        <div class="card-text">Finished</div>
-                        {{else}}
-                        <div class="card-text">Not Finished</div>
-                        {{/if}}
+                        <h4 class="card-title" onclick="window.location='/courses?id={{this._id}}'">{{title}}</h4>
+                        <div style="font-style: italic;" class="card-text">Completed</div>
                     </div>
+                    <span class="fa fa-trophy"></span>
                 </div>
                 {{else}}
-                <div>You have not joined any course</div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 onclick="window.location='/courses?id={{this._id}}'" class="card-title">{{title}}</h4>
+                        <div style="font-style: italic;" class="card-text">Not Completed</div>
+                    </div>
+                </div>
+                {{/if}}
+                {{else}}
+                <div style="font-style: italic;">You have not joined any course</div>
                 {{/each}}
             </div>
         </div>
@@ -51,18 +57,25 @@
             </div>
             <div class="section-content">
                 {{#each watchList}}
-                <div class="card" onclick="window.location='/courses?id={{this._id}}'">
+                {{#if isFinish}}
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{title}}</h4>
-                        {{#if isFinish}}
-                        <div class="card-text">Finished</div>
-                        {{else}}
-                        <div class="card-text">Not Finished</div>
-                        {{/if}}
+                        <h4 onclick="window.location='/courses?id={{this._id}}'" class="card-title">{{title}}</h4>
+                        <div style="font-style: italic;" class="card-text">Completed</div>
                     </div>
+                    <span class="fa fa-trophy"></span>
                 </div>
                 {{else}}
-                <div>You have no course in your watchlist</div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 onclick="window.location='/courses?id={{this._id}}'" class="card-title">{{title}}</h4>
+                        <div style="font-style: italic;" class="card-text">Not Completed</div>
+                    </div>
+                    <div data-courseID="{{_id}}" class="fa fa-trash"></div>
+                </div>
+                {{/if}}
+                {{else}}
+                <div style="font-style: italic;">You have no course in your watchlist</div>
                 {{/each}}
             </div>
         </div>
@@ -104,6 +117,21 @@
             }
 
             isWatchListVisible = !isWatchListVisible
+        })
+
+        $('.fa-trash').click(e => {
+            e.preventDefault()
+            const username = $('.name').attr('data-username')
+            const course_id = $(e.target).attr('data-courseID')
+
+            $.post(`/students/update/watchList/remove`, {username, course_id}, ({isSuccess}) => {
+                if (isSuccess === true){
+                    $(e.target).parent().css('display', 'none')
+                }
+                else {
+                    alert('failed')
+                }
+            }, 'json')
         })
     })
 </script>

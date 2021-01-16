@@ -21,8 +21,8 @@ const useHBS = (app) => {
           return parseInt(value) - 2
         },
         log : value => console.log(value),
-        ifEqualLimit : function (value, opts) {
-          if (value = 5){
+        ifLessThanLimit : function (value, opts) {
+          if (value < 5){
             return opts.fn(this)
           }
           else {
@@ -30,7 +30,7 @@ const useHBS = (app) => {
           }
         },
         ifLessThanOrEqualLimit : function (value, opts) {
-          if (value < 5){
+          if (value <= 5){
             return opts.fn(this)
           }
           else {

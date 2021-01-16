@@ -82,8 +82,27 @@ export const handle_delete_course_post = async (req, res) => {
   res.redirect("/admin/courses");
 };
 
+export const toggleCourseDisabling = async (req, res) =>{
+  const { courseID } = req.body;
+  const course = await Course.findById(courseID);
+
+  course.disabled = !course.disabled
+
+  await course.save()
+  res.json({isSuccess : true})
+}
+
 export const getAllCategories = async (req, res) => {
   const categories = await Category.find().populate("subCategories").lean();
+
+  categories.map(item => {
+      item.deletable = true
+      item.subCategories.map(subcate => {
+      if (subcate.numOfCourses !== 0){
+        item.deletable = false
+      }
+    })
+  })
 
   res.render("vwAdmin/categories", {
     layout: "admin.hbs",
@@ -211,28 +230,17 @@ export const addCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   const { name } = req.body;
-  const cate = await Category.findOne({ name: name })
-    .populate("subCategories")
-    .lean();
+  const cate = await Category.findOne({ name: name }).populate("subCategories").lean();
 
-  var canBeDeleted = true;
-  cate.subCategories.map((item) => {
-    if (item.numOfCourses !== 0) {
-      canBeDeleted = false;
-    }
+  await cate.subCategories.map(async (item) => {
+    await SubCategory.deleteOne({ name: item.name });
   });
 
-  if (canBeDeleted === true) {
-    await cate.subCategories.map(async (item) => {
-      await SubCategory.deleteOne({ name: item.name });
-    });
+  await Category.deleteOne({ name: name });
 
-    await Category.deleteOne({ name: name });
+  res.redirect("/admin/categories");
 
-    res.json({ isSuccess: true });
-  } else {
-    res.json({ isSuccess: false });
-  }
+
 };
 
 export const getAddSubcategoryView = async (req, res) => {

@@ -20,21 +20,9 @@ $main-color : #0e6cff;
     left: 5%;
     top: 0;
     width: 20%;
-    height: 100%;
+    height: 80%;
 
     background-color: $main-color;
-
-    // box-shadow: .2em 0em .2em rgba(0,0,0,.2);
-
-    &::after{
-        content: "";
-        position: absolute;
-        bottom: 0%;
-
-        width: 100%;
-        height: 100px;
-        background-color: white;
-    }
 
     .button-container{
         display: flex;
@@ -46,8 +34,26 @@ $main-color : #0e6cff;
             border: none;
             outline: none;
             background-color: $main-color;
+
+            margin-bottom: 1em;
+            transition: .5s all ease;
+
+            &:hover{
+                background-color: #3784ff;
+            }
+
         }
     }
+}
+
+.fa-trophy{
+    position: absolute;
+    right: 30px;
+    margin-top: 1em;
+
+    transform: translateX(50%);
+
+    color: white;
 }
 
 .information-container{
@@ -76,6 +82,8 @@ $main-color : #0e6cff;
             display: flex;
             align-items: center;
 
+            margin-bottom: 1em;
+
             h4{
                 font-weight: 700;
                 margin-right: 2em;
@@ -93,7 +101,7 @@ $main-color : #0e6cff;
     
         .section-content{
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             overflow: hidden;
 
             max-height: 110px;
@@ -101,26 +109,70 @@ $main-color : #0e6cff;
 
         .card{
             box-shadow: .2em .2em .2em rgba(0,0,0,.2);
-            cursor: pointer;
+            margin-bottom: .5em;
 
-            margin-right: .2em;
-            margin-bottom: .2em;
-
-            width: 19%;
+            width: 95%;
             height: 105px;
+
+            transition: .5s all ease;
+
+            h4{
+                cursor: pointer;
+            }
+
+            &:hover{
+                width: 98%;
+            }
         }
 
         .card-body{
             display: flex;
             flex-direction: column;
+
+            padding-right: 80px;
+
+            &::after{
+                content: '';
+                position: absolute;
+                right: 15px;
+                top: 0%;
+
+                width: 30px;
+                height: 80%;
+
+                background-color: $main-color;
+            }
         }
 
         .card-title, .card-text{
             width: 100%;
-            text-align: center;
+            text-align: left;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
         }
+    }
+}
+
+.fa-trash{
+    position: absolute;
+    color: white;
+    text-align: center;
+    padding-top: 1em;
+
+    background-color: #dc3545;
+    width: 30px;
+    height: 50px;
+
+    right: 55px;
+
+    border-bottom-left-radius: .25em;
+    border-bottom-right-radius: .25em;
+
+    transition: .5s;
+
+    &:hover{
+        height: 60px;
+        background-color: #9f1f2c;
     }
 }

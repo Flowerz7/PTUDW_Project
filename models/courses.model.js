@@ -33,6 +33,10 @@ const courseSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    disabled : {
+      type: Boolean,
+      required: true,
+    },
     briefDescription: {
       type: String,
       required: true,
@@ -44,6 +48,10 @@ const courseSchema = new Schema(
     numOfStudent: {
       type: Number,
       required: true,
+    },
+    lastUpdate: {
+      type: Date,
+      required: true
     },
     category: {
       type: String,
@@ -69,7 +77,7 @@ const courseSchema = new Schema(
   }
 );
 
-courseSchema.index({ title: "text", category: "text" });
+courseSchema.index({'$**': 'text'});
 
 const Course = mongoose.model("Course", courseSchema);
 

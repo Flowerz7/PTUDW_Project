@@ -87,6 +87,9 @@ span {
   max-height: 250px;
   overflow: hidden;
 }
+.information-section .text-section .card li::marker {
+  margin-left: 2em !important;
+}
 .information-section .lectures-section, .information-section .viewfeedback-section, .information-section .suggest-section {
   margin-left: 2em;
   margin-top: 3em;
@@ -122,6 +125,9 @@ span {
   height: 135px;
   display: flex;
   flex-direction: row;
+}
+.information-section .suggest-section .section-content .card:last-child {
+  margin-bottom: 2em;
 }
 .information-section .suggest-section .section-content .card-body {
   display: block;
@@ -191,6 +197,16 @@ span {
   font-weight: 350;
   font-size: 0.75rem;
 }
+.decoration-rectangle .studentCounter {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.75em;
+}
+.decoration-rectangle .studentCounter + div {
+  margin-top: 0.25em;
+  font-weight: 350;
+  font-size: 0.75rem;
+}
 
 .img-container {
   margin-top: 2em;
@@ -199,8 +215,8 @@ span {
   overflow: hidden;
 }
 .img-container img {
-  width: 100%;
-  height: auto;
+  height: 112.5px;
+  width: 200px;
   border-radius: 0.25rem;
 }
 
@@ -257,7 +273,7 @@ span {
 }
 .givefeedback-section .stars .btn {
   background-color: transparent;
-  color: #0e6cff;
+  color: gray;
   margin-right: 0.5em;
 }
 .givefeedback-section input {
@@ -291,8 +307,8 @@ span {
   margin-top: 1em;
 }
 
-.fa {
-  color: #0e6cff;
+a.disabled {
+  color: gray;
 }
 
 @media (max-width: 700px) {

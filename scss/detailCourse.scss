@@ -105,6 +105,10 @@ span{
                 max-height: 250px;
                 overflow: hidden;
             }
+
+            li::marker{
+                margin-left: 2em !important;
+            }
         }
     }
 
@@ -156,6 +160,10 @@ span{
 
                 display: flex;
                 flex-direction: row;
+
+                &:last-child{
+                    margin-bottom: 2em;
+                }
 
             }
 
@@ -245,6 +253,19 @@ span{
         font-weight: 350;
         font-size: .75rem;
     }
+
+    .studentCounter{
+        font-size: 2rem;
+        font-weight: 700;
+
+        margin-top: .75em;
+
+        & + div{
+            margin-top: .25em;
+            font-weight: 350;
+            font-size: .75rem;
+        }
+    }
 }
 
 .img-container{
@@ -255,8 +276,8 @@ span{
     overflow: hidden;
 
     img{
-        width: 100%;
-        height: auto;
+        height: 112.5px;
+        width: 200px;
 
         border-radius: .25rem;
     }
@@ -325,7 +346,7 @@ span{
     
         .btn{
             background-color: transparent;
-            color: $main-color;
+            color: gray;
             margin-right: .5em;
         }
     
@@ -366,8 +387,8 @@ span{
     margin-top: 1em;
 }
 
-.fa{
-    color: $main-color;
+a.disabled{
+    color: gray;
 }
 
 @media (max-width:  700px){

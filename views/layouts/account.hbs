@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/css/auth.css">
   <title>{{title}}</title>
 </head>
-<body>
+<body style="visibility: hidden;" onload="document.body.style.visibility='visible'">
   
 	{{{ body }}}
   
@@ -21,5 +21,13 @@
     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
     crossorigin="anonymous"></script>
   {{{_sections.scripts}}}
+
+  <noscript>
+        <style>
+            body{
+                visibility: visible;
+            }
+        </style>
+    </noscript>
 </body>
 </html>

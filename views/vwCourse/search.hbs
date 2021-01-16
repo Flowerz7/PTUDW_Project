@@ -14,7 +14,7 @@
         <option value="review-desc">Review Descending</option>
       </select>
 
-      <input type="hidden" name="page" value="{{current}}">
+      <input type="hidden" name="page" value="{{1}}">
       <input type="hidden" name="q" value="{{q}}">
       <button type="submit" class="btn btn-primary">Apply filter</button>
     </form>
@@ -35,29 +35,55 @@
         <div class="badge">
           {{#if bestSeller}}
           <div>Best Seller</div>
-          {{/if}}
-
-          {{#if trendy}}
-          <div>Trendy</div>
-          {{/if}}
-
-          {{#if newBreeze}}
-          <div>New Breeze</div>
+          {{else}}
+            {{#if trendy}}
+            <div>Trendy</div>
+            {{else}}
+              {{#if newBreeze}}
+              <div>New Breeze</div>
+              {{/if}}
+            {{/if}}
           {{/if}}
         </div>
-      </div>
       </div>
       {{else}}
     {{/each}}
   </div>
 
   {{#ifLessThanOrEqualLimit docsCount}}
+  {{#ifLessThanOrEqualLimit docsViewing}}
   {{else}}
   <div class="paginate-section">
     <nav>
       <ul class="pagination">
+        {{#if start}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Prev</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Prev</a></li>
+        {{/if}}
+        {{#if last}}
+        <li class="page-item"><a class="page-link" href="?page={{current}}&q={{q}}">Next</a></li>
+        {{else}}
         <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+  </div>
+  {{/ifLessThanOrEqualLimit}}
+  {{else}}
+  <div class="paginate-section">
+    <nav>
+      <ul class="pagination">
+        {{#if start}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Prev</a></li>
+        {{else}}
+        <li class="page-item"><a class="page-link" href="?page={{dec current}}&q={{q}}">Prev</a></li>
+        {{/if}}
+        {{#if last}}
+        <li class="page-item"><a class="page-link" style="background-color: rgb(225, 225, 225);" href="javascript:void(0)">Next</a></li>
+        {{else}}
+        <li class="page-item"><a class="page-link" href="?page={{inc current}}&q={{q}}">Next</a></li>
+        {{/if}}
       </ul>
     </nav>
   </div>

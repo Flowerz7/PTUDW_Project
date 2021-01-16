@@ -103,7 +103,9 @@ export const handle_add_course_post = async (req, res) => {
         avatarLink: req.file.filename,
         price,
         category,
+        lastUpdate : Date.now(),
         isFinish: false,
+        disabled: false,
         briefDescription,
         description,
         numOfStudent: 0,
@@ -170,7 +172,7 @@ export const handle_upload_videos_post = (req, res) => {
 
       await Course.updateOne(
         { _id: courseID },
-        { $push: { videos: newVideo } }
+        { $push: { videos: newVideo, lastUpdate : Date.now() } }
       );
 
       res.redirect(`/teacher/upload/${courseID}`);

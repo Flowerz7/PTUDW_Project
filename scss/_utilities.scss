@@ -20,6 +20,25 @@
   border-radius: 12px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
+  .filter {
+    display: flex;
+    width: 100%;
+
+    select {
+      width: 200px;
+      height: 30px;
+      margin-right: 10px;
+      border-radius: 30px;
+    }
+
+    button {
+      height: 30px;
+      width: 100px;
+      border-radius: 30px;
+      margin-right: 25px;
+    }
+  }
+
   .add {
     margin-bottom: 10px;
   }

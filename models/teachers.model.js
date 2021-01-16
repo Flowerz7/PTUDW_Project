@@ -26,6 +26,10 @@ const teacherShema = new Schema(
       required: true,
       unique: true,
     },
+    isClock: {
+      type: Boolean,
+      default: false,
+    },
     courses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
   },
   {

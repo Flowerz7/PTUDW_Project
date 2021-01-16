@@ -26,6 +26,10 @@ const studentSchema = new Schema(
       required: true,
       unique: true,
     },
+    isClock: {
+      type: Boolean,
+      default: false,
+    },
     watchList: [{ type: Schema.Types.ObjectId, ref: "Course" }],
     joinedCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
   },

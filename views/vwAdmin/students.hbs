@@ -20,6 +20,17 @@
                   <div><strong>Username: </strong>{{username}}</div>
                   <div><strong>Email: </strong>{{email}}</div>
           </div>
+          {{#if isClock}}
+          <form style="display: inline-block;" action="/admin/students/unclock" method="post">
+            <input type="hidden" name="studentID" value="{{_id}}">
+            <button type="submit" class="btn btn-sm btn-primary">Unclock</button>
+          </form>
+          {{else}}
+          <form style="display: inline-block;" action="/admin/students/clock" method="post">
+            <input type="hidden" name="studentID" value="{{_id}}">
+            <button type="submit" class="btn btn-sm btn-danger">Clock</button>
+          </form>
+          {{/if}}
           <form style="display: inline-block;" action="/admin/students/delete" method="post">
             <input type="hidden" name="studentID" value="{{_id}}">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>

@@ -44,6 +44,22 @@ li {
   border-radius: 12px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+.table-container .filter {
+  display: flex;
+  width: 100%;
+}
+.table-container .filter select {
+  width: 200px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 30px;
+}
+.table-container .filter button {
+  height: 30px;
+  width: 100px;
+  border-radius: 30px;
+  margin-right: 25px;
+}
 .table-container .add {
   margin-bottom: 10px;
 }
@@ -122,6 +138,22 @@ li {
   color: #0e6cff;
   transition: 0.5s all ease;
   width: 80px;
+}
+
+.table .handle-col {
+  width: 150px;
+}
+.table .handle-col-lg {
+  width: 250px;
+}
+
+th {
+  margin-bottom: 10px;
+}
+
+td, th {
+  padding: 5px;
+  position: relative;
 }
 
 footer {
@@ -286,22 +318,6 @@ body {
   color: #ff8700;
 }
 
-.table .handle-col {
-  width: 150px;
-}
-.table td {
-  max-width: 500px;
-}
-
-th {
-  margin-bottom: 10px;
-}
-
-td, th {
-  padding: 5px;
-  position: relative;
-}
-
 .table2 {
   width: 100%;
   display: flex;
@@ -318,7 +334,7 @@ td, th {
   width: 350px;
 }
 .table2 tr .handle-sm {
-  width: 200px;
+  width: 300px;
 }
 .table2 tr .order {
   width: 50px;

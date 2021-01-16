@@ -16,12 +16,45 @@ export const handle_admin_get = (req, res) => {
 };
 
 export const handle_courses_get = async (req, res) => {
-  const courses = await Course.find().populate('teacherID').lean()
+  const courses = await Course.find().populate("teacherID").lean();
+
+  const subcategories = await SubCategory.find().lean();
+  const teachers = await Teacher.find().lean();
 
   res.render("vwAdmin/courses", {
     layout: "admin.hbs",
     title: "Project | Courses",
     courses: courses,
+    subcategories,
+    teachers,
+  });
+};
+
+export const handle_filter_courses_post = async (req, res) => {
+  const { teacherID, category } = req.body;
+
+  const courses =
+    teacherID === "all"
+      ? await Course.find().lean()
+      : await Course.find({ teacherID: teacherID }).lean();
+
+  const subcategories = await SubCategory.find().lean();
+  const teachers = await Teacher.find().lean();
+
+  let [...filterCourses] = courses;
+
+  if (category !== "all") {
+    filterCourses = filterCourses.filter(
+      (course) => course.category === category
+    );
+  }
+
+  res.render("vwAdmin/courses", {
+    layout: "admin.hbs",
+    title: "Project | Courses",
+    courses: filterCourses,
+    subcategories,
+    teachers,
   });
 };
 
@@ -33,7 +66,7 @@ export const handle_detail_course_get = async (req, res) => {
   res.render("vwAdmin/courseDetail", {
     title: "Project | Course detail",
     layout: "admin.hbs",
-    ...course
+    ...course,
   });
 };
 
@@ -266,7 +299,7 @@ export const handle_delete_student_post = async (req, res) => {
 };
 
 export const handle_teachers_get = async (req, res) => {
-  const teachers = await Teacher.find().lean()
+  const teachers = await Teacher.find().lean();
 
   res.render("vwAdmin/teachers", {
     layout: "admin.hbs",
@@ -323,4 +356,58 @@ export const handle_add_teacher_post = async (req, res) => {
 
   const url = "/admin/teachers";
   res.redirect(url);
+};
+
+export const handle_clock_student_post = async (req, res) => {
+  const id = req.body.studentID;
+
+  await Student.updateOne({ _id: id }, { isClock: true });
+
+  res.redirect("/admin/students");
+};
+
+export const handle_unclock_student_post = async (req, res) => {
+  const id = req.body.studentID;
+
+  await Student.updateOne({ _id: id }, { isClock: false });
+
+  res.redirect("/admin/students");
+};
+
+export const handle_clock_teacher_post = async (req, res) => {
+  const id = req.body.teacherID;
+
+  await Teacher.updateOne({ _id: id }, { isClock: true });
+
+  res.redirect("/admin/teachers");
+};
+
+export const handle_unclock_teacher_post = async (req, res) => {
+  const id = req.body.teacherID;
+
+  await Teacher.updateOne({ _id: id }, { isClock: false });
+
+  res.redirect("/admin/teachers");
+};
+
+export const handle_update_teacher_get = async (req, res) => {
+  const id = req.query.teacherID;
+
+  const teacher = await Teacher.findById(id);
+
+  res.render("vwAdmin/updateTeacher", {
+    title: "Project | Update teacher",
+    layout: "account.hbs",
+    id,
+    name: teacher.name,
+    email: teacher.email,
+  });
+};
+
+export const handle_update_teacher_post = async (req, res) => {
+  const { newName, newEmail, id } = req.body;
+
+  await Teacher.findByIdAndUpdate(id, { name: newName, email: newEmail });
+
+  res.redirect("/admin/teachers");
 };

@@ -61,14 +61,14 @@ export const handle_login_post = async (req, res) => {
     case "student":
       user = await Student.findOne(
         { username: username },
-        "password name username"
+        "password name username isClock"
       ).exec();
       url = "/";
       break;
     case "teacher":
       user = await Teacher.findOne(
         { username: username },
-        "password name username"
+        "password name username isClock"
       ).exec();
       url = "/teacher/welcome";
       break;
@@ -87,8 +87,13 @@ export const handle_login_post = async (req, res) => {
       title: "Project | Login",
       err_message: "Invalid username!",
     });
+  } else if (role !== "admin" && user.isClock) {
+    res.render("vwAccount/login", {
+      layout: "account.hbs",
+      title: "Project | Login",
+      err_message: "Your account is clocked!",
+    });
   } else {
-    // Check password is match in database:
     const isMatch = bcrypt.compareSync(password, user.password);
 
     if (false === isMatch) {
@@ -98,12 +103,10 @@ export const handle_login_post = async (req, res) => {
         err_message: "Invalid password!",
       });
     } else {
-      // Save auth info into session:
       req.session.isAuth = true;
       req.session.name = user.name;
       req.session.username = user.username;
       req.session.role = role;
-
       res.redirect(url);
     }
   }

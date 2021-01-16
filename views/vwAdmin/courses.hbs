@@ -1,5 +1,24 @@
 <div class="table-container">
-  <h1>Courses management</h1>
+  <form method="POST" class="filter">
+    <h1>Courses management</h1>
+    <select name="teacherID" class="form-select form-select-sm" aria-label=".form-select-sm
+      example">
+      <option selected value="all">Teachers</option>
+      <option value="all">All teachers</option>
+      {{#each this.teachers}}
+      <option value="{{_id}}">{{name}}</option>
+      {{/each}}
+    </select>
+    <select name="category" class="form-select form-select-sm" aria-label=".form-select-sm
+      example">
+      <option selected value="all">Categories</option>
+      <option value="all">All categories</option>
+      {{#each this.subcategories}}
+      <option value="{{name}}">{{name}}</option>
+      {{/each}}
+    </select>
+    <button class="btn btn-sm btn-primary">Filter</button>
+  </form>
 	<table class="table table-admin-courses table-borderless table-hover">
   <thead>
     <tr>

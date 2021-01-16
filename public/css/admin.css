@@ -146,6 +146,9 @@ li {
 .table .handle-col-lg {
   width: 250px;
 }
+.table .handle-col-md {
+  width: 220px;
+}
 
 th {
   margin-bottom: 10px;
